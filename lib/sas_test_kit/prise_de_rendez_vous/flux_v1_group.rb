@@ -1,10 +1,10 @@
 require_relative 'creation_regulateur_test'
-require_relative 'creation_regulateur_incorrect_test'
+require_relative 'creation_regulateur_incorrecte_test'
 require_relative 'modification_email_regulateur_test'
 require_relative 'modification_id_regulateur_test'
 require_relative 'modification_nom_regulateur_test'
 require_relative 'modification_prenom_regulateur_test'
-require_relative 'modification_regulateur_incorrect_test'
+require_relative 'modification_regulateur_incorrecte_test'
 
 
 module MyTestKit
@@ -127,7 +127,7 @@ module MyTestKit
             )
         end
 
-        test from: :modification_regulateur_incorrect_test do
+        test from: :modification_regulateur_incorrecte_test do
             config(
                 inputs: {
                     regulator_id: { name: :regulator_id_modif },

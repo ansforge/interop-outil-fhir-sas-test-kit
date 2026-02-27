@@ -2,10 +2,10 @@ require_relative 'helper_fluxv1'
 
 module MyTestKit
     class BadModificationRegulateurTest < Inferno::Test
-        title 'Modification incorrect du compte régulateur'
-        id :modification_regulateur_incorrect_test
+        title 'Modification incorrecte du compte régulateur'
+        id :modification_regulateur_incorrecte_test
         description %(
-            Ce test tente de modifier un compte régulateur avec des informations incorrects
+            Ce test tente de modifier un compte régulateur avec des informations incorrectes
         )
         run do
             updated_regulator = HelperFLuxv1.build_bad_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name)
