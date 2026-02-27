@@ -1,0 +1,176 @@
+require 'fhir_client'
+require_relative '../ext/fhir_client'
+
+module Inferno
+  module DSL
+    # DSL for configuring FHIR clients
+    #
+    # @example
+    #   input :url
+    #   input :fhir_credentials, type: :oauth_credentials
+    #   input :access_token
+    #
+    #   fhir_client do
+    #     url :url
+    #     headers 'My-Custom_header' => 'CUSTOM_HEADER_VALUE'
+    #     oauth_credentials :fhir_credentials
+    #   end
+    #
+    #   fhir_client :with_bearer_token do
+    #     url :url
+    #     bearer_token :access_token
+    #   end
+    #
+    # @example
+    #   input :url
+    #   input :fhir_auth,
+    #          type: :auth_info,
+    #          options: {
+    #             mode: 'access'
+    #           }
+    #
+    #   fhir_client do
+    #     url :url
+    #     headers 'My-Custom_header' => 'CUSTOM_HEADER_VALUE'
+    #     auth_info :fhir_auth
+    #   end
+    class FHIRClientBuilder
+      attr_accessor :runnable
+
+      # @private
+      def build(runnable, block)
+        self.runnable = runnable
+        instance_exec(self, &block)
+
+        FHIR::Client.new(url, proxy:proxy, ssl_client_cert: ssl_client_cert, ssl_client_key: ssl_client_key).tap do |client|
+          client.use_accept_charset = false
+          client.additional_headers = headers if headers
+          client.proxy = proxy
+          client.ssl_client_cert = ssl_client_cert if ssl_client_cert
+          client.ssl_client_key = ssl_client_key if ssl_client_key
+          client.default_json
+          client.set_bearer_token bearer_token if bearer_token
+          oauth_credentials&.add_to_client(client)
+          auth_info&.add_to_client(client)
+        end
+      end
+
+      # Define the base FHIR url for a client. A string or symbol can be provided.
+      # A string is interpreted as a url. A symbol is interpreted as the name of
+      # an input to the Runnable.
+      #
+      # @param url [String, Symbol]
+      # @return [void]
+      def url(url = nil)
+        @url ||=
+          if url.is_a? Symbol
+            runnable.send(url)
+          else
+            url
+          end&.chomp('/')
+      end
+
+      # Define the bearer token for a client. A string or symbol can be provided.
+      # A string is interpreted as a token. A symbol is interpreted as the name of
+      # an input to the Runnable.
+      #
+      # @param bearer_token [String, Symbol]
+      # @return [void]
+      def bearer_token(bearer_token = nil)
+        @bearer_token ||=
+          if bearer_token.is_a? Symbol
+            runnable.send(bearer_token)
+          else
+            bearer_token
+          end
+      end
+
+      # Define OAuth credentials for a client. These can allow a client to
+      # automatically refresh its access token when it expires.
+      #
+      # @param oauth_credentials [Inferno::DSL::OAuthCredentials, Symbol]
+      # @return [void]
+      def oauth_credentials(oauth_credentials = nil)
+        @oauth_credentials ||=
+          if oauth_credentials.is_a? Symbol
+            runnable.send(oauth_credentials)
+          else
+            oauth_credentials
+          end
+      end
+
+      # Define auth info for a client. Auth info contains info needed for client
+      # to perform authorization and refresh access token when necessary
+      #
+      # @param auth_info [Inferno::DSL::AuthInfo, Symbol]
+      # @return [void]
+      def auth_info(auth_info = nil)
+        @auth_info ||=
+          if auth_info.is_a? Symbol
+            runnable.send(auth_info)
+          else
+            auth_info
+          end
+      end
+
+      # Define custom headers for a client
+      #
+      # @param headers [Hash]
+      # @return [void]
+      def headers(headers = nil)
+        @headers ||= headers
+      end
+
+      # Define proxy for a client
+      #
+      # @param proxy [String, Symbol]
+      # @return [void]
+      def proxy(proxy = nil)
+        @proxy ||=
+          if proxy.is_a? Symbol
+            runnable.send(proxy)
+          else
+            proxy
+          end
+      end
+
+      # Define ssl_client_cert for a client
+      #
+      # @param ssl_client_cert [String, Symbol]
+      # @return [void]
+      def ssl_client_cert(ssl_client_cert = nil)
+        @ssl_client_cert ||=
+          if ssl_client_cert.is_a? Symbol
+            runnable.send(ssl_client_cert)
+          else
+            ssl_client_cert
+          end
+      end
+
+      # Define ssl_client_key for a client
+      #
+      # @param ssl_client_key [String, Symbol]
+      # @return [void]
+      def ssl_client_key(ssl_client_key = nil)
+        @ssl_client_key ||=
+          if ssl_client_key.is_a? Symbol
+            runnable.send(ssl_client_key)
+          else
+            ssl_client_key
+          end
+      end
+
+      # @private
+      def method_missing(name, ...)
+        return runnable.send(name, ...) if runnable.respond_to? name
+
+        super
+      end
+
+      # @private
+      def respond_to_missing?(name)
+        runnable.respond_to?(name) || super
+      end
+    end
+  end
+end
