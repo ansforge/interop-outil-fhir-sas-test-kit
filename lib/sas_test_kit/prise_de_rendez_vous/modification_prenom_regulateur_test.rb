@@ -8,9 +8,11 @@ module MyTestKit
             Ce test modifie le prénom du compte régulateur créé précédement et vérifie la réponse du serveur.
         )
         run do
-            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name)
+            sys = 'urn:oid:1.2.250.1.71.4.2.1'            
+            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id_modif, regulator_mail_modif, resource_id, regulator_first_name_modif, regulator_last_name_modif, sys)
+            
             http, url, headers = HelperFLuxv1.http_client(base_url)
-            url.query = URI.encode_www_form({ 'identifier': 'urn:oid:1.2.250.1.71.4.2.1|' + regulator_id })
+            url.query = URI.encode_www_form({ 'identifier': 'urn:oid:1.2.250.1.71.4.2.1|' + regulator_id_modif })
             response = http.put(url, updated_regulator.to_json, headers)
 
             add_message("info", "request : #{url}")

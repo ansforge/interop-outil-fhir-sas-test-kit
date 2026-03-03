@@ -8,7 +8,8 @@ module MyTestKit
             Ce test tente de créer un compte régulateur avec des données incorrectes et vérifie la réponse du serveur.
         )
         run do
-            bad_regulator = HelperFLuxv1.build_bad_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name)
+            sys = 'urn:oid:1.2.250.1.71.4.2.1'            
+            bad_regulator = HelperFLuxv1.build_bad_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
 
             fhir_create(bad_regulator)
             assert(response[:status] >= 400 && response[:status] < 600, "Expected response status 4xx or 5xx, got #{response[:status]}")

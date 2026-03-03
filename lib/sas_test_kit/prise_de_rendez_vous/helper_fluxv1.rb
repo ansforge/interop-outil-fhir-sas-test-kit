@@ -1,6 +1,13 @@
 module MyTestKit
     module HelperFLuxv1
-        def self.build_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name)
+        def self.build_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
+            code = nil
+            if sys == 'urn:oid:1.2.250.1.71.4.2.1'
+                code = 'IDNPS'
+            else
+                code = 'INTRN'
+            end
+
             FHIR::Practitioner.new(
                 resourceType: "Practitioner",
                 id: "#{resource_id}",
@@ -20,11 +27,11 @@ module MyTestKit
                         coding: [
                         {
                             system: "http://interopsante.org/fhir/CodeSystem/fr-v2-0203",
-                            code: "IDNPS"
+                            code: "#{code}"
                         }
                         ]
                     },
-                    system: "urn:oid:1.2.250.1.71.4.2.1",
+                    system: "#{sys}",
                     value: "#{regulator_id}"
                     }
                 ],
@@ -46,7 +53,7 @@ module MyTestKit
             )
         end
 
-        def self.build_bad_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name)
+        def self.build_bad_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
             FHIR::Practitioner.new(
                 resourceType: "Practitioner",
                 id: "#{resource_id}",
@@ -70,7 +77,7 @@ module MyTestKit
                         }
                         ]
                     },
-                    system: "urn:oid:1.2.250.1.71.4.2.1",
+                    system: "#{sys}",
                     value: "#{regulator_id}"
                     }
                 ],
@@ -102,10 +109,10 @@ module MyTestKit
             return http, url, headers
         end
 
-        def self.build_search_params(regulator_id)
+        def self.build_search_params(regulator_id, sys)
             {
                 _include: 'Practitioner:identifier',
-                'value': "urn:oid:1.2.250.1.71.4.2.1|#{regulator_id}"
+                'value': "#{sys}|#{regulator_id}"
             }
         end
     end

@@ -8,7 +8,8 @@ module MyTestKit
             Ce test tente de modifier un compte régulateur avec des informations incorrectes
         )
         run do
-            updated_regulator = HelperFLuxv1.build_bad_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name)
+            sys = 'urn:oid:1.2.250.1.71.4.2.1'            
+            updated_regulator = HelperFLuxv1.build_bad_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
 
             http, url, headers = HelperFLuxv1.http_client(base_url)
             url.query = URI.encode_www_form({ 'identifier': 'urn:oid:1.2.250.1.71.4.2.1|' + regulator_id })
