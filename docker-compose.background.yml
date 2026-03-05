@@ -24,7 +24,7 @@ services:
       EXTERNAL_VALIDATOR_URL: http://localhost/validatorapi
       VALIDATOR_BASE_PATH: /validator
   fhirpath:
-    image: infernocommunity/fhirpath-service
+    image: infernocommunity/fhirpath-service:v0.0.1
     ports:
       - "6789:6789"
   nginx:
