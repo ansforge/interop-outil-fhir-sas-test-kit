@@ -7,6 +7,7 @@ require_relative 'modification_typeid_regulateur_test'
 require_relative 'modification_nom_regulateur_test'
 require_relative 'modification_prenom_regulateur_test'
 require_relative 'modification_regulateur_champs_manquants_test'
+require_relative 'put_as_create_missing_fields_test'
 require_relative 'modification_deshabilitation_test'
 require_relative 'modification_habilitation_test'
 require_relative 'put_as_create_test'
@@ -82,6 +83,8 @@ module MyTestKit
         test from: :modification_prenom_regulateur_test
 
         test from: :modification_regulateur_champs_manquants_test
+
+        test from: :put_as_create_missing_fields_test
 
         test from: :put_as_create
 

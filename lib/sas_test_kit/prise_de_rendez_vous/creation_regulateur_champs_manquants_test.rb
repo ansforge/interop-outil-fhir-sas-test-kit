@@ -7,7 +7,7 @@ module MyTestKit
         description %(
             ## Description
 
-            Ce test effectue une série de tentatives de création volontairement incomplètes, chacune omettant un ou plusieurs champs obligatoires.  
+            Ce test effectue une série de tentatives de création à l'aide de requêtes `POST` volontairement incomplètes, chacune omettant un ou plusieurs champs obligatoires.  
             L'objectif est de vérifier que l'API réagit correctement lorsque les données nécessaires à la création ne sont pas fournies.
 
             Le test doit valider que :
