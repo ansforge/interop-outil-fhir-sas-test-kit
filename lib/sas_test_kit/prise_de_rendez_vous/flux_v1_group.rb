@@ -7,6 +7,10 @@ require_relative 'modification_typeid_regulateur_test'
 require_relative 'modification_nom_regulateur_test'
 require_relative 'modification_prenom_regulateur_test'
 require_relative 'modification_regulateur_incorrecte_test'
+require_relative 'modification_deshabilitation_test'
+require_relative 'modification_habilitation_test'
+require_relative 'put_as_create_test'
+require_relative 'idnps_reattribution_test.rb'
 
 
 module MyTestKit
@@ -63,6 +67,10 @@ module MyTestKit
 
         test from: :bad_creation_regulateur_test
 
+        test from: :modification_deshabilitation
+
+        test from: :modification_habilitation
+
         test from: :modification_email_regulateur_test
 
         test from: :modification_id_regulateur_test 
@@ -74,5 +82,9 @@ module MyTestKit
         test from: :modification_prenom_regulateur_test
 
         test from: :modification_regulateur_incorrecte_test
+
+        test from: :put_as_create
+
+        test from: :idnps_reattribution_test
     end
 end

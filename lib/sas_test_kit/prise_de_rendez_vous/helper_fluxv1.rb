@@ -1,6 +1,6 @@
 module MyTestKit
     module HelperFLuxv1
-        def self.build_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
+        def self.build_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys, active = true)
             code = nil
             if sys == 'urn:oid:1.2.250.1.71.4.2.1'
                 code = 'IDNPS'
@@ -35,7 +35,7 @@ module MyTestKit
                     value: "#{regulator_id}"
                     }
                 ],
-                active: true,
+                active: active,
                 name: [
                     {
                     family: "#{regulator_last_name}",
