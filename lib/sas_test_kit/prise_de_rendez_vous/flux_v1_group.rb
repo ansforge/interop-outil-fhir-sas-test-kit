@@ -1,12 +1,12 @@
 require_relative 'creation_regulateur_idnps_test'
 require_relative 'creation_regulateur_uuid_test'
-require_relative 'creation_regulateur_incorrecte_test'
+require_relative 'creation_regulateur_champs_manquants_test'
 require_relative 'modification_email_regulateur_test'
 require_relative 'modification_id_regulateur_test'
 require_relative 'modification_typeid_regulateur_test'
 require_relative 'modification_nom_regulateur_test'
 require_relative 'modification_prenom_regulateur_test'
-require_relative 'modification_regulateur_incorrecte_test'
+require_relative 'modification_regulateur_champs_manquants_test'
 require_relative 'modification_deshabilitation_test'
 require_relative 'modification_habilitation_test'
 require_relative 'put_as_create_test'
@@ -65,7 +65,7 @@ module MyTestKit
 
         test from: :creation_regulateur_uuid_test
 
-        test from: :bad_creation_regulateur_test
+        test from: :creation_regulateur_champs_manquants_test
 
         test from: :modification_deshabilitation
 
@@ -81,7 +81,7 @@ module MyTestKit
 
         test from: :modification_prenom_regulateur_test
 
-        test from: :modification_regulateur_incorrecte_test
+        test from: :modification_regulateur_champs_manquants_test
 
         test from: :put_as_create
 
