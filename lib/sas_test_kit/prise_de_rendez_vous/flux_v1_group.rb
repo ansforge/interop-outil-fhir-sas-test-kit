@@ -1,6 +1,7 @@
 require_relative 'creation_regulateur_idnps_test'
 require_relative 'creation_regulateur_uuid_test'
 require_relative 'creation_regulateur_champs_manquants_test'
+require_relative 'creation_regulateur_valeurs_invalides'
 require_relative 'modification_email_regulateur_test'
 require_relative 'modification_id_regulateur_test'
 require_relative 'modification_typeid_regulateur_test'
@@ -67,6 +68,8 @@ module MyTestKit
         test from: :creation_regulateur_uuid_test
 
         test from: :creation_regulateur_champs_manquants_test
+
+        test from: :creation_regulateur_valeurs_invalides
 
         test from: :modification_deshabilitation
 

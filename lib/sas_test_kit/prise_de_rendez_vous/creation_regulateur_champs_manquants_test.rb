@@ -1,4 +1,4 @@
-require_relative 'invalid_fhir_resources'
+require_relative 'invalid_fhir_resources/practitioner_missing_fields'
 
 module MyTestKit
     class BadCreationRegulateurTest < Inferno::Test
@@ -18,19 +18,19 @@ module MyTestKit
             Ce scénario garantit que la validation des champs obligatoires fonctionne correctement sur l'ensemble des créations testées.
         )
         run do
-            bad_regulator = InvalidPractitionerFixtures::NO_IDENTIFIER
+            bad_regulator = InvalidPractitionerField::NO_IDENTIFIER
             fhir_create(bad_regulator)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_IDENTIFIER: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
-            bad_regulator = InvalidPractitionerFixtures::NO_NAME
+            bad_regulator = InvalidPractitionerField::NO_NAME
             fhir_create(bad_regulator)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_NAME: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
-            bad_regulator = InvalidPractitionerFixtures::NO_TELECOM
+            bad_regulator = InvalidPractitionerField::NO_TELECOM
             fhir_create(bad_regulator)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_TELECOM: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
-            bad_regulator = InvalidPractitionerFixtures::NO_ACTIVE
+            bad_regulator = InvalidPractitionerField::NO_ACTIVE
             fhir_create(bad_regulator)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_ACTIVE: Expected response status 4xx or 5xx, got #{response[:status]}")
         end

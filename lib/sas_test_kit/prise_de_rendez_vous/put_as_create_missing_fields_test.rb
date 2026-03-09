@@ -1,4 +1,4 @@
-require_relative 'invalid_fhir_resources'
+require_relative 'invalid_fhir_resources/practitioner_missing_fields'
 require_relative 'helper_fluxv1'
 
 module MyTestKit
@@ -23,19 +23,19 @@ module MyTestKit
             uuid = SecureRandom.uuid
             url.query = URI.encode_www_form({ 'identifier': 'urn:oid:1.2.250.1.71.4.2.1|' + uuid })
 
-            bad_regulator = InvalidPractitionerFixtures::NO_IDENTIFIER
+            bad_regulator = InvalidPractitionerField::NO_IDENTIFIER
             response = http.put(url, bad_regulator.to_json, headers)
             assert(response.code.to_i >= 400 && response.code.to_i < 600, "Test NO_IDENTIFIER: Expected response status 4xx or 5xx, got #{response.code}")
             #------------
-            bad_regulator = InvalidPractitionerFixtures::NO_NAME
+            bad_regulator = InvalidPractitionerField::NO_NAME
             response = http.put(url, bad_regulator.to_json, headers)
             assert(response.code.to_i >= 400 && response.code.to_i < 600, "Test NO_NAME: Expected response status 4xx or 5xx, got #{response.code}")
             #------------
-            bad_regulator = InvalidPractitionerFixtures::NO_TELECOM
+            bad_regulator = InvalidPractitionerField::NO_TELECOM
             response = http.put(url, bad_regulator.to_json, headers)
             assert(response.code.to_i >= 400 && response.code.to_i < 600, "Test NO_TELECOM: Expected response status 4xx or 5xx, got #{response.code}")
             #------------
-            bad_regulator = InvalidPractitionerFixtures::NO_ACTIVE
+            bad_regulator = InvalidPractitionerField::NO_ACTIVE
             response = http.put(url, bad_regulator.to_json, headers)
             assert(response.code.to_i >= 400 && response.code.to_i < 600, "Test NO_ACTIVE: Expected response status 4xx or 5xx, got #{response.code}")
 

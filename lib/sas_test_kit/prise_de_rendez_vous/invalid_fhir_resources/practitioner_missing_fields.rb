@@ -1,4 +1,6 @@
-module InvalidPractitionerFixtures
+require 'securerandom'
+
+module InvalidPractitionerField
     PROFILE_URL = "https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/FrPractitionerRegul"
     
     NO_IDENTIFIER = FHIR::Practitioner.new(
@@ -19,7 +21,7 @@ module InvalidPractitionerFixtures
             telecom: [
             {
                 system: "email",
-                value: "jean.dupont@example.com"
+                value: "#{SecureRandom.uuid} + jean.dupont@example.com"
             }
             ]
         )
@@ -43,7 +45,7 @@ module InvalidPractitionerFixtures
                 ]
                 },
                 system: "urn:oid:1.2.250.1.71.4.2.1",
-                value: "1234567890"
+                value: "#{SecureRandom.uuid}"
             }
             ],
             active: true,
@@ -51,7 +53,7 @@ module InvalidPractitionerFixtures
             telecom: [
             {
                 system: "email",
-                value: "practitioner@example.com"
+                value: "#{SecureRandom.uuid} + practitioner@example.com"
             }
             ]
         )
@@ -75,7 +77,7 @@ module InvalidPractitionerFixtures
                 ]
                 },
                 system: "urn:oid:1.2.250.1.71.4.2.1",
-                value: "9876543210"
+                value: "#{SecureRandom.uuid}"
             }
             ],
             active: true,
@@ -107,7 +109,7 @@ module InvalidPractitionerFixtures
                 ]
                 },
                 system: "urn:oid:1.2.250.1.71.4.2.1",
-                value: "5566778899"
+                value: "#{SecureRandom.uuid}"
             }
             ],
             # active MANQUANT
@@ -120,7 +122,7 @@ module InvalidPractitionerFixtures
             telecom: [
             {
                 system: "email",
-                value: "paul.leroy@example.com"
+                value: "#{SecureRandom.uuid} + paul.leroy@example.com"
             }
             ]
         )
