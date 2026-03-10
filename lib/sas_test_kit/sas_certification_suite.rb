@@ -89,7 +89,11 @@ module SasTestKit
     fhir_client do
       url :base_url
       ssl_client_cert OpenSSL::X509::Certificate.new(File.read("./config/cert/inferno-prePROD.pem")) 
-      ssl_client_key OpenSSL::PKey::RSA.new(File.read("./config/cert/inferno-prePROD.key"))      
+      ssl_client_key OpenSSL::PKey::RSA.new(File.read("./config/cert/inferno-prePROD.key"))
+      headers(
+        'Content-Type' => 'application/json',
+        'Accept'  => 'application/json+fhir'
+      )
       #oauth_credentials :credentials
     end
 

@@ -60,7 +60,7 @@ module MyTestKit
             http.cert = OpenSSL::X509::Certificate.new(File.read("./config/cert/inferno-prePROD.pem"))
             http.key = OpenSSL::PKey::RSA.new(File.read("./config/cert/inferno-prePROD.key"))
             http.use_ssl = true
-            headers = { 'content-type': 'application/fhir+json' }
+            headers = { 'content-type': 'application/json', 'Accept': 'application/json+fhir' }
             return http, url, headers
         end
 
