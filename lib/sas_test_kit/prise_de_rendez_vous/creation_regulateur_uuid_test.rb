@@ -11,7 +11,7 @@ module MyTestKit
         run do
             sys = 'urn:oid:1.2.250.1.213.3.6'
             scratch[:uuid] = SecureRandom.uuid
-            new_regulator = HelperFLuxv1.build_regulateur_body(scratch[:uuid], 'uuid.' + regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
+            new_regulator = HelperFLuxv1.build_regulateur_body(scratch[:uuid], "#{scratch[:uuid]}" + regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
 
             fhir_create(new_regulator)
             assert_response_status(201)

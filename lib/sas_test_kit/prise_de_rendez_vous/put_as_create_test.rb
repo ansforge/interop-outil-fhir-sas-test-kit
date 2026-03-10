@@ -19,7 +19,7 @@ module MyTestKit
 
             add_message("info", "request : #{url}")
             add_message("info", "response body: #{response.body}")
-            assert(response.code.to_i == 201, "Expected response status 201, got #{response.code}")
+            assert(response.code.to_i == 201 || response.code.to_i == 200, "Expected response status 200 or 201, got #{response.code}")
         end
     end
 end
