@@ -2,10 +2,19 @@ require_relative 'helper_fluxv1'
 
 module MyTestKit
     class ModificationTypeIdRegulateurTest < Inferno::Test
-        title 'Modification de l\'ID du compte régulateur (UUID -> IDNPS)'
+        title "Conversion de l'identifiant du compte régulateur (UUID → IDNPS)"
         id :modification_typeid_regulateur_test
         description %(
-            Ce test modifie l'ID technique d'un compte regulateur en ID IDNPS et vérifie la réponse du serveur.
+            ## Description
+
+            Ce test vérifie la capacité du serveur à **convertir le type d'identifiant d'un compte régulateur** en remplaçant l'**UUID éditeur** (`system: urn:oid:1.2.250.1.213.3.6`) par un **IDNPS** (`system: urn:oid:1.2.250.1.71.4.2.1`) pour la ressource *Practitioner* ciblée.
+
+            Le scénario procède comme suit :
+            - la ressource à modifier est ciblée via son **UUID** (paramètre `identifier` en requête `PUT`) ;
+            - une représentation mise à jour est envoyée avec l'**IDNPS** comme identifiant principal (et l'email ajusté si nécessaire) ;
+            - la réponse du serveur doit indiquer le **succès de la mise à jour** par un statut **2xx** ou **3xx**.
+
+            Ce test confirme que l'implémentation permet de **basculer d'un UUID à un IDNPS** pour un compte régulateur existant, conformément aux attentes de gestion des identifiants.
         )
         run do
             sys = 'urn:oid:1.2.250.1.71.4.2.1'

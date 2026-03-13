@@ -77,6 +77,7 @@ module MyTestKit
       description %(
        Vérification numéro de téléphone PS
       )
+      optional
       run do
         bundle = scratch[:Bundle]
         

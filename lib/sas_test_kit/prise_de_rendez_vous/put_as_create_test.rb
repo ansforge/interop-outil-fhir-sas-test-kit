@@ -3,10 +3,18 @@ require 'securerandom'
 
 module MyTestKit
     class PutAsCreate < Inferno::Test
-        title 'Put as create'
+        title "Création d'un compte régulateur via PUT"
         id :put_as_create
         description %(
-            Ce test envoie une requête PUT pour un practitioner non-existant.
+            ## Description
+
+            Ce test vérifie le comportement du serveur lors de l'envoi d'une requête **PUT** visant une ressource *Practitioner* **inexistante**, conformément au principe du *PUT-as-Create* prévu par les spécifications FHIR.  
+            Un identifiant unique (UUID) est généré et utilisé pour construire une représentation complète du compte régulateur à créer.
+
+            La ressource est ensuite transmise via une requête `PUT` ciblant l'identifiant fourni dans le paramètre `identifier`.  
+            Le test considère l'opération comme réussie si le serveur renvoie un statut **201 (Created)** ou **200 (OK)**, indiquant que la création a été correctement effectuée ou reconnue.
+
+            Ce scénario valide la capacité du serveur à accepter la **création d'un nouveau compte régulateur** au moyen d'une requête `PUT` adressée à un identifiant non encore enregistré.
         )
         run do
             sys = 'urn:oid:1.2.250.1.71.4.2.1'
