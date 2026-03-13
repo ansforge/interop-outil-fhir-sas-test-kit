@@ -2,10 +2,19 @@ require_relative 'helper_fluxv1'
 
 module MyTestKit
     class ModificationNomRegulateurTest < Inferno::Test
-        title 'Modification du nom du compte régulateur'
+        title "Modification du nom d'un compte régulateur"
         id :modification_nom_regulateur_test
         description %(
-            Ce test modifie le nom du compte régulateur créé précédement et vérifie la réponse du serveur.
+            ## Description
+
+            Ce test vérifie la capacité du serveur à **mettre à jour le nom d'un compte régulateur** existant, conformément au flux de gestion des comptes régulateurs décrit dans les spécifications SAS.
+
+            La ressource *Practitioner* associée au compte est identifiée à l'aide de son IDNPS via le paramètre `identifier`.  
+            Une nouvelle version de la ressource est ensuite envoyée par requête `PUT`, incluant un **nom modifié**.
+
+            La mise à jour est considérée comme réussie si le serveur renvoie un statut **2xx ou 3xx**, confirmant que le changement de nom a bien été pris en compte.
+
+            Ce scénario assure que le serveur prend correctement en charge la **modification des attributs administratifs** d'un compte régulateur.
         )
         run do
             sys = 'urn:oid:1.2.250.1.71.4.2.1'            

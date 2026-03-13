@@ -2,10 +2,20 @@ require_relative 'helper_fluxv1'
 
 module MyTestKit
     class ModificationDeshabilitationTest < Inferno::Test
-        title "Retire l'habilitation d'un ps"
+        title "Retrait d'habilitation d'un régulateur"
         id :modification_deshabilitation
         description %(
-            Ce test passe le champ "active" d'une resource practitioner à false
+            ## Description
+
+            Ce test vérifie la capacité du serveur à **retirer l'habilitation d'un compte régulateur** en passant la ressource *Practitioner* associée en **`active = false`**.  
+            Cela correspond à la déshabilitation du compte, qui ne doit alors plus être considéré comme actif.
+
+            Le test génère une ressource *Practitioner* conforme au profil régulateur, incluant l'identifiant IDNPS et l'ensemble des données nécessaires, puis force la valeur `active` à `false`.  
+            La requête `PUT` envoyée avec le bon paramètre `identifier` met à jour le compte régulateur ciblé.
+
+            Le test vérifie ensuite que le serveur répond par un statut **2xx ou 3xx**, indiquant la réussite de la modification.
+
+            Ce scénario permet de s'assurer que le serveur gère correctement la déshabilitation d'un compte régulateur via la mise à jour de son champ `active`.
         )
         run do
             sys = 'urn:oid:1.2.250.1.71.4.2.1'            

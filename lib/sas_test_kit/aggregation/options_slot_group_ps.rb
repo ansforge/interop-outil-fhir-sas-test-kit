@@ -143,17 +143,5 @@ module MyTestKit
       assert supplementaire.empty?, "Les types suivants sont retournés au niveau des créneaux alors qu'ils ne sont pas déclarés comme disponibles dans la solution : #{supplementaire.to_a.join(', ')}"
       end
     end
-
-
-     test do
-        title 'Tests condition'
-      description %(
-       Testconditions
-      )
-      run do
-        skip_if type_slot.include?('PUBLIC'), 'ce test est omis si l\'éditeur gère les créneaux public'
-      end
-    end
-
   end
 end

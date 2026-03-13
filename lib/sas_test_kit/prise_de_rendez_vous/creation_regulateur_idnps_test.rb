@@ -2,10 +2,20 @@ require_relative 'helper_fluxv1'
 
 module MyTestKit
     class CreationRegulateurIDNPSTest < Inferno::Test
-        title 'Creation de compte régulateur (format IDNPS)'
+        title "Création d'un compte régulateur avec identifiant IDNPS"
         id :creation_regulateur_idnps_test
         description %(
-            Ce test crée un compte régulateur et vérifie la réponse du serveur.
+            ## Description
+
+            Ce test vérifie la capacité du serveur à créer un **compte régulateur** dont l'identifiant repose sur un **IDNPS** (type d'identifiant officiel issu du système `urn:oid:1.2.250.1.71.4.2.1`).  
+
+            Le test construit une ressource *Practitioner* conforme au profil attendu, l'envoie via une requête `FHIR Create` (`POST`), puis vérifie que :
+
+            - la création du compte est acceptée ;
+            - le serveur répond avec un code **201 Created**, indiquant que la ressource a été correctement enregistrée.
+
+            Ce test valide donc le bon fonctionnement du flux de création de compte régulateur basé sur un IDNPS.
+
         )
         run do
             sys = 'urn:oid:1.2.250.1.71.4.2.1'

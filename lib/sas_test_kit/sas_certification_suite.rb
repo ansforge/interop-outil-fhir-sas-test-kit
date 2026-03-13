@@ -57,10 +57,6 @@ module SasTestKit
                   {
                     label: 'Prise de rendez-vous',
                     value: SASOptions::RENDEZ_VOUS
-                  },
-                  {
-                    label: 'Tous les tests',
-                    value: SASOptions::ALL
                   }
                 ]
 
