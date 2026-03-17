@@ -2,8 +2,18 @@ require_relative 'setup_test'
 
 module MyTestKit
     class SearchMultiplePsGroup < Inferno::TestGroup
-        title 'Recherche multiple - PS'
-        description 'Contrôles sur le Bundle de réponse - champs obligatoires'
+        title 'Flux Agrégateur - Recherche multi-PS'
+        description %(
+            Ce groupe réalise une série de vérifications sur le **Bundle de réponse** renvoyé par le **flux Agrégateur - recherche de créneaux**, dans le cas où **plusieurs professionnels de santé** peuvent être retournés pour une même requête.  
+            Ces contrôles visent à garantir la conformité des données fournies selon les profils et règles définis dans les spécifications SAS.
+
+            Les tests de ce groupe portent notamment sur :
+            - la **présence attendue de plusieurs Practitioner**, chacun correspondant à un RPPS distinct fourni en entrée ;
+            - la **présence d'au moins deux PractitionerRole**, reflétant les rôles d'exercice des PS remontés ;
+            - la présence d'**au moins deux Schedule**, conformément au retour de disponibilités associées à chacun des PS.
+
+            Ce groupe complète les contrôles réalisés pour le cas « PS avec un seul lieu », en s'assurant que le serveur gère correctement les **scénarios multi-correspondances** dans le flux Agrégateur.
+        )
         id :search_multiple_ps_group
         input :practitioner_id3,
             title: 'RPPS',
@@ -23,9 +33,12 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification présence de deux Practitioner'
+            title 'Vérification de la présence de deux ressources Practitioner'
             description %(
-             Le Bundle de réponse doit contenir deux ressources Practitioner
+                ## Description
+
+                Ce test réalise une vérification de la **présence de deux ressources Practitioner** dans le Bundle de réponse.  
+                Il est attendu que la recherche multi-PS retourne **exactement deux** profils *FrPractitionerAgregateur* correspondant aux deux RPPS renseignés en entrée.
             )
             run do
                 scratch[:practitioners] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource')
@@ -34,9 +47,12 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification présence de au moins deux PractitionerRole'
+            title "Vérification de la présence d'au moins deux ressources PractitionerRole"
             description %(
-             Le Bundle de réponse doit contenir au moins deux ressources PractitionerRole
+                ## Description
+
+                Ce test effectue une vérification sur les **ressources PractitionerRole** retournées dans le Bundle.  
+                Il est attendu que la recherche multi-PS présente **au moins deux ressources** *FrPractitionerRoleExerciceAgregateur*, reflétant la présence de plusieurs PS dans la réponse.
             )
             run do
                 scratch[:practitioner_roles] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource')
@@ -45,9 +61,12 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification présence de au moins deux Schedule'
+            title "Vérification de la présence d'au moins deux ressources Schedule"
             description %(
-             Le Bundle de réponse doit contenir au moins deux ressources Schedule
+                ## Description
+
+                Ce test réalise une vérification sur les **ressources Schedule** du Bundle de réponse.  
+                La recherche multi-PS doit retourner **au minimum deux ressources Schedule**, chacune correspondant à un professionnel remonté par le flux Agrégateur.
             )
             run do
                 scratch[:schedules] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").resource')

@@ -2,8 +2,22 @@ require_relative 'setup_test'
 
 module MyTestKit
     class MultiLieuGroupPS < Inferno::TestGroup
-        title 'Contrôles Bundle - PS avec deux lieux de consultation'
-        description 'Contrôles sur le Bundle de réponse - champs obligatoires'
+        title 'Flux Agrégateur - PS avec deux lieux de consultation'
+        description %(
+            ## Description
+
+            Ce groupe réalise une série de vérifications sur le **Bundle de réponse** renvoyé par le **flux Agrégateur - recherche de créneaux**, dans le cas où un professionnel de santé (PS) possède **deux lieux d'exercice**.  
+            L'objectif est de confirmer que le serveur respecte les profils SAS et les règles de cohérence attendues pour ce cas particulier.
+
+            Les contrôles portent notamment sur :
+            - la présence d'un **unique Practitioner** correspondant au RPPS demandé ;
+            - la présence de **deux PractitionerRole**, chacun associé à l'un des lieux d'exercice ;
+            - la présence de **deux Schedule**, reflétant les disponibilités distinctes des deux lieux ;
+            - la **cohérence des références** entre Practitioner, PractitionerRole, Schedule et Location ;
+            - la conformité des liens entre les PractitionerRole et leurs **Locations contenues**.
+
+            Ces tests permettent de valider que le serveur gère correctement les PS multi-lieux dans le flux Agrégateur.
+        )
         id :multiLieu_group_ps
 
         input :practitioner_id2,
@@ -20,9 +34,12 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification présence de Practitioner'
+            title "Vérification de la présence d'une seule ressource Practitioner"
             description %(
-             Le Bundle de réponse doit contenir une ressource Practitioner
+                ## Description
+
+                Ce test vérifie que le Bundle de réponse contient **exactement une** ressource *Practitioner*, correspondant au RPPS fourni en entrée.  
+                Cette cardinalité est attendue même dans le cas d'un PS exerçant sur plusieurs lieux.
             )
             run do
                 scratch[:practitioner] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource')
@@ -31,9 +48,12 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification présence de deux PractitionerRole'
+            title 'Vérification de la présence de deux ressources PractitionerRole'
             description %(
-             Le Bundle de réponse doit contenir deux ressources PractitionerRole
+                ## Description
+
+                Ce test vérifie la présence de **deux ressources PractitionerRole**, chacune représentant un lieu d'exercice différent du même professionnel de santé.  
+                Le Bundle doit contenir **exactement deux** ressources *FrPractitionerRoleExerciceAgregateur*.
             )
             run do
                 scratch[:practitioner_roles] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource')
@@ -42,9 +62,12 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification présence de deux Schedule'
+            title 'Vérification de la présence de deux ressources Schedule'
             description %(
-             Le Bundle de réponse doit contenir deux ressources Schedule
+                ## Description
+
+                Ce test confirme que le Bundle contient **exactement deux** ressources `Schedule`, chacune associée à un lieu d'exercice distinct.  
+                Cette cardinalité reflète les disponibilités propres à chaque lieu.
             )
             run do
                 scratch[:schedules] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").resource')
@@ -53,10 +76,13 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification cohérence des références entre Practitioner et PractitionerRole'
+            title 'Vérification de la cohérence des références PractitionerRole -> Practitioner'
             description %(
-             Les deux ressources PractitionerRole doivent référencer le practitioner du Bundle.
-             )
+                # Description
+
+                Ce test vérifie que chacun des deux `PractitionerRole` **référence le Practitioner unique** présent dans le Bundle.  
+                Toutes les relations `PractitionerRole.practitioner.reference` doivent pointer vers le même identifiant `Practitioner/<id>`.
+            )
             run do
                 practitioner = scratch[:practitioner]
                 practitioner_roles = scratch[:practitioner_roles]
@@ -67,10 +93,13 @@ module MyTestKit
         end
                 
         test do
-            title 'Vérification cohérence des références entre PractitionerRole et Schedule'
+            title 'Vérification de la cohérence des références Schedule -> PractitionerRole'
             description %(
-             Les ressources Schedule doivent référencer des PractitionerRole présents dans le Bundle.
-             )
+                ## Description
+
+                Ce test valide que chaque ressource `Schedule` **référence uniquement des PractitionerRole présents** dans le Bundle.  
+                Toutes les références `Schedule.actor.reference` de type `PractitionerRole/<id>` doivent correspondre à l'un des PractitionerRole retournés.
+            )
             run do
                 practitioner_roles = scratch[:practitioner_roles]
                 schedules = scratch[:schedules]
@@ -84,10 +113,13 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification cohérence des références entre Practitioner et Schedule'
+            title 'Vérification de la cohérence des références Schedule -> Practitioner'
             description %(
-             Le Practitioner référencé par un Schedule doit être le même que celui du Bundle.
-             )
+                ## Description
+
+                Ce test confirme que chaque ressource `Schedule` **référence le Practitioner attendu**.  
+                Chaque `Schedule.actor.reference` de type `Practitioner/<id>` doit correspondre exactement au `Practitioner` unique du Bundle.
+            )
             run do
                 practitioner = scratch[:practitioner]
                 schedules = scratch[:schedules]
@@ -100,10 +132,13 @@ module MyTestKit
         end
 
         test do
-            title 'Vérification cohérence des références entre PractitionerRole et Location'
+            title 'Vérification de la cohérence des références PractitionerRole -> Location'
             description %(
-             Les deux ressources PractitionerRole doivent référencer leurs lieux d'exercices.
-             )
+                ## Description
+
+                Ce test vérifie la cohérence entre les `PractitionerRole` et leurs `Location` respectives.  
+                Chaque `PractitionerRole.location.reference` doit référencer une ressource `Location` contenue (`#<id>`), et chaque Location contenue doit correspondre à l'un des lieux d'exercice du PS.
+            )
             run do
                 practitioner_roles = scratch[:practitioner_roles]
                 locations = practitioner_roles.map { |pr| pr['element'].location.map { |loc| loc.reference } }.flatten
