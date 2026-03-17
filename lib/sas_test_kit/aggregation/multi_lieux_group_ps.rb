@@ -137,7 +137,7 @@ module MyTestKit
                 ## Description
 
                 Ce test vérifie la cohérence entre les `PractitionerRole` et leurs `Location` respectives.  
-                Chaque `PractitionerRole.location.reference` doit référencer une ressource `Location` contenue (`#<id>`), et chaque Location contenue doit correspondre à l’un des lieux d’exercice du PS.
+                Chaque `PractitionerRole.location.reference` doit référencer une ressource `Location` contenue (`#<id>`), et chaque Location contenue doit correspondre à l'un des lieux d'exercice du PS.
             )
             run do
                 practitioner_roles = scratch[:practitioner_roles]
