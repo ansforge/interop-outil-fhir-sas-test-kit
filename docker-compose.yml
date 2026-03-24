@@ -4,18 +4,23 @@ services:
       context: ./
     container_name: inferno
     volumes:
-      - ./data:/opt/inferno/data
+      - ${INFERNO_VOLUME}:/opt/inferno/data
     depends_on:
-      - validator_service
       - redis
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
   worker:
     build:
       context: ./
     volumes:
-      - ./data:/opt/inferno/data
+      - ${WORKER_VOLUME}:/opt/inferno/data
     command: bundle exec sidekiq -r ./worker.rb
     depends_on:
       - redis
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
   hl7_validator_service:
     extends:
       file: docker-compose.background.yml
