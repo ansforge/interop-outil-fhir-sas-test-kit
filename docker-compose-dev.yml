@@ -37,7 +37,10 @@ services:
     extends:
       file: docker-compose.background.yml
       service: fhirpath
-
+  nginx:
+    extends:
+      file: docker-compose.background.yml
+      service: nginx
   redis:
     extends:
       file: docker-compose.background.yml
