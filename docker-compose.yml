@@ -2,6 +2,8 @@ services:
   inferno:
     build:
       context: ./
+    mem_reservation: 256m
+    mem_limit: 512m
     container_name: inferno
     volumes:
       - ${INFERNO_VOLUME}:/opt/inferno/data
@@ -13,6 +15,8 @@ services:
   worker:
     build:
       context: ./
+    mem_reservation: 256m
+    mem_limit: 512m
     volumes:
       - ${WORKER_VOLUME}:/opt/inferno/data
     command: bundle exec sidekiq -r ./worker.rb

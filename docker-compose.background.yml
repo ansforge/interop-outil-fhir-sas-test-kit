@@ -2,6 +2,8 @@ version: '3'
 services:
   hl7_validator_service:
     image: infernocommunity/inferno-resource-validator
+    mem_reservation: 2g
+    mem_limit: 3g
     environment:
       # Defines how long validator sessions last if unused, in minutes:
       # Negative values mean sessions never expire, 0 means sessions immediately expire
@@ -25,6 +27,8 @@ services:
       VALIDATOR_BASE_PATH: /validator
   fhirpath:
     image: infernocommunity/fhirpath-service:v0.0.1
+    mem_reservation: 256m
+    mem_limit: 512m
     ports:
       - "${FHIRPATH_PORT}:6789"
   nginx:
@@ -41,5 +45,7 @@ services:
       - fhirpath
   redis:
     image: redis
+    mem_reservation: 64m
+    mem_limit: 128m
     network_mode: "host"
     command: redis-server --appendonly yes
