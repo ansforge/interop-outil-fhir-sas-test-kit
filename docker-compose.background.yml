@@ -47,5 +47,6 @@ services:
     image: redis
     mem_reservation: 64m
     mem_limit: 128m
-    network_mode: "host"
+    ports:
+      - "6379:6379"
     command: redis-server --appendonly yes
