@@ -16,7 +16,7 @@ require_relative 'put_as_create_test'
 require_relative 'idnps_reattribution_test.rb'
 
 
-module MyTestKit
+module SasTestKit
     class FluxV1Group < Inferno::TestGroup
         title "Tests de conformité SAS - Flux V1 (gestion des comptes régulateurs)"
         description %(

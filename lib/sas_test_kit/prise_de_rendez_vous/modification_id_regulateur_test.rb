@@ -1,6 +1,6 @@
 require_relative 'helper_fluxv1'
 
-module MyTestKit
+module SasTestKit
     class ModificationIdRegulateurTest < Inferno::Test
         title "Modification de l\'ID d'un compte régulateur"
         id :modification_id_regulateur_test

@@ -1,6 +1,6 @@
 require_relative 'invalid_fhir_resources/practitioner_invalid_values'
 
-module MyTestKit
+module SasTestKit
     
 class BadCreationRegulateurInvalidValuesTest < Inferno::Test
     title "Créations multiples : vérification des erreurs pour des valeurs invalides"

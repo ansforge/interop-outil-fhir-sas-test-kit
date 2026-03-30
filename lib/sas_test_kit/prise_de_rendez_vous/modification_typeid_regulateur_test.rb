@@ -1,6 +1,6 @@
 require_relative 'helper_fluxv1'
 
-module MyTestKit
+module SasTestKit
     class ModificationTypeIdRegulateurTest < Inferno::Test
         title "Conversion de l'identifiant du compte régulateur (UUID → IDNPS)"
         id :modification_typeid_regulateur_test

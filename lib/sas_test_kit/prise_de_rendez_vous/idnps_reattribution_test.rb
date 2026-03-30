@@ -1,7 +1,7 @@
 require_relative 'helper_fluxv1'
 require 'securerandom'
 
-module MyTestKit
+module SasTestKit
     class IdnpsSwitchAccountTest < Inferno::Test
         title "Réattribution d'un IDNPS après déshabilitation du compte régulateur d'origine"
         id :idnps_reattribution_test
