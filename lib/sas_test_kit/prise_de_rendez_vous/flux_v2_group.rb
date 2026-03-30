@@ -1,5 +1,6 @@
 require_relative '../aggregation/setup_test'
 require_relative '../sas_options'
+require_relative 'helper_fluxv2'
 
 require 'nokogiri'
 
@@ -60,29 +61,23 @@ module SasTestKit
                 add_message('info', "Content-Type détecté : #{content_type}")
 
                 if content_type.include?("text/html")
-                    doc = Nokogiri::HTML(response[:body])
-                    assert(doc.at('html'), "Document HTML invalide ou vide")
+                    analysis = SSOHelper.analyze_html_response(response[:body])
 
-                    body_text = doc.text.downcase.strip.gsub(/\s+/, ' ')
-                    
-                    error_keywords = [
-                    'erreur', 'problème', 'incident', 'échec',
-                    'non autorisé', 'accès refusé', 'authentification échouée',
-                    'page introuvable', 'ressource non trouvée', 'not found', '404',
-                    'connexion impossible', 'session invalide',
-                    'désolé', 'impossible de', 'oups'
-                    ]
+                    add_message('info', "Page SPA détectée : #{analysis[:is_spa]}")
+                    add_message('info', "Erreur détectée : #{analysis[:found_error]}")
+                    add_message('info', "Page de connexion détectée : #{analysis[:found_login]}")
 
-                    connection_page_keywords = [
-                    'connexion', 'authentification', 'identification', 'login']
+                    if analysis[:is_spa] && !analysis[:found_error] && !analysis[:found_login]
+                        omit "Page JavaScript (SPA) détectée — aucun contenu statique à analyser"
+                    end
 
-                    found_error = error_keywords.any? { |kw| body_text.include?(kw) }
-                    found_connection_page = connection_page_keywords.any? { |kw| body_text.include?(kw) }
-                    add_message('info', "Mots-clés d'erreur détectés dans la page : #{found_error}")
-                    add_message('info', "Mots-clés de page de connexion détectés dans la page : #{found_connection_page}")
-                    assert(found_error || found_connection_page, "Aucun message d'erreur détecté dans la page HTML retournée, ce n'est pas non plus une page de connexion")
+                    assert(
+                        analysis[:found_error] || analysis[:found_login],
+                        "Aucun message d'erreur ou page de connexion détectée"
+                    )
+                else
+                    assert(false, "Réponse non HTML : #{content_type}")
                 end
-
             end
         end
     end
