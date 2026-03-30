@@ -16,6 +16,8 @@ require_relative 'aggregation/options_slot_group_cpts'
 require_relative 'aggregation/multi_lieux_group_ps'
 require_relative 'aggregation/search_multiple_ps_group'
 require_relative 'prise_de_rendez_vous/flux_v1_group'
+require_relative 'prise_de_rendez_vous/flux_v2_group'
+
 require_relative 'sas_options'
 
 module SasTestKit
@@ -23,8 +25,8 @@ module SasTestKit
     id :sas
     title 'Sas Test Kit Test Suite'
     description %(
-          #  Qu’est-ce que la plateforme numérique du SAS ?
-          La plateforme numérique du service d’accès aux soins (SAS) est un outil dédié aux professionnels de la chaîne de régulation médicale pour faciliter l’orientation vers la médecine de ville. Simple et modulable, elle facilite l’accès à l’offre de soins disponible et s’intègre dans l’écosystème du numérique en santé.
+          #  Qu'est-ce que la plateforme numérique du SAS ?
+          La plateforme numérique du service d'accès aux soins (SAS) est un outil dédié aux professionnels de la chaîne de régulation médicale pour faciliter l'orientation vers la médecine de ville. Simple et modulable, elle facilite l'accès à l'offre de soins disponible et s'intègre dans l'écosystème du numérique en santé.
 
           #  Développement et recette connectée
           Cette suite de test est mise à diposition pour faciliter la recette connectée
@@ -166,6 +168,9 @@ module SasTestKit
         required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION
     
     group from: :flux_v1_group,
+        required_suite_options: SASOptions::TEST_REQUIREMENT_RENDEZ_VOUS
+
+    group from: :flux_v2_group,
         required_suite_options: SASOptions::TEST_REQUIREMENT_RENDEZ_VOUS
   end
 end 
