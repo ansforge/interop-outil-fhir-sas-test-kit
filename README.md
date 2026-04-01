@@ -13,7 +13,7 @@ La manière la plus rapide de lancer ce kit de test en local est d'utiliser [Doc
 - Cloner ce dépôt
 - Lancer `./setup.sh` à l'intérieur du dossier du kit de test pour télécharger les dépendances nécessaires
 - Lancer `./run.sh` à l'intérieur du dossier du kit de test pour lancer l'application
-- Se connecter à `http://localhost`
+- Se connecter à `http://localhost:4567`
 
 Se référer à la [Documentation Inferno](https://inferno-framework.github.io/docs/getting-started-users.html#running-an-existing-test-kit) 
 pour plus d'information sur le lancement d'Inferno en local.
