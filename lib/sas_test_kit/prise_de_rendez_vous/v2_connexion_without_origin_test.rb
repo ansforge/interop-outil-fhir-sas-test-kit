@@ -22,6 +22,8 @@ module SasTestKit
 
             sso_url = slot_comment_urls.first['element']
             add_message('info', "URL de SSO extraite du champ comment : #{sso_url}")
+
+            scratch[:sso_url] = sso_url
             get(sso_url, client: nil)
 
             statusKO = response[:status] >= 400 && response[:status] < 600

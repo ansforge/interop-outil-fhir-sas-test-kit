@@ -97,7 +97,6 @@ module SasTestKit
 
     # All FHIR validation requests will use this FHIR validator
     fhir_resource_validator :validator_sas do
-       #url 'https://interop.esante.gouv.fr/matchboxv3/fhir/'
        #igs 'ans.fhir.fr.sas#1.1.0' # Use this method for published IGs/versions
        igs 'igs/sas_package.tgz'   # Use this otherwise
 
