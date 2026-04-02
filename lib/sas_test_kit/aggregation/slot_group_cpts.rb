@@ -1,4 +1,4 @@
-module MyTestKit
+module SasTestKit
   class SlotGroup < Inferno::TestGroup
     title 'Slot Tests'
     description 'Verification sur Slot'

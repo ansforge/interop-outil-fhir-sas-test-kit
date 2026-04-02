@@ -1,6 +1,6 @@
 require_relative 'setup_test'
 
-module MyTestKit
+module SasTestKit
     class SearchMultiplePsGroup < Inferno::TestGroup
         title 'Flux Agrégateur - Recherche multi-PS'
         description %(

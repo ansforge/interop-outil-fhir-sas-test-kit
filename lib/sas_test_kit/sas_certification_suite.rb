@@ -23,8 +23,8 @@ module SasTestKit
     id :sas
     title 'Sas Test Kit Test Suite'
     description %(
-          #  Qu’est-ce que la plateforme numérique du SAS ?
-          La plateforme numérique du service d’accès aux soins (SAS) est un outil dédié aux professionnels de la chaîne de régulation médicale pour faciliter l’orientation vers la médecine de ville. Simple et modulable, elle facilite l’accès à l’offre de soins disponible et s’intègre dans l’écosystème du numérique en santé.
+          #  Qu'est-ce que la plateforme numérique du SAS ?
+          La plateforme numérique du service d'accès aux soins (SAS) est un outil dédié aux professionnels de la chaîne de régulation médicale pour faciliter l'orientation vers la médecine de ville. Simple et modulable, elle facilite l'accès à l'offre de soins disponible et s'intègre dans l'écosystème du numérique en santé.
 
           #  Développement et recette connectée
           Cette suite de test est mise à diposition pour faciliter la recette connectée
@@ -68,7 +68,7 @@ module SasTestKit
       }
     ]
 
-    input_order :base_url, :gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes, :slot_id,
+    input_order :base_url, :mTLS,:gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes, :slot_id,
             :practitioner_id1, :practitioner_id2, :practitioner_id3, :practitioner_id4, :regulator_id
 
      input_instructions %(
@@ -80,8 +80,28 @@ module SasTestKit
     input :base_url,
           title: 'URl du serveur',
           description: 'Url de base serveur FHIR'
+
+    input :mTLS,
+          title: 'mTLS',
+          type: 'radio',
+          options: {
+            list_options: [
+              { label: 'Activé', value: 'true' },
+              { label: 'Désactivé', value: 'false' }
+            ]
+          }
     # All FHIR requests in this suite will use this FHIR client
-  
+          
+    fhir_client :no_mTLS do
+      url :base_url
+      ssl_client_cert nil
+      ssl_client_key nil
+      headers(
+        'Content-Type' => 'application/json',
+        'Accept'  => 'application/json+fhir'
+      )
+    end
+    
     fhir_client do
       url :base_url
       ssl_client_cert OpenSSL::X509::Certificate.new(File.read("./config/cert/inferno-prePROD.pem")) 
