@@ -1,6 +1,6 @@
 require_relative 'setup_test'
 
-module MyTestKit
+module SasTestKit
   class AffichageslotGroupPS < Inferno::TestGroup
     title "Flux Agrégateur - Contrôles Bundle (PS avec un seul lieu de consultation)"
     description %(

@@ -1,4 +1,4 @@
-module MyTestKit
+module SasTestKit
   class OrgaOptionelGroupCPTS < Inferno::TestGroup
     title 'Contrôles Organization - Champs optionnels'
     description 'Contrôles des données optionnelles de la structure'

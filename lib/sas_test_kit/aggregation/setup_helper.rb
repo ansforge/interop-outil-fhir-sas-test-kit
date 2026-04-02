@@ -1,4 +1,4 @@
-module MyTestKit
+module SasTestKit
   module SetupHelper
     # Calcule les dates de recherche (début et fin)
     def self.calculate_date_range
