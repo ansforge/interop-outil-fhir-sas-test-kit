@@ -1,4 +1,4 @@
-module MyTestKit
+module SasTestKit
   module SetupHelper
     # Calcule les dates de recherche (début et fin)
     def self.calculate_date_range
@@ -29,7 +29,7 @@ module MyTestKit
                 _include: 'Slot:schedule',
                 '_include:iterate': 'Schedule:actor',
                 'schedule.actor:Practitioner.identifier': "#{formatted_id}",
-                start: ["ge#{date_range[:start]}.000", "le#{date_range[:end]}.000"],
+                start: ["ge#{date_range[:start]}.000+00:00", "le#{date_range[:end]}.000+00:00"],
                 status: 'free'
             }
         elsif ig_launch == 'ig_launch_2'

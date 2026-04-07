@@ -1,6 +1,6 @@
 require_relative 'helper_fluxv1'
 
-module MyTestKit
+module SasTestKit
     class CreationRegulateurIDNPSTest < Inferno::Test
         title "Création d'un compte régulateur avec identifiant IDNPS"
         id :creation_regulateur_idnps_test

@@ -1,6 +1,6 @@
 require_relative 'setup_helper'
 
-module MyTestKit
+module SasTestKit
   class SlotSearchSetupGroup < Inferno::Test
     title 'Setup - Recherche Slot par RPPS'
     description 'Initialisation et recherche Slot - Prépare les données pour les tests suivants'
@@ -48,7 +48,12 @@ module MyTestKit
         )
             
         # Exécution de la recherche
-        fhir_search('Slot', params: params)
+        add_message('info', "mTLS: #{mTLS}")
+        if mTLS == 'true'
+            fhir_search('Slot', params: params)
+        else
+            fhir_search('Slot', params: params, client: :no_mTLS)
+        end
         add_message('info', "Requête FHIR effectuée avec les paramètres: #{params.to_json}")
         assert_response_status(200)
 

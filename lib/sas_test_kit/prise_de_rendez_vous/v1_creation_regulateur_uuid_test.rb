@@ -1,7 +1,7 @@
 require_relative 'helper_fluxv1'
 require 'securerandom'
 
-module MyTestKit
+module SasTestKit
     class CreationRegulateurUUIDTest < Inferno::Test
         title "Création d'un compte régulateur avec identifiant UUID"
         id :creation_regulateur_uuid_test

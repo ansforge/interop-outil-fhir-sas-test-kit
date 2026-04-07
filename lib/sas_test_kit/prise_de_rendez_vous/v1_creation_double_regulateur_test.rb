@@ -1,7 +1,7 @@
 require_relative 'helper_fluxv1'
 require 'securerandom'
 
-module MyTestKit
+module SasTestKit
     class CreationDoubleRegulateurUUIDTest < Inferno::Test
         title 'Création en double : rejet de la seconde requête POST pour un compte régulateur déjà existant'
         id :creation_double_regulateur_uuid_test

@@ -1,6 +1,6 @@
 require_relative 'helper_fluxv1'
 
-module MyTestKit
+module SasTestKit
     class ModificationHabilitationTest < Inferno::Test
         title "Habilitation d'un régulateur"
         id :modification_habilitation
