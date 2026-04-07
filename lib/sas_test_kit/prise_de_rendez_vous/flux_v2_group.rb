@@ -2,6 +2,8 @@ require_relative '../aggregation/setup_test'
 require_relative '../sas_options'
 require_relative 'v2_connexion_without_origin_test'
 require_relative 'v2_connexion_while_unidentified_test'
+require_relative 'v2_connexion_with_pwd_test'
+require_relative 'v2_connexion_with_psc_test'
 
 require 'nokogiri'
 
@@ -26,5 +28,9 @@ module SasTestKit
         test from: :sso_without_origin
 
         test from: :sso_while_unidentified
+
+        test from: :sso_with_pwd
+
+        test from: :sso_with_psc
     end
 end

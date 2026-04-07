@@ -55,7 +55,7 @@ module SasTestKit
                     "Aucun message d'erreur ou page de connexion détectée"
                 )
             else
-                assert(false, "Réponse non HTML : #{content_type}")
+                assert(statusKO, "La réponse n'est pas une erreur ni un contenu HTML : {status :#{response[:status]}, content_type :#{content_type}}")
             end
         end
     end
