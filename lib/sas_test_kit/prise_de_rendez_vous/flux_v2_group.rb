@@ -1,36 +1,26 @@
-require_relative '../aggregation/setup_test'
-require_relative '../sas_options'
-require_relative 'v2_connexion_without_origin_test'
-require_relative 'v2_connexion_while_unidentified_test'
-require_relative 'v2_connexion_with_pwd_test'
-require_relative 'v2_connexion_with_psc_test'
+require_relative 'v2_connected_group'
+require_relative 'v2_not_connected_group'
 
 require 'nokogiri'
 
 module SasTestKit
     class FluxV2Group < Inferno::TestGroup
         title "Tests de conformité SAS - Flux V2 (SSO)"
-        description %()
+        description %(
+            ## Description
+
+            Ce groupe regroupe un ensemble de tests de conformité relatifs au **flux V2 de gestion des comptes régulateurs**, tel que défini dans les spécifications techniques SAS publiées par l'ANS.  
+            Ces tests valident le comportement du serveur vis à vis des spécifications du flux de délégation d'authentification [1](https://esante.gouv.fr/sites/default/files/media/document/SAS_DOC_SPEC%20INT_SSO_Delegation-dauthentification_20230609_V2.2.pdf).
+        )
+
         id :flux_v2_group
 
         http_client do
             url ''
         end
 
-        test from: :slot_search_setup do
-            config(
-                inputs: { 
-                practitioner_id: { name: :practitioner_id },
-                }
-            )
-        end
+        group from: :flux_v2_not_connected_group
 
-        test from: :sso_without_origin
-
-        test from: :sso_while_unidentified
-
-        test from: :sso_with_pwd
-
-        test from: :sso_with_psc
+        group from: :flux_v2_connected_group
     end
 end
