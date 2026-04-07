@@ -16,6 +16,8 @@ require_relative 'aggregation/options_slot_group_cpts'
 require_relative 'aggregation/multi_lieux_group_ps'
 require_relative 'aggregation/search_multiple_ps_group'
 require_relative 'prise_de_rendez_vous/flux_v1_group'
+require_relative 'prise_de_rendez_vous/flux_v2_group'
+
 require_relative 'sas_options'
 
 module SasTestKit
@@ -115,7 +117,6 @@ module SasTestKit
 
     # All FHIR validation requests will use this FHIR validator
     fhir_resource_validator :validator_sas do
-       #url 'https://interop.esante.gouv.fr/matchboxv3/fhir/'
        #igs 'ans.fhir.fr.sas#1.1.0' # Use this method for published IGs/versions
        igs 'igs/sas_package.tgz'   # Use this otherwise
 
@@ -186,6 +187,9 @@ module SasTestKit
         required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION
     
     group from: :flux_v1_group,
+        required_suite_options: SASOptions::TEST_REQUIREMENT_RENDEZ_VOUS
+
+    group from: :flux_v2_group,
         required_suite_options: SASOptions::TEST_REQUIREMENT_RENDEZ_VOUS
   end
 end 

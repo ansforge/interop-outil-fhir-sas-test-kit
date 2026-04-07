@@ -1,7 +1,7 @@
 require_relative 'helper_fluxv1'
 require 'securerandom'
 
-module MyTestKit
+module SasTestKit
     class PutAsCreate < Inferno::Test
         title "Création d'un compte régulateur via PUT"
         id :put_as_create

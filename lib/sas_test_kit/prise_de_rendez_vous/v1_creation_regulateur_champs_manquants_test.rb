@@ -1,6 +1,6 @@
 require_relative 'invalid_fhir_resources/practitioner_missing_fields'
 
-module MyTestKit
+module SasTestKit
     class BadCreationRegulateurTest < Inferno::Test
         title "Créations multiples : vérification des erreurs lors d'absence de champs obligatoires"
         id :creation_regulateur_champs_manquants_test

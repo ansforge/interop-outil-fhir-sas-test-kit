@@ -1,7 +1,7 @@
 require_relative 'invalid_fhir_resources/practitioner_missing_fields'
 require_relative 'helper_fluxv1'
 
-module MyTestKit
+module SasTestKit
     class BadModificationRegulateurTest < Inferno::Test
         title "Modifications multiples : vérification des erreurs lors d'absence de champs obligatoires"
         id :modification_regulateur_champs_manquants_test
