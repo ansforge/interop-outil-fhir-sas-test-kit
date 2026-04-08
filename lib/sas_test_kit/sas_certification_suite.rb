@@ -48,19 +48,6 @@ module SasTestKit
                    value: SASOptions::IG_VERSION_CPTS
                  }
                ]
-      
-    suite_option :type_de_tests,
-                title: 'Sélection du type de tests à exécuter',
-                list_options: [
-                  {
-                    label: 'Agrégation',
-                    value: SASOptions::AGGREGATION
-                  },
-                  {
-                    label: 'Prise de rendez-vous',
-                    value: SASOptions::RENDEZ_VOUS
-                  }
-                ]
 
     links [
       {
@@ -71,7 +58,7 @@ module SasTestKit
     ]
 
     input_order :base_url, :mTLS,:gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes, :slot_id,
-            :practitioner_id1, :practitioner_id2, :practitioner_id3, :practitioner_id4, :regulator_id
+            :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4, :regulator_id
 
      input_instructions %(
         Afin de lancer les tests vous devez compléter l'ensemble des éléments.
@@ -154,42 +141,39 @@ module SasTestKit
     end
 
     group from: :slot_group_cpts,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_CPTS)
+        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
 
     group from: :slot_group_ps,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_PSINDIV)
+        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
         
     group from: :affichage_slot_group_cpts,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_CPTS)
+        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
 
     group from: :affichage_slot_group_ps,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_PSINDIV)
+        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
 
     group from: :multiLieu_group_ps,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_PSINDIV)
+        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
 
     group from: :search_multiple_ps_group,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_PSINDIV)
+        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
 
     group from: :practi_optionnel_group_ps, 
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_PSINDIV)
+        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
 
     group from: :orga_optionnel_group_cpts,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_CPTS)
+        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
 
     group from: :optionslots_group_ps,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_PSINDIV)
+        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
         
     group from: :optionslots_group_cpts,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION.merge(SASOptions::IG_REQUIREMENT_CPTS)
+        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
         
-    group from: :performance_group,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_AGGREGATION
+    group from: :performance_group
     
-    group from: :flux_v1_group,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_RENDEZ_VOUS
+    group from: :flux_v1_group
 
-    group from: :flux_v2_group,
-        required_suite_options: SASOptions::TEST_REQUIREMENT_RENDEZ_VOUS
+    group from: :flux_v2_group
   end
 end 
