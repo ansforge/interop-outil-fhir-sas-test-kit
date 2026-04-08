@@ -1,16 +1,21 @@
-require_relative 'version'
+require_relative 'sas_certification_suite'
 
 module SasTestKit
   class Metadata < Inferno::TestKit
-    id :sas
-    title 'Sas Test Kit'
+    id :sas_test_kit
+    title "SAS - Service d'Accès aux Soins"
     description <<~DESCRIPTION
-      This is a big markdown description of the test kit.
+        Ce test kit permet de valider la conformité
+        aux spécifications du Service d'Accès aux Soins (SAS).
+        ## Depôt
+        Le dépôt de ce test kit est disponible [ici](https://github.com/ansforge/interop-outil-fhir-sas-test-kit).
     DESCRIPTION
-    suite_ids [:sas]
-    version VERSION
+    suite_ids ['sas']
+    tags ['sas']
+    last_updated '2026-04-08'
+    version '0.1.0'
     maturity 'Low'
-    authors ["ans"]
-    # repo 'TODO'
+    authors ['ANS']
+    repo 'https://github.com/ansforge/interop-outil-fhir-sas-test-kit'
   end
 end
