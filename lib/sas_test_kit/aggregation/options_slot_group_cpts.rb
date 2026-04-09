@@ -1,4 +1,4 @@
-module MyTestKit
+module SasTestKit
   class OptionSlotGroupCPTS < Inferno::TestGroup
     title 'Options sur les créneaux'
     description 'Contrôles sur les données optionnelles des créneaux'

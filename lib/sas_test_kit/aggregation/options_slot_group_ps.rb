@@ -1,6 +1,6 @@
 require_relative 'setup_test'
 
-module MyTestKit
+module SasTestKit
   class OptionSlotGroupPS < Inferno::TestGroup
     title 'Options sur les créneaux'
     description 'Contrôles sur les données optionnelles des créneaux'

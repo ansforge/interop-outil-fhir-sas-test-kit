@@ -1,4 +1,4 @@
-module MyTestKit
+module SasTestKit
   class AffichageslotGroup < Inferno::TestGroup
     title 'Contrôles Bundle - PS avec un seul lieu de consultation'
     description 'Contrôles sur le Bundle de réponse - champs obligatoires'

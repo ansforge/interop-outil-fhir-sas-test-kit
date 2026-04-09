@@ -1,4 +1,4 @@
-module MyTestKit
+module SasTestKit
   class PerformanceGroup < Inferno::TestGroup
     title 'Test de performance'
     description 'Tests de performance'

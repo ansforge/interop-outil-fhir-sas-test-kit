@@ -134,8 +134,8 @@ module FHIR
       @security_headers = {}
       @client = RestClient
       @client.proxy = proxy unless proxy.nil?
-      @client.ssl_client_cert = ssl_client_cert unless ssl_client_cert.nil?
-      @client.ssl_client_key = ssl_client_key unless ssl_client_key.nil?
+      @client.ssl_client_cert = ssl_client_cert
+      @client.ssl_client_key = ssl_client_key
       @client
     end
 

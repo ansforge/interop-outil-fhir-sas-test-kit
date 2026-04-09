@@ -1,6 +1,6 @@
 require_relative 'setup_test'
 
-module MyTestKit
+module SasTestKit
   class PractiOptionelGroupPS < Inferno::TestGroup
     title 'Contrôles Practitioner - Champs optionnels'
     description 'Contrôles des données optionnelles du PS'
