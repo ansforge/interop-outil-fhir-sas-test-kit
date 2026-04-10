@@ -15,6 +15,8 @@ module SasTestKit
 
         id :flux_v2_group
 
+        run_as_group
+
         http_client do
             url ''
         end

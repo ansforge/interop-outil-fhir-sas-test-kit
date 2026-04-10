@@ -1,5 +1,5 @@
-require_relative 'v2_connexion_with_psc_test'
-require_relative 'v2_connexion_with_pwd_test'
+require_relative 'v2_connexion_lga_test'
+require_relative 'v2_connexion_sas_test'
 
 module SasTestKit
     class FluxV2ConnectedGroup < Inferno::TestGroup
@@ -16,9 +16,11 @@ module SasTestKit
         3. Le testeur est bien identifié et connecté à la solution de prise de rendez-vous.
         )
         id :flux_v2_connected_group
+        
+        run_as_group
 
-        test from: :sso_with_psc
+        test from: :sso_sas
 
-        test from: :sso_with_pwd
+        test from: :sso_lga
     end
 end

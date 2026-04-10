@@ -7,6 +7,11 @@ module SasTestKit
     class FluxV2NotConnectedGroup < Inferno::TestGroup
         title "FLux V2 - Régulateur non identifié sur la plateforme numérique du SAS"
         description %(
+            # Description
+
+            Ce groupe de tests permet de tester les deux scénarios suivants :  
+            -   le paramètre origin= n'est pas présetn dans la requête.
+            -   l'utilisateur n'est pas connecté à la plateforme du sas
         )
         id :flux_v2_not_connected_group
 
