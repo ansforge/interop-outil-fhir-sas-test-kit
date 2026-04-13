@@ -26,10 +26,18 @@ module SasTestKit
         if suite_options[:launch_version] == 'ig_launch_1'
 
           begin
-            fhir_search('Slot', params: { _include: 'Slot:schedule', 
-            '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-            'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-            })
+            if mTLS == 'true'
+                fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                })
+            else
+                fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                }, client: :no_mTLS)
+            end
+            
           rescue StandardError => e
             add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
           end
@@ -84,16 +92,23 @@ module SasTestKit
         
          if suite_options[:launch_version] == 'ig_launch_1'
             begin
-              fhir_search('Slot', params: { _include: 'Slot:schedule', 
-              '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-              'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-              })
+                if mTLS == 'true'
+                    fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                    '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                    'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                    })
+                else
+                    fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                    '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                    'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                    }, client: :no_mTLS)
+                end
             rescue OpenSSL::SSL::SSLError => e
-              add_message('info', "[INFO][#{e.class}] : #{e.message}")
-              assert(1 > 0)
+                add_message('info', "[INFO][#{e.class}] : #{e.message}")
+                assert(1 > 0)
             rescue StandardError => e
-              add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-              assert(1 < 0, 'Response is nil')
+                add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+                assert(1 < 0, 'Response is nil')
             end
       
         elsif suite_options[:launch_version] == 'ig_launch_2'
@@ -143,10 +158,17 @@ module SasTestKit
         
         if suite_options[:launch_version] == 'ig_launch_1'
           begin
-            fhir_search('Slot', params: { _include: 'Slot:schedule', 
-              '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-              'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-            })
+            if mTLS == 'true'
+                fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                })
+            else
+                fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                }, client: :no_mTLS)
+            end
           rescue OpenSSL::SSL::SSLError => e
             add_message('info', "[INFO][#{e.class}] : #{e.message}")
             assert(1 > 0)
@@ -200,10 +222,17 @@ module SasTestKit
         
         if suite_options[:launch_version] == 'ig_launch_1'
           begin
-            fhir_search('Slot', params: { _include: 'Slot:schedule', 
-              '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-              'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-            })
+            if mTLS == 'true'
+                fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                })
+            else
+                fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                }, client: :no_mTLS)
+            end
           rescue OpenSSL::SSL::SSLError => e
             add_message('info', "[INFO][#{e.class}] : #{e.message}")
             assert(1 > 0)
