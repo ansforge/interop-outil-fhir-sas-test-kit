@@ -1,4 +1,7 @@
 require_relative 'sas_certification_suite'
+require_relative 'ext/http_client_patch'
+
+Inferno::DSL::HTTPClientBuilder.prepend(HTTPClientBuilderMTLSPatch)
 
 module SasTestKit
   class Metadata < Inferno::TestKit
