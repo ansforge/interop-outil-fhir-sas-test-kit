@@ -24,7 +24,7 @@ module SasTestKit
             new_regulator = HelperFLuxv1.build_regulateur_body(scratch[:uuid], "#{scratch[:uuid]}" + regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
 
             begin
-                fhir_create(new_regulator)
+                mTLS == 'true' ? fhir_create(new_regulator) : fhir_create(new_regulator, client: :no_mTLS)
             rescue StandardError => e
                 add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
             end

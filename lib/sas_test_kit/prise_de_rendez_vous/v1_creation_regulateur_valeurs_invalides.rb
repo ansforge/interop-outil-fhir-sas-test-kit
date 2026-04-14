@@ -27,23 +27,23 @@ class BadCreationRegulateurInvalidValuesTest < Inferno::Test
 
         run do
             bad_regulator = InvalidPractitionerValues::EMPTY_NAME
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test EMPTY_NAME: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
             bad_regulator = InvalidPractitionerValues::EMPTY_MAIL
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test EMPTY_MAIL: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
             bad_regulator = InvalidPractitionerValues::WRONG_TELECOM_SYSTEM
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test WRONG_TELECOM_SYSTEM: Expected response status 4xx or 5xx, got #{response[:status]}")
              #----------
             bad_regulator = InvalidPractitionerValues::WRONG_CODE_FOR_IDNPS_SYSTEM
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test WRONG_CODE_FOR_IDNPS_SYSTEM: Expected response status 4xx or 5xx, got #{response[:status]}")
              #----------
             bad_regulator = InvalidPractitionerValues::WRONG_CODE_FOR_INTRN_SYSTEM
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test WRONG_CODE_FOR_INTRN_SYSTEM: Expected response status 4xx or 5xx, got #{response[:status]}")
         end
     end
