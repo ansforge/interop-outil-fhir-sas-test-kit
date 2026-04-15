@@ -2,7 +2,7 @@ require_relative 'setup_test'
 
 module SasTestKit
   class PractiOptionelGroupPS < Inferno::TestGroup
-    title 'Contrôles Practitioner - Champs optionnels'
+    title 'Champs optionnels'
     description 'Contrôles des données optionnelles du PS'
     id :practi_optionnel_group_ps
 
@@ -82,7 +82,7 @@ module SasTestKit
         bundle = scratch[:Bundle]
         
         Telephone = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource.telecom.value')   
-        add_message('info', "Télephone: " + Telephone&.dig(0, "element").to_s) 
+        add_message('info', "Téléphone: " + Telephone&.dig(0, "element").to_s) 
       
        #Gérer les ifnull
       value = Telephone&.dig(0, "element").to_s

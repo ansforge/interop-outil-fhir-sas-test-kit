@@ -1,7 +1,25 @@
 module SasTestKit
   class MTLSGroup < Inferno::TestGroup
-    title 'Test connexion MTLS'
-    description 'Verification mTLS'
+    title 'Tests connexion MTLS'
+    description %(
+      ## Description
+
+      Ce groupe de tests a pour objectif de vérifier la mise en œuvre de la connexion sécurisée par **authentification mutuelle TLS (mTLS)** entre un client et un serveur FHIR SAS.
+
+      Les tests valident le comportement du serveur lorsqu'il est sollicité avec différents types de certificats clients, afin de s'assurer que les règles de sécurité attendues sont correctement appliquées.
+
+      Le test group couvre notamment les cas suivants :
+      - utilisation d'un certificat client valide,
+      - utilisation de certificats invalides (CNAME incorrect, OU incorrect),
+      - utilisation d'un certificat révoqué,
+      - absence de certificat client.
+
+      Pour chaque configuration, une requête fonctionnelle est envoyée vers l'API FHIR, et le comportement du serveur est évalué à partir de la réponse ou de l'erreur retournée.
+
+      L'objectif de ces tests est de garantir que :
+      - les connexions mTLS valides sont acceptées,
+      - les connexions non conformes ou non sécurisées sont correctement rejetées.
+    )
     id :mtls_group
 
      test do

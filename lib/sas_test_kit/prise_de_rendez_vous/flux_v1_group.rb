@@ -17,7 +17,7 @@ require_relative 'v1_idnps_reattribution_test.rb'
 
 module SasTestKit
     class FluxV1Group < Inferno::TestGroup
-        title "Tests de conformité SAS - Flux V1 (gestion des comptes régulateurs)"
+        title "Gestion des comptes régulateurs - Flux V1"
         description %(
             ## Description
 
@@ -89,6 +89,8 @@ module SasTestKit
         input :resource_id,
             title: 'ID de la ressource à récupérer',
             default: 'example-regulator-1'
+
+        run_as_group
 
         http_client do
             url :base_url  

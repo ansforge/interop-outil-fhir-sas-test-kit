@@ -1,24 +1,26 @@
 module SasTestKit
   class PerformanceGroup < Inferno::TestGroup
-    title 'Test de performance'
-    description 'Tests de performance'
+    title 'Temps de réponse'
+    description %(
+        # Description
+
+        Ce groupe de tests permet de vérifier le temps de réponse du serveur
+        lors d'une recherche de ressources Slot.
+
+        Il contrôle que la requête aboutit correctement et que le temps de réponse
+        reste inférieur au seuil attendu.
+      )
     id :performance_group
 
 
 
     test do
       title 'Test de performance'
-      description %(
-        Verification des temps de réponse 
-      )
+      
 
       input :practitioner_id,
             title: 'RPPS',
             default: '810100901734'
-
-
-
-    
 
       run do
 
@@ -48,11 +50,11 @@ module SasTestKit
         _include: 'Slot:schedule', 
         '_include:iterate': 'Schedule:actor',
         'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
-        start: ["ge#{formatted_start_date}.000", "le#{formatted_end_date}.000"],
+        start: ["ge#{formatted_start_date}.000+00", "le#{formatted_end_date}.000+00"],
         status: 'free'
         }
 
-        fhir_search('Slot', params: hash)
+        mTLS == 'true' ? fhir_search('Slot', params: hash) : fhir_search('Slot', params: hash, client: :no_mTLS)
 
 
 

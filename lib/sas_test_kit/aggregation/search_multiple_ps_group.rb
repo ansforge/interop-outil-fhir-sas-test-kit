@@ -2,7 +2,7 @@ require_relative 'setup_test'
 
 module SasTestKit
     class SearchMultiplePsGroup < Inferno::TestGroup
-        title 'Flux Agrégateur - Recherche multi-PS'
+        title 'Recherche multi-PS'
         description %(
             Ce groupe réalise une série de vérifications sur le **Bundle de réponse** renvoyé par le **flux Agrégateur - recherche de créneaux**, dans le cas où **plusieurs professionnels de santé** peuvent être retournés pour une même requête.  
             Ces contrôles visent à garantir la conformité des données fournies selon les profils et règles définis dans les spécifications SAS.
@@ -17,11 +17,11 @@ module SasTestKit
         id :search_multiple_ps_group
         input :practitioner_id3,
             title: 'RPPS',
-            description: "Renseigner les RPPS (préfixé par 8) d'un PS pouvant être remonté dans une même recherche que celui ci-dessous"
+            description: "Renseigner le RPPS (préfixé par 8) d'un PS pouvant être remonté dans une même recherche que celui ci-dessous"
 
         input :practitioner_id4,
             title: 'RPPS',
-            description: 'Renseigner les RPPS (préfixé par 8) un PS pouvant être remonté dans une même recherche que celui ci-dessus'
+            description: "Renseigner le RPPS (préfixé par 8) d'un PS pouvant être remonté dans une même recherche que celui ci-dessus"
         
         test from: :slot_search_setup do
             config(

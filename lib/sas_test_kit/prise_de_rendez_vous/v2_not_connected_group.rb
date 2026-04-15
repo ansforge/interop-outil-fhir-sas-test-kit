@@ -5,13 +5,22 @@ require_relative 'v2_connexion_while_unidentified_test'
 
 module SasTestKit
     class FluxV2NotConnectedGroup < Inferno::TestGroup
-        title "FLux V2 - Régulateur non identifié sur la plateforme numérique du SAS"
+        title "Régulateur non identifié sur la plateforme numérique du SAS"
         description %(
-            # Description
+            ## Description
 
-            Ce groupe de tests permet de tester les deux scénarios suivants :  
-            -   le paramètre origin= n'est pas présetn dans la requête.
-            -   l'utilisateur n'est pas connecté à la plateforme du sas
+            Ce groupe de tests a pour objectif de valider le comportement du flux SSO v2
+            dans des scénarios où le régulateur n'est pas préalablement identifié sur la
+            plateforme numérique du SAS.
+
+            Les tests couvrent les cas suivants :
+            - le paramètre `origin` est absent de la requête initiant le flux SSO
+            - l'utilisateur n'est pas connecté à la plateforme numérique du SAS au moment
+                de l'initiation du parcours.
+
+            L'objectif est de vérifier que, dans ces situations, le parcours
+            d'authentification est correctement déclenché et conforme aux attentes
+            fonctionnelles définies dans les spécifications.
         )
         id :flux_v2_not_connected_group
 

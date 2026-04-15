@@ -1,20 +1,9 @@
-require_relative 'url_group'
 require_relative 'metadata'
-require_relative 'aggregation/performance_group'
 require_relative 'visual_group'
-require_relative 'aggregation/slot_group_cpts'
-require_relative 'aggregation/slot_group_ps'
 require_relative 'tls_test_suite'
 require_relative 'mtls_group'
-require_relative 'aggregation/affichageSlot_group_cpts'
-require_relative 'aggregation/affichageSlot_group_ps'
-require_relative 'aggregation/practitioner_group_optionnel_ps'
-require_relative 'aggregation/organizational_group_optionnel_cpts'
 require_relative 'IDNST_group_ps'
-require_relative 'aggregation/options_slot_group_ps'
-require_relative 'aggregation/options_slot_group_cpts'
-require_relative 'aggregation/multi_lieux_group_ps'
-require_relative 'aggregation/search_multiple_ps_group'
+require_relative 'aggregation/aggregation_group'
 require_relative 'prise_de_rendez_vous/flux_v1_group'
 require_relative 'prise_de_rendez_vous/flux_v2_group'
 
@@ -57,7 +46,7 @@ module SasTestKit
       }
     ]
 
-    input_order :base_url, :mTLS,:gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes, :slot_id,
+    input_order :base_url, :mTLS,:gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes,
             :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4, :regulator_id
 
      input_instructions %(
@@ -111,12 +100,8 @@ module SasTestKit
         message.message.match?(/\A\S+: \S+: URL value '.*' does not resolve/)
       end
     end
-    group from: :mtls_group
-    group from: :url_group 
-    group from: :visual_group     
     group from: :tls
-
-    # Tests and TestGroups can be defined inline
+    group from: :visual_group     
     
     group do
   
@@ -140,37 +125,7 @@ module SasTestKit
       end
     end
 
-    group from: :slot_group_cpts,
-        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
-
-    group from: :slot_group_ps,
-        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
-        
-    group from: :affichage_slot_group_cpts,
-        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
-
-    group from: :affichage_slot_group_ps,
-        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
-
-    group from: :multiLieu_group_ps,
-        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
-
-    group from: :search_multiple_ps_group,
-        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
-
-    group from: :practi_optionnel_group_ps, 
-        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
-
-    group from: :orga_optionnel_group_cpts,
-        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
-
-    group from: :optionslots_group_ps,
-        required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
-        
-    group from: :optionslots_group_cpts,
-        required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
-        
-    group from: :performance_group
+    group from: :aggregation_group
     
     group from: :flux_v1_group
 
