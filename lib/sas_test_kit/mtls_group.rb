@@ -4,7 +4,7 @@ module SasTestKit
     description %(
       ## Description
 
-      Ce groupe de tests a pour objectif de vérifier la mise en œuvre de la connexion sécurisée par **authentification mutuelle TLS (mTLS)** entre un client et un serveur FHIR SAS.
+      Ce groupe de tests a pour objectif de vérifier la mise en œuvre de la connexion sécurisée par **authentification mutuelle TLS (mTLS)** entre un client et un serveur FHIR.
 
       Les tests valident le comportement du serveur lorsqu'il est sollicité avec différents types de certificats clients, afin de s'assurer que les règles de sécurité attendues sont correctement appliquées.
 

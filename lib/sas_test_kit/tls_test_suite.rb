@@ -10,7 +10,7 @@ module MyTestKit
     group from: :mtls_group
 
     group do
-      title 'test TLS'
+      title 'Test TLS'
 
       test from: :tls_version_test,
            title: 'Le serveur ne doit prendre  en charge que les versions sécurisées de TLS',
