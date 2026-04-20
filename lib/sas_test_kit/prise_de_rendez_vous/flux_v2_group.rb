@@ -1,25 +1,10 @@
-<<<<<<< HEAD
-require_relative '../aggregation/setup_test'
-require_relative '../sas_options'
-require_relative 'v2_connexion_without_origin_test'
-require_relative 'v2_connexion_while_unidentified_test'
-require_relative 'v2_connexion_with_pwd_test'
-require_relative 'v2_connexion_with_psc_test'
-=======
 require_relative 'v2_connected_group'
 require_relative 'v2_not_connected_group'
->>>>>>> origin/dev
 
 require 'nokogiri'
 
 module SasTestKit
     class FluxV2Group < Inferno::TestGroup
-<<<<<<< HEAD
-        title "Tests de conformité SAS - Flux V2 (SSO)"
-        description %()
-        id :flux_v2_group
-
-=======
         title "SSO - Flux V2"
         description %(
             # Description des tests du flux SSO
@@ -45,31 +30,12 @@ module SasTestKit
 
         run_as_group
 
->>>>>>> origin/dev
         http_client do
             url ''
         end
 
-<<<<<<< HEAD
-        test from: :slot_search_setup do
-            config(
-                inputs: { 
-                practitioner_id: { name: :practitioner_id },
-                }
-            )
-        end
-
-        test from: :sso_without_origin
-
-        test from: :sso_while_unidentified
-
-        test from: :sso_with_pwd
-
-        test from: :sso_with_psc
-=======
         group from: :flux_v2_not_connected_group
 
         group from: :flux_v2_connected_group
->>>>>>> origin/dev
     end
 end

@@ -15,10 +15,6 @@ require_relative 'v1_modification_habilitation_test'
 require_relative 'v1_put_as_create_test'
 require_relative 'v1_idnps_reattribution_test.rb'
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/dev
 module SasTestKit
     class FluxV1Group < Inferno::TestGroup
         title "Gestion des comptes régulateurs - Flux V1"
