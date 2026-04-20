@@ -20,8 +20,8 @@ RUN bundle install
 ADD . $INSTALL_PATH
 
 # Fix gems to manage mTLS
-COPY gems_to_update/inferno_core-0.6.17/lib/inferno/dsl/fhir_client_builder.rb /usr/local/bundle/gems/inferno_core-0.6.17/lib/inferno/dsl/fhir_client_builder.rb
-COPY gems_to_update/inferno_core-0.6.17/lib/inferno/entities/input.rb /usr/local/bundle/gems/inferno_core-0.6.17/lib/inferno/entities/input.rb
+COPY gems_to_update/inferno_core-0.6.17/lib/inferno/dsl/fhir_client_builder.rb /usr/local/bundle/gems/inferno_core-1.1.2/lib/inferno/dsl/fhir_client_builder.rb
+COPY gems_to_update/inferno_core-0.6.17/lib/inferno/entities/input.rb /usr/local/bundle/gems/inferno_core-1.1.2/lib/inferno/entities/input.rb
 COPY gems_to_update/fhir_client-6.0.0/lib/fhir_client/client.rb /usr/local/bundle/gems/fhir_client-6.0.0/lib/fhir_client/client.rb
 COPY gems_to_update/rest-client-2.1.0/lib/restclient.rb /usr/local/bundle/gems/rest-client-2.1.0/lib/restclient.rb
 

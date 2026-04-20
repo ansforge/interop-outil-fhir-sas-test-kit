@@ -22,10 +22,10 @@ module SasTestKit
             uuid = SecureRandom.uuid
             new_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}" + regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
             
-            fhir_create(new_regulator)
+            mTLS == 'true' ? fhir_create(new_regulator) : fhir_create(new_regulator, client: :no_mTLS)
             assert_response_status(201)
 
-            fhir_create(new_regulator)
+            mTLS == 'true' ? fhir_create(new_regulator) : fhir_create(new_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Expected response status 4xx or 5xx, got #{response[:status]}")
         end
     end

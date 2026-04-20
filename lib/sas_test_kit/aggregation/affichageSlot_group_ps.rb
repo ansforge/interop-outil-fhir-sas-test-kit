@@ -2,7 +2,7 @@ require_relative 'setup_test'
 
 module SasTestKit
   class AffichageslotGroupPS < Inferno::TestGroup
-    title "Flux Agrégateur - Contrôles Bundle (PS avec un seul lieu de consultation)"
+    title "PS avec un seul lieu de consultation"
     description %(
       ## Description
 
@@ -239,7 +239,7 @@ module SasTestKit
         description %(
             ## Description
 
-            Ce test valide que le champ **`Bundle.link.url`** **reflète exactement** l’URL de la requête FHIR ayant produit le Bundle.
+            Ce test valide que le champ **`Bundle.link.url`** **reflète exactement** l'URL de la requête FHIR ayant produit le Bundle.
         )
         run do
             query = scratch[:query]
@@ -249,8 +249,9 @@ module SasTestKit
             path: 'link.url'
             )
 
+            add_message('info', "champ URL.link: " + URL[0]["element"].to_s)
+            add_message('info', "requête FHIR: " + query)
             assert(query == URL[0]["element"].to_s)
-            add_message('info', "champ URL.link: " + URL[0]["element"].to_s + ", requête FHIR: " + query)
         end
     end
 

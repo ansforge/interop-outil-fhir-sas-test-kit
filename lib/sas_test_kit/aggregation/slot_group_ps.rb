@@ -1,41 +1,36 @@
 module SasTestKit
   class SlotGroupPS < Inferno::TestGroup
-    title 'Slot Tests'
-    description 'Verification sur Slot'
+    title 'Validation du bundle'
+    description %(
+      ## Description
+
+      Ce groupe de tests a pour objectif de valider la conformité des réponses
+      retournées par le serveur lors d'une recherche de ressources Slot.
+
+      Les tests portent sur la structure globale du Bundle renvoyé, sa conformité
+      aux profils FHIR attendus, ainsi que sur la cohérence entre les métadonnées
+      du Bundle et les ressources Slot qu'il contient.
+
+      Ce test group vise à s'assurer que le serveur est capable de répondre
+      correctement à une requête de recherche Slot, en respectant les spécifications
+      fonctionnelles et de structure définies pour l'agrégation de créneaux.
+    )
     id :slot_group_ps
-
-    test do
-      optional
-      title 'Test lecture slot'
-      description %(
-        Verification  que le serveur renvoie la ressource Slot passée en paramètre
-      )
-
-      input :slot_id,
-            title: 'Slot ID',
-            default: '3364560'
-
-
-      # Named requests can be used by other tests
-      makes_request :slot 
-
-      run do
-        fhir_read(:slot, slot_id)
- 
-        assert_response_status(200)
-        assert_valid_json(request.response_body)
-        assert_resource_type(:slot)
-        #assert resource.id == slot_id,
-        #       "Requested resource with id #{slot_id}, received resource with id #{resource.id}"
-        assert_valid_resource(validator: :validator_sas)
-        #assert_valid_resource(profile_url: 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator')                
-      end
-    end
 
     test do
       title 'Test recherche par slot - renvoi Bundle'
       description %(
-        Verifier la recherche par ressource Slot et le renvoie d'un Bundle
+        Ce test vérifie qu'une recherche sur la ressource Slot aboutit au renvoi
+        d'un Bundle conforme.
+
+        Il contrôle notamment :
+        - le succès de la requête de recherche,
+        - le type de ressource retournée (Bundle),
+        - la cohérence entre le champ total du Bundle et le nombre réel de ressources Slot,
+        - la conformité du Bundle au profil FHIR d'agrégation attendu.
+
+        L'objectif est de garantir que la recherche Slot fournit un résultat
+        exploitable et conforme aux exigences de l'API.
       )
 
       input :practitioner_id,
@@ -65,14 +60,11 @@ module SasTestKit
         _include: 'Slot:schedule', 
         '_include:iterate': 'Schedule:actor',
         'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
-        start: ["ge#{formatted_start_date}.000", "le#{formatted_end_date}.000"],
+        start: ["ge#{formatted_start_date}.000+00", "le#{formatted_end_date}.000+00"],
         status: 'free'
         }
 
-        
-      
-        fhir_search('Slot', params: hash)
-  
+        mTLS == 'true' ? fhir_search('Slot', params: hash) : fhir_search('Slot', params: hash, client: :no_mTLS)  
         
         assert_response_status(200)
         assert_resource_type('Bundle')

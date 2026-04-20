@@ -2,7 +2,7 @@ require_relative 'setup_test'
 
 module SasTestKit
     class MultiLieuGroupPS < Inferno::TestGroup
-        title 'Flux Agrégateur - PS avec deux lieux de consultation'
+        title 'PS avec deux lieux de consultation'
         description %(
             ## Description
 

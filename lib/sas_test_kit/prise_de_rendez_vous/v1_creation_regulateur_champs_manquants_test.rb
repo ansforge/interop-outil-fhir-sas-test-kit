@@ -19,19 +19,19 @@ module SasTestKit
         )
         run do
             bad_regulator = InvalidPractitionerField::NO_IDENTIFIER
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_IDENTIFIER: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
             bad_regulator = InvalidPractitionerField::NO_NAME
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_NAME: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
             bad_regulator = InvalidPractitionerField::NO_TELECOM
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_TELECOM: Expected response status 4xx or 5xx, got #{response[:status]}")
             #----------
             bad_regulator = InvalidPractitionerField::NO_ACTIVE
-            fhir_create(bad_regulator)
+            mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
             assert(response[:status] >= 400 && response[:status] < 600, "Test NO_ACTIVE: Expected response status 4xx or 5xx, got #{response[:status]}")
         end
     end

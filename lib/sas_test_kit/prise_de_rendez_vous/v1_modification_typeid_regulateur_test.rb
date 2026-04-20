@@ -17,16 +17,12 @@ module SasTestKit
             Ce test confirme que l'implémentation permet de **basculer d'un UUID à un IDNPS** pour un compte régulateur existant, conformément aux attentes de gestion des identifiants.
         )
         run do
-            sys = 'urn:oid:1.2.250.1.71.4.2.1'
+            sys = 'urn:oid:1.2.250.1.213.3.6'
             updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, "#{scratch[:uuid] }" + regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
 
-            http, url, headers = HelperFLuxv1.http_client(base_url)
-            url.query = URI.encode_www_form({ 'identifier': 'urn:oid:1.2.250.1.213.3.6|' + scratch[:uuid] })
-            response = http.put(url, updated_regulator.to_json, headers)
+            put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{scratch[:uuid]}", body: updated_regulator.to_json)
 
-            add_message("info", "request : #{url}")
-            add_message("info", "response body: #{response.body}")
-            assert(response.code.to_i >=200 && response.code.to_i < 400, "Expected response status 2xx or 3xx, got #{response.code}")
+            assert(response[:status] >=200 && response[:status] < 400, "Expected response status 2xx or 3xx, got #{response[:status]}")
         end
     end
 end
