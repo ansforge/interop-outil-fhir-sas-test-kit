@@ -27,6 +27,7 @@ module FHIR
     attr_accessor :proxy
     attr_accessor :ssl_client_cert
     attr_accessor :ssl_client_key
+    attr_accessor :verify_ssl
     attr_accessor :exception_class
 
     attr_accessor :use_accept_header
@@ -40,7 +41,7 @@ module FHIR
     # @param default_format Default Format Mime type
     # @return
     #
-    def initialize(base_service_url, default_format: FHIR::Formats::ResourceFormat::RESOURCE_JSON, proxy: nil, ssl_client_cert: nil, ssl_client_key: nil)
+    def initialize(base_service_url, default_format: FHIR::Formats::ResourceFormat::RESOURCE_JSON, proxy: nil, ssl_client_cert: nil, ssl_client_key: nil, verify_ssl: nil)
       @base_service_url = base_service_url
       FHIR.logger.info "Initializing client with #{@base_service_url}"
       @use_format_param = false
@@ -54,6 +55,7 @@ module FHIR
       @proxy = proxy
       @ssl_client_cert = ssl_client_cert
       @ssl_client_key = ssl_client_key
+      @verify_ssl = verify_ssl
 
       set_no_auth
     end
@@ -136,6 +138,7 @@ module FHIR
       @client.proxy = proxy unless proxy.nil?
       @client.ssl_client_cert = ssl_client_cert
       @client.ssl_client_key = ssl_client_key
+      @client.verify_ssl = verify_ssl
       @client
     end
 

@@ -63,31 +63,31 @@ require File.dirname(__FILE__) + '/restclient/windows'
 module RestClient
 
   def self.get(url, headers={}, &block)
-    Request.execute(:method => :get, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, &block)
+    Request.execute(:method => :get, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, :verify_ssl => verify_ssl, &block)
   end
 
   def self.post(url, payload, headers={}, &block)
-    Request.execute(:method => :post, :url => url, :payload => payload, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, &block)
+    Request.execute(:method => :post, :url => url, :payload => payload, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, verify_ssl => verify_ssl, &block)
   end
 
   def self.patch(url, payload, headers={}, &block)
-    Request.execute(:method => :patch, :url => url, :payload => payload, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, &block)
+    Request.execute(:method => :patch, :url => url, :payload => payload, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, verify_ssl => verify_ssl, &block)
   end
 
   def self.put(url, payload, headers={}, &block)
-    Request.execute(:method => :put, :url => url, :payload => payload, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, &block)
+    Request.execute(:method => :put, :url => url, :payload => payload, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, verify_ssl => verify_ssl, &block)
   end
 
   def self.delete(url, headers={}, &block)
-    Request.execute(:method => :delete, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, &block)
+    Request.execute(:method => :delete, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, verify_ssl => verify_ssl, &block)
   end
 
   def self.head(url, headers={}, &block)
-    Request.execute(:method => :head, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, &block)
+    Request.execute(:method => :head, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, verify_ssl => verify_ssl, &block)
   end
 
   def self.options(url, headers={}, &block)
-    Request.execute(:method => :options, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, &block)
+    Request.execute(:method => :options, :url => url, :headers => headers, :ssl_client_cert => ssl_client_cert, :ssl_client_key => ssl_client_key, verify_ssl => verify_ssl, &block)
   end
 
   # A global proxy URL to use for all requests. This can be overridden on a
@@ -116,6 +116,15 @@ module RestClient
 
   def self.ssl_client_key=(value)
     @ssl_client_key = value
+    @ssl_client_set = true
+  end
+
+  def self.verify_ssl
+    @verify_ssl ||= nil
+  end
+
+  def self.verify_ssl=(value)
+    @verify_ssl = value
     @ssl_client_set = true
   end
 

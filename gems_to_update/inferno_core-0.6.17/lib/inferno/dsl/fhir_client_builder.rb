@@ -42,12 +42,13 @@ module Inferno
         self.runnable = runnable
         instance_exec(self, &block)
 
-        FHIR::Client.new(url, proxy:proxy, ssl_client_cert: ssl_client_cert, ssl_client_key: ssl_client_key).tap do |client|
+        FHIR::Client.new(url, proxy:proxy, ssl_client_cert: ssl_client_cert, ssl_client_key: ssl_client_key, verify_ssl: verify_ssl).tap do |client|
           client.use_accept_charset = false
           client.additional_headers = headers if headers
           client.proxy = proxy
           client.ssl_client_cert = ssl_client_cert if ssl_client_cert
           client.ssl_client_key = ssl_client_key if ssl_client_key
+          client.verify_ssl = verify_ssl if verify_ssl
           client.default_json
           client.set_bearer_token bearer_token if bearer_token
           oauth_credentials&.add_to_client(client)
@@ -157,6 +158,19 @@ module Inferno
             runnable.send(ssl_client_key)
           else
             ssl_client_key
+          end
+      end
+
+      # Define verify_ssl for a client
+      #
+      # @param verify_ssl [String, Symbol]
+      # @return [void]
+      def verify_ssl(verify_ssl = nil)
+        @verify_ssl ||=
+          if verify_ssl.is_a? Symbol
+            runnable.send(verify_ssl)
+          else
+            verify_ssl
           end
       end
 
