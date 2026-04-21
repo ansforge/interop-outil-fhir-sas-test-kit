@@ -31,13 +31,14 @@ module SasTestKit
 
       fhir_client do
         url :base_url
-        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("./config/cert/inferno-prePROD.pem"))
-        ssl_client_key OpenSSL::PKey::RSA.new(File.read("./config/cert/inferno-prePROD.key"))
+        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.pem"))
+        ssl_client_key OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.key"))
+        verify_ssl OpenSSL::SSL::VERIFY_PEER
         headers(
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
         )
-      end   
+      end
 
       run do
 
@@ -98,8 +99,9 @@ module SasTestKit
 
       fhir_client do
         url :base_url
-        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("./config/cert/invalid_bad_cname_certificate.key.crt.ca.pem"))
-        ssl_client_key OpenSSL::PKey::RSA.new(File.read("./config/cert/invalid_bad_cname.key"))
+        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/invalid_bad_cname_certificate.key.crt.ca.pem"))
+        ssl_client_key OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/invalid_bad_cname.key"))
+        verify_ssl OpenSSL::SSL::VERIFY_PEER
         headers(
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
@@ -164,8 +166,9 @@ module SasTestKit
 
       fhir_client do
         url :base_url
-        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("./config/cert/invalid_bad_ou_certificate.key.crt.ca.pem"))
-        ssl_client_key OpenSSL::PKey::RSA.new(File.read("./config/cert/invalid_bad_ou.key"))
+        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/invalid_bad_ou_certificate.key.crt.ca.pem"))
+        ssl_client_key OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/invalid_bad_ou.key"))
+        verify_ssl OpenSSL::SSL::VERIFY_PEER
         headers(
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
@@ -228,8 +231,10 @@ module SasTestKit
 
       fhir_client do
         url :base_url
-        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("./config/cert/invalid_revoked_certificate.key.crt.ca.pem"))
-        ssl_client_key OpenSSL::PKey::RSA.new(File.read("./config/cert/invalid_revoked_certificate.key"))
+        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/invalid_revoked_certificate.key.crt.ca.pem"))
+        ssl_client_key OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/invalid_revoked_certificate.key"))
+        verify_ssl OpenSSL::SSL::VERIFY_PEER
+
         headers(
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
@@ -290,21 +295,38 @@ module SasTestKit
          pas de certificat
       )
 
-      fhir_client :no_certificate do
+      fhir_client :no_certificate_mTLS do
         url :base_url
+        verify_ssl OpenSSL::SSL::VERIFY_PEER
         headers(
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
         )
       end   
      
+      fhir_client :no_certificate_no_mTLS do
+        url :base_url
+        verify_ssl OpenSSL::SSL::VERIFY_NONE
+        headers(
+        'Content-Type' => 'application/json',
+        'Accept'  => 'application/json+fhir'
+        )
+      end
+
       run do
         if suite_options[:launch_version] == 'ig_launch_1'
           begin
-            fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-              }, client: :no_certificate)
+            if mTLS == 'true'
+              fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                  '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                  'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                }, client: :no_certificate_mTLS)
+            else
+              fhir_search('Slot', params: { _include: 'Slot:schedule', 
+                  '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
+                  'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+                }, client: :no_certificate_no_mTLS)
+            end
           rescue OpenSSL::SSL::SSLError => e
             add_message('info', "[INFO][#{e.class}] : #{e.message}")
             assert(1 > 0)
