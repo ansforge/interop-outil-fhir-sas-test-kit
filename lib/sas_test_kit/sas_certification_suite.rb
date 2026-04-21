@@ -69,11 +69,11 @@ module SasTestKit
             ]
           }
     # All FHIR requests in this suite will use this FHIR client
-          
     fhir_client :no_mTLS do
       url :base_url
       ssl_client_cert nil
       ssl_client_key nil
+      verify_ssl OpenSSL::SSL::VERIFY_NONE
       headers(
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
@@ -82,8 +82,9 @@ module SasTestKit
     
     fhir_client do
       url :base_url
-      ssl_client_cert OpenSSL::X509::Certificate.new(File.read("./config/cert/inferno-prePROD.pem")) 
-      ssl_client_key OpenSSL::PKey::RSA.new(File.read("./config/cert/inferno-prePROD.key"))
+      ssl_client_cert OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.pem")) 
+      ssl_client_key OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.key"))
+      verify_ssl OpenSSL::SSL::VERIFY_PEER
       headers(
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'

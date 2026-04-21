@@ -15,9 +15,11 @@ module HTTPClientBuilderMTLSPatch
       if runnable.respond_to?(:mTLS) &&
               runnable.mTLS == 'true'
 
-        f.ssl.client_cert = OpenSSL::X509::Certificate.new(File.read("./config/cert/inferno-prePROD.pem"))
-        f.ssl.client_key  = OpenSSL::PKey::RSA.new(File.read("./config/cert/inferno-prePROD.key"))
+        f.ssl.client_cert = OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.pem"))
+        f.ssl.client_key  = OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.key"))
         f.ssl.verify = true
+      else
+        f.ssl.verify = false
       end
     end
   end
