@@ -26,7 +26,6 @@ module SasTestKit
         Il contrôle notamment :
         - le succès de la requête de recherche,
         - le type de ressource retournée (Bundle),
-        - la cohérence entre le champ total du Bundle et le nombre réel de ressources Slot,
         - la conformité du Bundle au profil FHIR d'agrégation attendu.
 
         L'objectif est de garantir que la recherche Slot fournit un résultat
@@ -68,24 +67,8 @@ module SasTestKit
         
         assert_response_status(200)
         assert_resource_type('Bundle')
-        #verification content type
-        warning do
-          assert_response_content_type('application/fhir+json')
-        end
-        
-        #A corriger avec fhir path evaluation assert (resource.entry.where(resource.resourceType='Slot').count()) > resource.total
-        #output body: resource.to_json
-        results = evaluate_fhirpath(resource: resource, path: 'total')      
-        results1 = evaluate_fhirpath(resource: resource, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").count()')
-        add_message('info', "Total (bundle) : " + results[0]["element"].to_s + "/ Total Slot (Calculé) : " + results1[0]["element"].to_s) 
-        warning do
-        assert (results[0]["element"]) == (results1[0]["element"]), "le valeur de total doit être égale au nombre de ressources slot dans le Bundle"
-        end
-        
       
         assert_valid_resource(profile_url: 'http://sas.fr/fhir/StructureDefinition/BundleAgregateur', validator: :validator_sas)  
-        #assert_valid_resource(validator: :validator_sas)
-       
       end
     end
 

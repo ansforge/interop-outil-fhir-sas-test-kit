@@ -71,6 +71,12 @@ module SasTestKit
             assert (NbRessourcesPracti[0]["element"]) == 1, "Une seule ressource Practitioner doit être présente pour un RPPS appelé"
             assert (NombreLieu[0]["element"]) == 1, "Une seule ressource Location doit être présente pour ce RPPS"
             #verification présence des 4 principales ressources dans le Bundle
+            total = evaluate_fhirpath(resource: bundle, path: 'total')      
+            expected_total = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").count()')
+            add_message('info', "Total (bundle) : " + total[0]["element"].to_s + "/ Total Slot (Calculé) : " + expected_total[0]["element"].to_s) 
+            warning do
+                assert (total[0]["element"]) == (expected_total[0]["element"]), "le valeur de total doit être égale au nombre de ressources slot dans le Bundle"
+            end
 
             assert(evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").exists() and entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").exists() and entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").exists() and entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").exists()'))
             
@@ -245,11 +251,13 @@ module SasTestKit
             query = scratch[:query]
             bundle = scratch[:Bundle]
             URL = evaluate_fhirpath(
-            resource: bundle, 
+            resource: bundle,
             path: 'link.url'
             )
 
-            add_message('info', "champ URL.link: " + URL[0]["element"].to_s)
+            assert(URL[0] != nil, "Le champ link.URL n'est pas présent ou est vide")
+
+            add_message('info', "champ link.URL: " + URL[0]["element"].to_s)
             add_message('info', "requête FHIR: " + query)
             assert(query == URL[0]["element"].to_s)
         end
