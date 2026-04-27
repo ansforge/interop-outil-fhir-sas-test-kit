@@ -27,8 +27,7 @@ module SasTestKit
 
     input :practitioner_id,
           title: 'RPPS',
-          description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu',
-          default: '810100901734'
+          description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu'
     
     test from: :slot_search_setup do
       config(

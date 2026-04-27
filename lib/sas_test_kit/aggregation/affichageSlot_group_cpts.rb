@@ -13,13 +13,11 @@ module SasTestKit
 
       input :practitioner_id,
             title: 'RPPS',
-            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu et avec au moins un créneau lié à une CPTS',
-            default: '810100901734'
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu et avec au moins un créneau lié à une CPTS'
 
        input :cpts_id,
             title: 'Identifiant CPTS',
-            description: 'Renseigner l\'identifiant FINESS (préfixé par 1) de la CPTS à laquelle est associée au moins un créneau',
-            default: '1260021704'
+            description: 'Renseigner l\'identifiant FINESS (préfixé par 1) de la CPTS à laquelle est associée au moins un créneau'
 
       run do
 
@@ -71,10 +69,10 @@ module SasTestKit
         end
     
       end
-      
+
     end
 
-     test do
+    test do
         title 'Vérification présence ressources'
       description %(
        Nombre et présence ressource
@@ -326,7 +324,7 @@ module SasTestKit
       end
     end
 
-     test do
+    test do
         title 'Vérification URL prise de RDV'
       description %(
         vérification présence URL de prise de RDV
@@ -344,6 +342,5 @@ module SasTestKit
 
       end
     end
-
   end
 end

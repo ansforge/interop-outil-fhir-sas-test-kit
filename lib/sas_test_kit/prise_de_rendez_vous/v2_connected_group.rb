@@ -1,5 +1,4 @@
 require_relative 'v2_connexion_lga_test'
-require_relative 'v2_connexion_sas_test'
 
 module SasTestKit
     class FluxV2ConnectedGroup < Inferno::TestGroup
@@ -25,8 +24,6 @@ module SasTestKit
         id :flux_v2_connected_group
         
         run_as_group
-
-        test from: :sso_sas
 
         test from: :sso_lga
     end

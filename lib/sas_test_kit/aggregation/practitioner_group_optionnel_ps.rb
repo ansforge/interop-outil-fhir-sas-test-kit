@@ -8,8 +8,7 @@ module SasTestKit
 
     input :practitioner_id,
             title: 'RPPS',
-            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS avec nom, prénom et téléphone',
-            default: '810100901734'
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS avec nom, prénom et téléphone'
 
     test from: :slot_search_setup do
       config(

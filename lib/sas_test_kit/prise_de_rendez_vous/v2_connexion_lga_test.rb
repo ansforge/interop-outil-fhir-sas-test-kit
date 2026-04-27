@@ -13,13 +13,12 @@ module SasTestKit
             message = %(
                 ### Étape 2 - Accès au LGA
 
-                Cliquez sur le lien ci-dessous pour ouvrir la plateforme :
+                Cliquez sur le lien ci-dessous pour ouvrir la page de connexion et être redirigé vers le LGA :
 
                 [Accéder au LGA](#{external_url})
             )
             omit message
 
-            #wait(identifier: state, message: message)
         end
     end
 end

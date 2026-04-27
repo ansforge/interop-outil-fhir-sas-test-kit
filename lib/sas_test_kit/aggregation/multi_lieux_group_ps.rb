@@ -22,8 +22,7 @@ module SasTestKit
 
         input :practitioner_id2,
             title: 'RPPS',
-            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS possédant deux lieux d\'exercice',
-            default: '810001678357'
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS possédant deux lieux d\'exercice'
         
         test from: :slot_search_setup do
             config(

@@ -8,8 +8,7 @@ module SasTestKit
 
     input :practitioner_id,
           title: 'RPPS',
-          description: 'Renseigner le RPPS (préfixé par 8)',
-          default: '810100901734'
+          description: 'Renseigner le RPPS (préfixé par 8)'
 
     input :practitioner_id_opt,
           title: 'RPPS secondaire',
@@ -58,12 +57,13 @@ module SasTestKit
         assert_response_status(200)
 
         # Stockage pour tous les tests du groupe
-        scratch[:Bundle] = resource
         scratch[:IDNPS] = practitioner_id
         scratch[:DateFin] = date_range[:end]
         scratch[:query] = request.url
     
         assert_resource_type('Bundle')
+        assert(resource.entry != [], "Le Bundle est vide.")
+        scratch[:Bundle] = resource
         warning do
             assert_response_content_type('application/fhir+json')
         end
