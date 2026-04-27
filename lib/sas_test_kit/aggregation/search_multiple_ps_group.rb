@@ -41,8 +41,9 @@ module SasTestKit
                 Il est attendu que la recherche multi-PS retourne **exactement deux** profils *FrPractitionerAgregateur* correspondant aux deux RPPS renseignés en entrée.
             )
             run do
+                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:practitioners] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource')
-                assert(scratch[:practitioners].length == 2, "Le Bundle doit contenir exactement deux ressources Practitioner, en a #{scratch[:practitioners].length}")
+                assert(scratch[:practitioners].length == 2, "Le Bundle doit contenir exactement deux ressources Practitioner, il en possède #{scratch[:practitioners].length}")
             end
         end
 
@@ -55,8 +56,9 @@ module SasTestKit
                 Il est attendu que la recherche multi-PS présente **au moins deux ressources** *FrPractitionerRoleExerciceAgregateur*, reflétant la présence de plusieurs PS dans la réponse.
             )
             run do
+                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:practitioner_roles] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource')
-                assert(scratch[:practitioner_roles].length >= 2, "Le Bundle doit contenir au moins deux ressources PractitionerRole, en a #{scratch[:practitioner_roles].length}")
+                assert(scratch[:practitioner_roles].length >= 2, "Le Bundle doit contenir au moins deux ressources PractitionerRole, il en possède #{scratch[:practitioner_roles].length}")
             end
         end
 
@@ -69,8 +71,9 @@ module SasTestKit
                 La recherche multi-PS doit retourner **au minimum deux ressources Schedule**, chacune correspondant à un professionnel remonté par le flux Agrégateur.
             )
             run do
+                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:schedules] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").resource')
-                assert(scratch[:schedules].length >= 2, "Le Bundle doit contenir au moins deux ressources Schedule, en a #{scratch[:schedules].length}")
+                assert(scratch[:schedules].length >= 2, "Le Bundle doit contenir au moins deux ressources Schedule, il en possède #{scratch[:schedules].length}")
             end
         end
     end
