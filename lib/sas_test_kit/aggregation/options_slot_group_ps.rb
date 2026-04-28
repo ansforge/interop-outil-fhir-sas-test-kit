@@ -114,7 +114,8 @@ module SasTestKit
     
       run do
         bundle = scratch[:Bundle]
-    
+        skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
+
         lst_type_creneaux_retournes = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.meta.security.code.distinct()')   
         str_creneaux = ""
         lst_type_creneaux_retournes.each_with_index do |type_creneau, int|
@@ -157,7 +158,8 @@ module SasTestKit
     
       run do
         bundle = scratch[:Bundle]
-    
+        skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
+
         lst_type_consultation_retournes = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.serviceType.coding.code.distinct()')   
         str_consultation = ""
         lst_type_consultation_retournes.each_with_index do |type_consult, int|

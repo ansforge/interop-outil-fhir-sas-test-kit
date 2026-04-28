@@ -8,8 +8,7 @@ module SasTestKit
 
     input :practitioner_id,
             title: 'RPPS',
-            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS avec nom, prénom et téléphone',
-            default: '810100901734'
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS avec nom, prénom et téléphone'
 
     test from: :slot_search_setup do
       config(
@@ -26,6 +25,8 @@ module SasTestKit
       )
       run do
         bundle = scratch[:Bundle]
+        skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
+
         IDNPS = scratch[:IDNPS]
         
         RPPSrecupere = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource.identifier.value')   
@@ -45,6 +46,7 @@ module SasTestKit
       )
       run do
         bundle = scratch[:Bundle]
+        skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
         
         Nom = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource.name.family')   
         add_message('info', "Nom de famille: " + Nom[0]["element"].to_s) 
@@ -62,7 +64,8 @@ module SasTestKit
       )
       run do
         bundle = scratch[:Bundle]
-        
+        skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
+
         Prenom = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource.name.given')   
         add_message('info', "Prénom: " + Prenom[0]["element"].to_s) 
       
@@ -80,6 +83,7 @@ module SasTestKit
       optional
       run do
         bundle = scratch[:Bundle]
+        skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
         
         Telephone = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource.telecom.value')   
         add_message('info', "Téléphone: " + Telephone&.dig(0, "element").to_s) 

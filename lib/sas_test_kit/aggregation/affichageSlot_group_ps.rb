@@ -1,5 +1,8 @@
 require_relative 'setup_test'
 
+require 'uri'
+require 'cgi'
+
 module SasTestKit
   class AffichageslotGroupPS < Inferno::TestGroup
     title "PS avec un seul lieu de consultation"
@@ -24,8 +27,7 @@ module SasTestKit
 
     input :practitioner_id,
           title: 'RPPS',
-          description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu',
-          default: '810100901734'
+          description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu'
     
     test from: :slot_search_setup do
       config(
@@ -47,8 +49,8 @@ module SasTestKit
             - la présence simultanée des quatre ressources principales dans le Bundle.
         )
         run do
-            bundle = scratch[:Bundle]
-            assert(bundle.present?, 'Bundle not found in scratch')
+            bundle = scratch[:Bundle]    
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
             
             NbRessourcesPracti = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").count()')   
             add_message('info', "Nombre de PS dans le message : " + NbRessourcesPracti[0]["element"].to_s) 
@@ -71,6 +73,12 @@ module SasTestKit
             assert (NbRessourcesPracti[0]["element"]) == 1, "Une seule ressource Practitioner doit être présente pour un RPPS appelé"
             assert (NombreLieu[0]["element"]) == 1, "Une seule ressource Location doit être présente pour ce RPPS"
             #verification présence des 4 principales ressources dans le Bundle
+            total = evaluate_fhirpath(resource: bundle, path: 'total')      
+            expected_total = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").count()')
+            add_message('info', "Total (bundle) : " + total[0]["element"].to_s + "/ Total Slot (Calculé) : " + expected_total[0]["element"].to_s) 
+            warning do
+                assert (total[0]["element"]) == (expected_total[0]["element"]), "le valeur de total doit être égale au nombre de ressources slot dans le Bundle"
+            end
 
             assert(evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").exists() and entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").exists() and entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").exists() and entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").exists()'))
             
@@ -88,6 +96,7 @@ module SasTestKit
         )
         run do
             bundle = scratch[:Bundle]
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
             IDNPS = scratch[:IDNPS]
             
             RPPSrecupere = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource.identifier.value')   
@@ -112,7 +121,7 @@ module SasTestKit
         )
         run do
             bundle = scratch[:Bundle]
-            assert(bundle.present?, 'Bundle not found in scratch')
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
             
             NbCreneauxAvantDebut = evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur" and resource.start < now()).count()')
             
@@ -151,7 +160,7 @@ module SasTestKit
         )
         run do
             bundle = scratch[:Bundle]
-            assert(bundle.present?, 'Bundle not found in scratch')
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
 
             reference_practi = evaluate_fhirpath(
               resource: bundle,
@@ -216,7 +225,7 @@ module SasTestKit
         )
         run do
             bundle = scratch[:Bundle]
-            assert(bundle.present?, 'Bundle not found in scratch')
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
             assert(evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource.contained.address.line.exists()'))
             add_message('info', "Ligne adresse: " + (evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource.contained.address.line.value'))[0]["element"].to_s) 
             add_message('info', "Ville: " + (evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource.contained.address.city.value'))[0]["element"].to_s) 
@@ -242,16 +251,32 @@ module SasTestKit
             Ce test valide que le champ **`Bundle.link.url`** **reflète exactement** l'URL de la requête FHIR ayant produit le Bundle.
         )
         run do
-            query = scratch[:query]
+            request_url = scratch[:query]
             bundle = scratch[:Bundle]
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
             URL = evaluate_fhirpath(
-            resource: bundle, 
+            resource: bundle,
             path: 'link.url'
             )
 
-            add_message('info', "champ URL.link: " + URL[0]["element"].to_s)
-            add_message('info', "requête FHIR: " + query)
-            assert(query == URL[0]["element"].to_s)
+            assert(URL[0] != nil, "Le champ link.URL n'est pas présent ou est vide")
+            
+            link_url = URL[0]["element"].to_s
+       
+            def normalized_query(url)
+                decoded_url = CGI.unescapeHTML(url)
+                uri = URI.parse(decoded_url)
+                CGI.parse(uri.query).transform_values(&:sort)
+            end
+
+            add_message('info', "champ link.URL: " + link_url)
+            add_message('info', "requête FHIR: " + request_url)
+            
+            request_query = normalized_query(request_url)
+            link_query    = normalized_query(link_url)
+
+            assert(request_query == link_query, "Les query strings ne correspondent pas")
+            add_message("warning", "L'URL du bundle et de la requête ne sont pas identiques !") if (link_url != request_url)
         end
     end
 
@@ -267,6 +292,7 @@ module SasTestKit
         )
         run do
             bundle = scratch[:Bundle]
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
             PresenceURLPRDV = evaluate_fhirpath(
             resource: bundle, 
             path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.all(

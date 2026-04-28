@@ -22,8 +22,7 @@ module SasTestKit
 
         input :practitioner_id2,
             title: 'RPPS',
-            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS possédant deux lieux d\'exercice',
-            default: '810001678357'
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS possédant deux lieux d\'exercice'
         
         test from: :slot_search_setup do
             config(
@@ -42,8 +41,9 @@ module SasTestKit
                 Cette cardinalité est attendue même dans le cas d'un PS exerçant sur plusieurs lieux.
             )
             run do
+                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:practitioner] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource')
-                assert(scratch[:practitioner].length == 1, "Le Bundle doit contenir exactement une ressource Practitioner, en a #{scratch[:practitioner].length}")
+                assert(scratch[:practitioner].length == 1, "Le Bundle doit contenir exactement une ressource Practitioner, il en possède #{scratch[:practitioner].length}")
             end
         end
 
@@ -56,8 +56,9 @@ module SasTestKit
                 Le Bundle doit contenir **exactement deux** ressources *FrPractitionerRoleExerciceAgregateur*.
             )
             run do
+                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:practitioner_roles] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource')
-                assert(scratch[:practitioner_roles].length == 2, "Le Bundle doit contenir exactement deux ressources PractitionerRole, en a #{scratch[:practitioner_roles].length}")
+                assert(scratch[:practitioner_roles].length == 2, "Le Bundle doit contenir exactement deux ressources PractitionerRole, il en possède #{scratch[:practitioner_roles].length}")
             end
         end
 
@@ -70,8 +71,9 @@ module SasTestKit
                 Cette cardinalité reflète les disponibilités propres à chaque lieu.
             )
             run do
+                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:schedules] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").resource')
-                assert(scratch[:schedules].length == 2, "Le Bundle doit contenir exactement deux ressources Schedule, en a #{scratch[:schedules].length}")
+                assert(scratch[:schedules].length == 2, "Le Bundle doit contenir exactement deux ressources Schedule, il en possède #{scratch[:schedules].length}")
             end
         end
 
@@ -84,6 +86,7 @@ module SasTestKit
                 Toutes les relations `PractitionerRole.practitioner.reference` doivent pointer vers le même identifiant `Practitioner/<id>`.
             )
             run do
+                skip %(Les tests **4.5.02** et **4.5.03** doivent être validés pour évaluer ce test) if (!scratch[:practitioner].present? && !scratch[:practitioner_roles].present?)
                 practitioner = scratch[:practitioner]
                 practitioner_roles = scratch[:practitioner_roles]
                 practitioner_roles.each do |pr|
@@ -101,6 +104,7 @@ module SasTestKit
                 Toutes les références `Schedule.actor.reference` de type `PractitionerRole/<id>` doivent correspondre à l'un des PractitionerRole retournés.
             )
             run do
+                skip %(Les tests **4.5.03** et **4.5.04** doivent être validés pour évaluer ce test) if (!scratch[:practitioner_roles].present? && !scratch[:schedules].present?)
                 practitioner_roles = scratch[:practitioner_roles]
                 schedules = scratch[:schedules]
                 schedules.each do |s|
@@ -121,6 +125,7 @@ module SasTestKit
                 Chaque `Schedule.actor.reference` de type `Practitioner/<id>` doit correspondre exactement au `Practitioner` unique du Bundle.
             )
             run do
+                skip %(Les tests **4.5.02** et **4.5.04** doivent être validés pour évaluer ce test) if (!scratch[:practitioner].present? && !scratch[:schedules].present?)
                 practitioner = scratch[:practitioner]
                 schedules = scratch[:schedules]
                 schedules.each do |s|
@@ -140,10 +145,10 @@ module SasTestKit
                 Chaque `PractitionerRole.location.reference` doit référencer une ressource `Location` contenue (`#<id>`), et chaque Location contenue doit correspondre à l'un des lieux d'exercice du PS.
             )
             run do
+                skip %(Le test **4.5.03** doit être validé pour évaluer ce test) if (!scratch[:practitioner_roles].present?)
                 practitioner_roles = scratch[:practitioner_roles]
                 locations = practitioner_roles.map { |pr| pr['element'].location.map { |loc| loc.reference } }.flatten
                 location_ids = practitioner_roles.map { |pr| pr['element'].contained.select { |res| res.resourceType == 'Location' }.map { |loc| loc.id } }.flatten
-                add_message('info', "Lieux référencés : #{locations} / Lieux contenus : #{location_ids}")
                 locations.each_with_index do |loc_ref, i|
                     assert('#' + location_ids[i] == loc_ref, "Le lieu d'exercice référencé par le PractitionerRole doit correspondre à la ressource Location contenue dans contained")
                 end

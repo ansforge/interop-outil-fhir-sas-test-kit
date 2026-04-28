@@ -1,5 +1,6 @@
 require_relative 'metadata'
 require_relative 'visual_group'
+require_relative 'capability_statement_group'
 require_relative 'tls_test_suite'
 require_relative 'mtls_group'
 require_relative 'IDNST_group_ps'
@@ -102,29 +103,10 @@ module SasTestKit
       end
     end
     group from: :tls
+
     group from: :visual_group     
     
-    group do
-  
-      id :capability_statement
-      title 'Capability Statement'
-      description 'Verification de la présence du  CapabilityStatement sur le serveur'
-      optional
-
-      test do
-        optional
-        id :capability_statement_read
-        title 'Recupération du  CapabilityStatement'
-        description 'Récupération  du CapabilityStatement du endpoint  /metadata '
-
-        run do
-          fhir_get_capability_statement
-
-          assert_response_status(200)
-          assert_resource_type(:capability_statement) 
-        end
-      end
-    end
+    group from: :capability_statement
 
     group from: :aggregation_group
     

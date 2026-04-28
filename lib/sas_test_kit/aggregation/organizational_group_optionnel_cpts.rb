@@ -10,8 +10,7 @@ module SasTestKit
 
       input :practitioner_id,
             title: 'RPPS',
-            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu et avec au moins un créneau lié à une CPTS',
-            default: '810100901734'
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu et avec au moins un créneau lié à une CPTS'
 
       run do
 

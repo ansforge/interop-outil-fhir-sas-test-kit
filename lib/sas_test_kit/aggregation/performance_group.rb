@@ -19,8 +19,7 @@ module SasTestKit
       
 
       input :practitioner_id,
-            title: 'RPPS',
-            default: '810100901734'
+            title: 'RPPS'
 
       run do
 
