@@ -93,7 +93,7 @@ module InvalidPractitionerValues
                 ]
                 },
                 system: "urn:oid:1.2.250.1.71.4.2.1",
-                value: "1234567890"
+                value: "#{SecureRandom.uuid}"
             }
             ],
             active: true,

@@ -20,19 +20,51 @@ module SasTestKit
         run do
             bad_regulator = InvalidPractitionerField::NO_IDENTIFIER
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test NO_IDENTIFIER: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : NO_IDENTIFIER
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête en raison de l'absence du champ **identifier**.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #----------
             bad_regulator = InvalidPractitionerField::NO_NAME
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test NO_NAME: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : NO_NAME
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête en raison de l'absence du champ **name**.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #----------
             bad_regulator = InvalidPractitionerField::NO_TELECOM
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test NO_TELECOM: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : NO_TELECOM
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête en raison de l'absence du champ **telecom**.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #----------
             bad_regulator = InvalidPractitionerField::NO_ACTIVE
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test NO_ACTIVE: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : NO_ACTIVE
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête en raison de l'absence du champ **active**.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
         end
     end
 end
