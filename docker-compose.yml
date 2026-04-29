@@ -3,6 +3,8 @@ services:
     build:
       context: ./
     container_name: inferno
+    env_file:
+      - .env.development
     volumes:
       - ${INFERNO_VOLUME}:/opt/inferno/data
     depends_on:
@@ -11,6 +13,8 @@ services:
   worker:
     build:
       context: ./
+    env_file:
+      - .env.development
     volumes:
       - ${WORKER_VOLUME}:/opt/inferno/data
     command: bundle exec sidekiq -r ./worker.rb
