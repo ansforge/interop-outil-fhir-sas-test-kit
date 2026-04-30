@@ -28,23 +28,63 @@ class BadCreationRegulateurInvalidValuesTest < Inferno::Test
         run do
             bad_regulator = InvalidPractitionerValues::EMPTY_NAME
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test EMPTY_NAME: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : EMPTY_NAME
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête, le champ name.family étant vide.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #----------
             bad_regulator = InvalidPractitionerValues::EMPTY_MAIL
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test EMPTY_MAIL: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : EMPTY_MAIL
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête, le champ telecom.value étant vide.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #----------
             bad_regulator = InvalidPractitionerValues::WRONG_TELECOM_SYSTEM
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test WRONG_TELECOM_SYSTEM: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : WRONG_TELECOM_SYSTEM
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête, le champ telecom.system étant invalide.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
              #----------
             bad_regulator = InvalidPractitionerValues::WRONG_CODE_FOR_IDNPS_SYSTEM
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test WRONG_CODE_FOR_IDNPS_SYSTEM: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : WRONG_CODE_FOR_IDNPS_SYSTEM
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête, le champ identifier.coding.code devrait être **IDNPS**.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
              #----------
             bad_regulator = InvalidPractitionerValues::WRONG_CODE_FOR_INTRN_SYSTEM
             mTLS == 'true' ? fhir_create(bad_regulator) : fhir_create(bad_regulator, client: :no_mTLS)
-            assert(response[:status] >= 400 && response[:status] < 600, "Test WRONG_CODE_FOR_INTRN_SYSTEM: Expected response status 4xx or 5xx, got #{response[:status]}")
+            error_message = %(
+                ### Échec du test : WRONG_CODE_FOR_INTRN_SYSTEM
+
+                - **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+                - **Résultat obtenu** : **`#{response[:status]}`**
+
+                L'API aurait dû rejeter la requête, le champ identifier.coding.code devrait être **INTRN**.
+            )
+            assert(response[:status] >= 400 && response[:status] < 600, error_message)
         end
     end
 end

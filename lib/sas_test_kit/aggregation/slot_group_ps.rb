@@ -26,18 +26,13 @@ module SasTestKit
     end
 
     test do
-      title 'Test recherche par slot - renvoi Bundle'
+      title 'Vérification du Bundle par le validateur'
       description %(
-        Ce test vérifie qu'une recherche sur la ressource Slot aboutit au renvoi
-        d'un Bundle conforme.
+        Ce test vérifie la validité d'un Bundle FHIR. 
 
         Il contrôle notamment :
-        - le succès de la requête de recherche,
         - le type de ressource retournée (Bundle),
         - la conformité du Bundle au profil FHIR d'agrégation attendu.
-
-        L'objectif est de garantir que la recherche Slot fournit un résultat
-        exploitable et conforme aux exigences de l'API.
       )
       run do
         bundle = scratch[:Bundle]
