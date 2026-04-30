@@ -15,7 +15,7 @@ module SasTestKit
       correctement à une requête de recherche Slot, en respectant les spécifications
       fonctionnelles et de structure définies pour l'agrégation de créneaux.
     )
-    id :slot_group_ps
+    id :slot_group
 
     test from: :slot_search_setup do
         config(
