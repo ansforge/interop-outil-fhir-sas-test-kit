@@ -2,7 +2,7 @@ module SasTestKit
     module MultiLieux
         class ValidateScheduleCardinality < Inferno::Test
             title 'Vérification de la présence de deux ressources Schedule'
-            id :validate_schedule_cardinality
+            id :validate_schedule_cardinality_1
             description %(
                 ## Description
 
