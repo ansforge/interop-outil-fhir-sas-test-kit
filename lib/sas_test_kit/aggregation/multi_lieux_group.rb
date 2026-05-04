@@ -40,7 +40,7 @@ module SasTestKit
             )
         end
 
-        test from: :validate_practitioner_cardinality
+        test from: :validate_practitioner_cardinality_1
 
         test from: :validate_practitionerrole_cardinality
 

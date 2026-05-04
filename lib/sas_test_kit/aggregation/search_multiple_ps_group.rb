@@ -1,5 +1,7 @@
 require_relative 'setup_test'
 
+require_relative 'search_multiple_ps_tests/ps_validate_practitioner_cardinality_test'
+
 module SasTestKit
     class SearchMultiplePsGroup < Inferno::TestGroup
         title 'Recherche multi-PS'
@@ -32,20 +34,7 @@ module SasTestKit
             )
         end
 
-        test do
-            title 'Vérification de la présence de deux ressources Practitioner'
-            description %(
-                ## Description
-
-                Ce test réalise une vérification de la **présence de deux ressources Practitioner** dans le Bundle de réponse.  
-                Il est attendu que la recherche multi-PS retourne **exactement deux** profils *FrPractitionerAgregateur* correspondant aux deux RPPS renseignés en entrée.
-            )
-            run do
-                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
-                scratch[:practitioners] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").resource')
-                assert(scratch[:practitioners].length == 2, "Le Bundle doit contenir exactement deux ressources Practitioner, il en possède #{scratch[:practitioners].length}")
-            end
-        end
+        test from: :validate_practitioner_cardinality_2
 
         test do
             title "Vérification de la présence d'au moins deux ressources PractitionerRole"
