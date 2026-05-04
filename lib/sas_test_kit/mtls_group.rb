@@ -22,71 +22,60 @@ module SasTestKit
     )
     id :mtls_group
 
+    def build_params(launch_version)
+      if launch_version == 'ig_launch_1'
+        {
+          _include: 'Slot:schedule',
+          '_include:iterate': 'Schedule:actor',
+          status: 'free',
+          start: [
+            "ge2024-01-01T00:00:00.000+00:00",
+            "le2024-01-03T23:59:59.999+00:00"
+          ],
+          'schedule.actor:Practitioner.identifier':
+            'urn:oid:1.2.250.1.71.4.2.1|810101215225'
+        }
+      else
+        {
+          _include: ['Slot:schedule', 'Slot:service-type-reference'],
+          '_include:iterate': ['Schedule:actor', 'HealthcareService:organization'],
+          status: 'free',
+          start: [
+            "ge2024-06-12T16:20:00.000+02:00",
+            "le2024-06-15T16:20:00.000+02:00"
+          ],
+          'schedule.actor:Practitioner.identifier':
+            'urn:oid:1.2.250.1.71.4.2.1|810002909371,urn:oid:1.2.250.1.71.4.2.1|810001288385'
+        }
+      end
+    end
+
+    def resolve_client(mtls_enabled, fallback: :default, no_mTLS: :no_mTLS)
+      mtls_enabled == 'true' ? fallback : no_mTLS
+    end
+
      test do
       title 'Test certificat valide'
       description %(
          mTLS certificat valide
       )
-     
-
-      fhir_client do
-        url :base_url
-        ssl_client_cert OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.pem"))
-        ssl_client_key OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.key"))
-        verify_ssl OpenSSL::SSL::VERIFY_PEER
-        headers(
-        'Content-Type' => 'application/json',
-        'Accept'  => 'application/json+fhir'
-        )
-      end
-
+      
       run do
+        begin
+          params = build_params(suite_options[:launch_version])
+          client = resolve_client(mTLS)
 
-        if suite_options[:launch_version] == 'ig_launch_1'
-
-          begin
-            if mTLS == 'true'
-                fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                })
-            else
-                fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                }, client: :no_mTLS)
-            end
-            
-          rescue StandardError => e
-            add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-          end
-
-
-        elsif suite_options[:launch_version] == 'ig_launch_2'
-       
-          fhir_search('Slot', params: {
-          _include: [
-          'Slot:schedule',
-          'Slot:service-type-reference'
-            ],
-            '_include:iterate': [
-              'Schedule:actor',
-              'HealthcareService:organization'
-            ],
-          status: 'free',
-          start: [
-          "ge2024-06-12T16:20:00.000+02:00",
-          "le2024-06-15T16:20:00.000+02:00"
-          ],
-          'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810002909371,urn:oid:1.2.250.1.71.4.2.1|810001288385'
-          })
-
+          fhir_search('Slot', params: params, client: client)
+        rescue OpenSSL::SSL::SSLError => e
+          add_message('info', "[INFO][#{e.class}] : #{e.message}")
+          assert(1 > 0)
+        rescue StandardError => e
+          add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
-        if response.nil?
-          assert(1<0, "Response is nil")
-        else
-          assert_response_status(200)
-        end
+
+        assert(!response.nil?, "Response is nil")
+        assert(response[:status] == 200, "Expected status to be 200, got #{response[:status]}")
       end
     end
     
@@ -96,7 +85,6 @@ module SasTestKit
          mTLS erreur cname
       )
      
-
       fhir_client do
         url :base_url
         ssl_client_cert OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/invalid_bad_cname_certificate.key.crt.ca.pem"))
@@ -106,54 +94,24 @@ module SasTestKit
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
         )
-      end   
+      end
 
       run do
-        
-         if suite_options[:launch_version] == 'ig_launch_1'
-            begin
-                if mTLS == 'true'
-                    fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                    '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                    'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                    })
-                else
-                    fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                    '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                    'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                    }, client: :no_mTLS)
-                end
-            rescue OpenSSL::SSL::SSLError => e
-                add_message('info', "[INFO][#{e.class}] : #{e.message}")
-                assert(1 > 0)
-            rescue StandardError => e
-                add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-                assert(1 < 0, 'Response is nil')
-            end
-      
-        elsif suite_options[:launch_version] == 'ig_launch_2'
+        begin
+          params = build_params(suite_options[:launch_version])
+          client = resolve_client(mTLS)
 
-          fhir_search('Slot', params: {
-            _include: [
-            'Slot:schedule',
-            'Slot:service-type-reference'
-              ],
-              '_include:iterate': [
-                'Schedule:actor',
-                'HealthcareService:organization'
-              ],
-            status: 'free',
-            start: [
-            "ge2024-06-12T16:20:00.000+02:00",
-            "le2024-06-15T16:20:00.000+02:00"
-            ],
-            'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810002909371,urn:oid:1.2.250.1.71.4.2.1|810001288385'
-          })
+          fhir_search('Slot', params: params, client: client)
+        rescue OpenSSL::SSL::SSLError => e
+          add_message('info', "[INFO][#{e.class}] : #{e.message}")
+          assert(1 > 0)
+        rescue StandardError => e
+          add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        if !response.nil?
-          assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
-        end
+        assert(!response.nil?, "Response is nil")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
       end
     end
 
@@ -162,7 +120,6 @@ module SasTestKit
       description %(
          mTLS erreur OU
       )
-     
 
       fhir_client do
         url :base_url
@@ -173,52 +130,24 @@ module SasTestKit
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
         )
-      end   
+      end
 
       run do
-        
-        if suite_options[:launch_version] == 'ig_launch_1'
-          begin
-            if mTLS == 'true'
-                fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                })
-            else
-                fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                }, client: :no_mTLS)
-            end
-          rescue OpenSSL::SSL::SSLError => e
-            add_message('info', "[INFO][#{e.class}] : #{e.message}")
-            assert(1 > 0)
-          rescue StandardError => e
-            add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-            assert(1 < 0, 'Response is nil')
-          end
-        elsif suite_options[:launch_version] == 'ig_launch_2'
-         fhir_search('Slot', params: {
-          _include: [
-          'Slot:schedule',
-          'Slot:service-type-reference'
-            ],
-            '_include:iterate': [
-              'Schedule:actor',
-              'HealthcareService:organization'
-            ],
-          status: 'free',
-          start: [
-          "ge2024-06-12T16:20:00.000+02:00",
-          "le2024-06-15T16:20:00.000+02:00"
-          ],
-          'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810002909371,urn:oid:1.2.250.1.71.4.2.1|810001288385'
-          })
+        begin
+          params = build_params(suite_options[:launch_version])
+          client = resolve_client(mTLS)
+
+          fhir_search('Slot', params: params, client: client)
+        rescue OpenSSL::SSL::SSLError => e
+          add_message('info', "[INFO][#{e.class}] : #{e.message}")
+          assert(1 > 0)
+        rescue StandardError => e
+          add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        if !response.nil?
-          assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
-        end
+        assert(!response.nil?, "Response is nil")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
       end
     end
 
@@ -227,7 +156,6 @@ module SasTestKit
       description %(
          test mTLS certificat revoqué
       )
-     
 
       fhir_client do
         url :base_url
@@ -242,50 +170,21 @@ module SasTestKit
       end
 
       run do
-        
-        if suite_options[:launch_version] == 'ig_launch_1'
-          begin
-            if mTLS == 'true'
-                fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                })
-            else
-                fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                }, client: :no_mTLS)
-            end
-          rescue OpenSSL::SSL::SSLError => e
-            add_message('info', "[INFO][#{e.class}] : #{e.message}")
-            assert(1 > 0)
-          rescue StandardError => e
-            add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-            assert(1 < 0, 'Response is nil')
-          end
-        elsif suite_options[:launch_version] == 'ig_launch_2'
+        begin
+          params = build_params(suite_options[:launch_version])
+          client = resolve_client(mTLS)
 
-          fhir_search('Slot', params: {
-          _include: [
-          'Slot:schedule',
-          'Slot:service-type-reference'
-            ],
-            '_include:iterate': [
-              'Schedule:actor',
-              'HealthcareService:organization'
-            ],
-          status: 'free',
-          start: [
-          "ge2024-06-12T16:20:00.000+02:00",
-          "le2024-06-15T16:20:00.000+02:00"
-          ],
-          'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810002909371,urn:oid:1.2.250.1.71.4.2.1|810001288385'
-        })
+          fhir_search('Slot', params: params, client: client)
+        rescue OpenSSL::SSL::SSLError => e
+          add_message('info', "[INFO][#{e.class}] : #{e.message}")
+          assert(1 > 0)
+        rescue StandardError => e
+          add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        if !response.nil?
-          assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
-        end
+        assert(!response.nil?, "Response is nil")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
       end
     end
 
@@ -314,50 +213,21 @@ module SasTestKit
       end
 
       run do
-        if suite_options[:launch_version] == 'ig_launch_1'
-          begin
-            if mTLS == 'true'
-              fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                  '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                  'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                }, client: :no_certificate_mTLS)
-            else
-              fhir_search('Slot', params: { _include: 'Slot:schedule', 
-                  '_include:iterate': 'Schedule:actor', status: 'free',  start: ["ge2024-01-01T00:00:00.000+00:00", "le2024-01-03T23:59:59.999+00:00"],
-                  'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810101215225'
-                }, client: :no_certificate_no_mTLS)
-            end
-          rescue OpenSSL::SSL::SSLError => e
-            add_message('info', "[INFO][#{e.class}] : #{e.message}")
-            assert(1 > 0)
-          rescue StandardError => e
-            add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-            assert(1 < 0, 'Response is nil')
-          end
-            
-        elsif suite_options[:launch_version] == 'ig_launch_1'
+        begin
+          params = build_params(suite_options[:launch_version])
+          client = resolve_client(mTLS, fallback: :no_certificate_mTLS, no_mTLS: :no_certificate_no_mTLS)
 
-          fhir_search('Slot', params: {
-          _include: [
-          'Slot:schedule',
-          'Slot:service-type-reference'
-            ],
-            '_include:iterate': [
-              'Schedule:actor',
-              'HealthcareService:organization'
-            ],
-          status: 'free',
-          start: [
-          "ge2024-06-12T16:20:00.000+02:00",
-          "le2024-06-15T16:20:00.000+02:00"
-          ],
-          'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|810002909371,urn:oid:1.2.250.1.71.4.2.1|810001288385'
-        }, client: :no_certificate)
+          fhir_search('Slot', params: params, client: client)
+        rescue OpenSSL::SSL::SSLError => e
+          add_message('info', "[INFO][#{e.class}] : #{e.message}")
+          assert(1 > 0)
+        rescue StandardError => e
+          add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
+        end
 
-        end
-        if !response.nil?
-          assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
-        end
+        assert(!response.nil?, "Response is nil")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
       end
     end
   end
