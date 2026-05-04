@@ -1,6 +1,7 @@
 require_relative 'setup_test'
 
 require_relative 'search_multiple_ps_tests/ps_validate_practitioner_cardinality_test'
+require_relative 'search_multiple_ps_tests/ps_validate_practitionerrole_cardinality_test'
 
 module SasTestKit
     class SearchMultiplePsGroup < Inferno::TestGroup
@@ -36,34 +37,8 @@ module SasTestKit
 
         test from: :validate_practitioner_cardinality_2
 
-        test do
-            title "Vérification de la présence d'au moins deux ressources PractitionerRole"
-            description %(
-                ## Description
+        test from: :validate_practitionerrole_cardinality_2
 
-                Ce test effectue une vérification sur les **ressources PractitionerRole** retournées dans le Bundle.  
-                Il est attendu que la recherche multi-PS présente **au moins deux ressources** *FrPractitionerRoleExerciceAgregateur*, reflétant la présence de plusieurs PS dans la réponse.
-            )
-            run do
-                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
-                scratch[:practitioner_roles] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource')
-                assert(scratch[:practitioner_roles].length >= 2, "Le Bundle doit contenir au moins deux ressources PractitionerRole, il en possède #{scratch[:practitioner_roles].length}")
-            end
-        end
-
-        test do
-            title "Vérification de la présence d'au moins deux ressources Schedule"
-            description %(
-                ## Description
-
-                Ce test réalise une vérification sur les **ressources Schedule** du Bundle de réponse.  
-                La recherche multi-PS doit retourner **au minimum deux ressources Schedule**, chacune correspondant à un professionnel remonté par le flux Agrégateur.
-            )
-            run do
-                skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
-                scratch[:schedules] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").resource')
-                assert(scratch[:schedules].length >= 2, "Le Bundle doit contenir au moins deux ressources Schedule, il en possède #{scratch[:schedules].length}")
-            end
-        end
+        test from: :validate_schedule_cardinality_2
     end
 end

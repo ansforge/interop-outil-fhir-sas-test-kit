@@ -42,9 +42,9 @@ module SasTestKit
 
         test from: :validate_practitioner_cardinality_1
 
-        test from: :validate_practitionerrole_cardinality
+        test from: :validate_practitionerrole_cardinality_1
 
-        test from: :validate_schedule_cardinality
+        test from: :validate_schedule_cardinality_1
 
         test from: :validate_practitionerrole_practitioner_ref
                 

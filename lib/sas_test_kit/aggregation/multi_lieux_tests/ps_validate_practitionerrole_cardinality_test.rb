@@ -2,7 +2,7 @@ module SasTestKit
     module MultiLieux
         class ValidatePractitionerRoleCardinality < Inferno::Test
             title 'Vérification de la présence de deux ressources PractitionerRole'
-            id :validate_practitionerrole_cardinality
+            id :validate_practitionerrole_cardinality_1
             description %(
                 ## Description
 

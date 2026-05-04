@@ -12,12 +12,8 @@ module SasTestKit
       )
     id :performance_group
 
-
-
     test do
       title 'Test de performance'
-      
-
       input :practitioner_id,
             title: 'RPPS'
 
@@ -55,16 +51,12 @@ module SasTestKit
 
         mTLS == 'true' ? fhir_search('Slot', params: hash) : fhir_search('Slot', params: hash, client: :no_mTLS)
 
-
-
         assert_response_status(200)
         assert_resource_type('Bundle')
         used_time = Time.now - start        
         add_message('info', "Temps de réponse : " + used_time.to_s) 
-        assert used_time < 1, 'Temps de réponse supérieur à 1 seconde' 
-        
+        assert used_time < 1, 'Temps de réponse supérieur à 1 seconde'        
       end
     end
-
   end
 end
