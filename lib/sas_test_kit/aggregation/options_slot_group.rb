@@ -22,12 +22,12 @@ module SasTestKit
 
       ## Consignes d'utilisation
 
-      Ce test group s'appuie sur une phase préalable de recherche de créneaux afin
+      Ce groupe de test s'appuie sur une phase préalable de recherche de créneaux afin
       de constituer un Bundle de référence. Il est donc impératif que le professionnel
       de santé (PS) utilisé pour l'exécution des tests dispose d'un ensemble de créneaux
       suffisamment riche et représentatif.
 
-      Lors du lancement du test group, l'utilisateur doit renseigner :
+      Lors du lancement du groupe de test, l'utilisateur doit renseigner :
       - les types de créneaux proposés par la solution ;
       - les types de consultations associés aux créneaux.
 

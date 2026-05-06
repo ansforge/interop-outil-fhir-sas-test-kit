@@ -14,6 +14,12 @@ module SasTestKit
         title 'Flux agregateur'
         id    :aggregation_group
         description %(
+            Ce groupe de test vérifie la conformité du **serveur FHIR** aux spécifications du flux **agrégation de créneaux**.  
+
+            Les spécifications du flux **agrégation de créneaux** selon les cas d'usages :
+            -   [PS indiv](https://interop.esante.gouv.fr/ig/fhir/sas/specifications_techniques-ps-recherche_creneaux.html)
+            -   [CPTS](https://interop.esante.gouv.fr/ig/fhir/sas/specifications_techniques-cpts-recherche_creneaux.html)
+            -   [SOS Médecins](https://interop.esante.gouv.fr/ig/fhir/sas/specifications_techniques-sos-recherche_creneaux.html)
         )
 
         group from: :slot_group

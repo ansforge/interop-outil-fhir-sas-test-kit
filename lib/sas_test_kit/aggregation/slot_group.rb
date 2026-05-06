@@ -11,7 +11,7 @@ module SasTestKit
       aux profils FHIR attendus, ainsi que sur la cohérence entre les métadonnées
       du Bundle et les ressources Slot qu'il contient.
 
-      Ce test group vise à s'assurer que le serveur est capable de répondre
+      Ce groupe de test vise à s'assurer que le serveur est capable de répondre
       correctement à une requête de recherche Slot, en respectant les spécifications
       fonctionnelles et de structure définies pour l'agrégation de créneaux.
     )
