@@ -23,6 +23,7 @@ services:
       - .env.production
     volumes:
       - ${WORKER_VOLUME}:/opt/inferno/data
+      - ${CERT_VOLUME}:/opt/inferno/config/cert
     command: bundle exec sidekiq -r ./worker.rb
     depends_on:
       - redis
