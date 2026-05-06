@@ -6,15 +6,15 @@ module SasTestKit
 
       Ce groupe de tests a pour objectif de vérifier la mise en œuvre de la connexion sécurisée par **authentification mutuelle TLS (mTLS)** entre un client et un serveur FHIR.
 
-      Les tests valident le comportement du serveur lorsqu'il est sollicité avec différents types de certificats clients, afin de s'assurer que les règles de sécurité attendues sont correctement appliquées.
+      Les tests valident le comportement du serveur lorsqu'il est sollicité avec différents types de certificats clients, afin de s'assurer que les règles de sécurité attendues sont correctement appliquées selon la [spécification](https://esante.gouv.fr/sites/default/files/media/document/SAS_SPEC_Securisation-des-echanges-par-mTLS_20240524_V3.2.pdf).
 
-      Le test group couvre notamment les cas suivants :
+      Le groupe de test couvre notamment les cas suivants :
       - utilisation d'un certificat client valide,
       - utilisation de certificats invalides (CNAME incorrect, OU incorrect),
       - utilisation d'un certificat révoqué,
       - absence de certificat client.
 
-      Pour chaque configuration, une requête fonctionnelle est envoyée vers l'API FHIR, et le comportement du serveur est évalué à partir de la réponse ou de l'erreur retournée.
+      Pour chaque configuration, une requête fonctionnelle est envoyée vers l'endpoint FHIR, et le comportement du serveur est évalué à partir de la réponse ou de l'erreur retournée.
 
       L'objectif de ces tests est de garantir que :
       - les connexions mTLS valides sont acceptées,
