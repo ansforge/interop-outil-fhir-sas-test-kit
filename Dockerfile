@@ -26,4 +26,4 @@ COPY gems_to_update/fhir_client-6.0.0/lib/fhir_client/client.rb /usr/local/bundl
 COPY gems_to_update/rest-client-2.1.0/lib/restclient.rb /usr/local/bundle/gems/rest-client-2.1.0/lib/restclient.rb
 
 EXPOSE 4567
-CMD ["bundle", "exec", "puma"]
+CMD ["sh", "-c", "bundle exec rake db:migrate && bundle exec puma"]
