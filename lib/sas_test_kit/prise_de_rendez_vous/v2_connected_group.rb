@@ -12,14 +12,12 @@ module SasTestKit
             3. Le régulateur est automatiquement identifié et connecté à la solution de prise de rendez-vous, sans nouvelle authentification.
 
             ## Méthodologie de test
-            1. Ouvrir le premier lien dans un nouvel onglet afin de se connecter à la plateforme numérique du SAS.
-            2. Revenir ensuite sur la page Inferno.
-            3. Ouvrir le second lien dans un nouvel onglet pour initier la connexion vers la solution éditeur.
+            3. Ouvrir le lien dans un nouvel onglet pour initier la connexion vers la solution éditeur.
             4. Procéder à l'évaluation du test.
 
             ## Évaluation du test
-            Le test est considéré comme valide si l'ouverture du second lien redirige directement l'utilisateur vers une page de prise de rendez-vous ou un agenda,
-            sans qu'aucune étape d'authentification supplémentaire ne soit demandée.
+            Le test est considéré comme valide si l'ouverture du lien redirige directement l'utilisateur vers une page de prise de rendez-vous ou un agenda,
+            sans qu'aucune étape d'authentification supplémentaire ne soit demandée par la solution éditeur.
         )
         id :flux_v2_connected_group
         
