@@ -1,7 +1,6 @@
 FROM ruby:3.3.6
 
 ENV INSTALL_PATH=/opt/inferno/
-ENV APP_ENV=production
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
