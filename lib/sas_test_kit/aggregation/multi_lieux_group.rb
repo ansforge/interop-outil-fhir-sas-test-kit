@@ -32,6 +32,8 @@ module SasTestKit
             input :practitioner_id2,
                 title: 'RPPS',
                 description: 'Renseigner le RPPS (préfixé par 8) d\'un PS possédant deux lieux d\'exercice'
+
+            input_order :base_url, :mTLS, :practitioner_id2
             
             test from: :slot_search_setup do
                 config(

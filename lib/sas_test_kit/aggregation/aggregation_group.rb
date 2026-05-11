@@ -2,7 +2,7 @@ require_relative 'single-practitioner-single-location_group'
 require_relative 'multi_lieux_group'
 require_relative 'options_slot_group'
 require_relative 'performance_group'
-require_relative 'practitioner_group_optionnel_ps'
+require_relative 'practitioner_optionnel_group'
 require_relative 'search_multiple_ps_group'
 require_relative 'slot_group'
 require_relative 'organizational_group_optionnel'
@@ -21,6 +21,8 @@ module SasTestKit
             -   [CPTS](https://interop.esante.gouv.fr/ig/fhir/sas/specifications_techniques-cpts-recherche_creneaux.html)
             -   [SOS Médecins](https://interop.esante.gouv.fr/ig/fhir/sas/specifications_techniques-sos-recherche_creneaux.html)
         )
+
+        input_order :base_url, :mTLS, :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4
 
         group from: :slot_group
 

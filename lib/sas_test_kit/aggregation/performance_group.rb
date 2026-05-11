@@ -12,6 +12,8 @@ module SasTestKit
       )
     id :performance_group
 
+    input_order :base_url, :mTLS, :practitioner_id
+
     test do
       title 'Test de performance'
       input :practitioner_id,

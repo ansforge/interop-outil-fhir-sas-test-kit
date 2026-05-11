@@ -60,6 +60,8 @@ module SasTestKit
 
     id :optionslots_group
 
+    input_order :base_url, :mTLS, :practitioner_id
+
     test from: :slot_search_setup do
       config(
         inputs: {
@@ -75,6 +77,5 @@ module SasTestKit
       required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
 
     test from: :ps_validate_motif_type
-
   end
 end

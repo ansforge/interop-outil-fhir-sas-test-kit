@@ -67,14 +67,14 @@ module MyTestKit
     
         IDNST = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource.organization.identifier.value')   
         valueIDNST = IDNST&.dig(0, "element").to_s
-        add_message('info', "IDNST: " + valueIDNST) 
+        add_message('info', "IDNST: " + valueIDNST)
 
         assert valueIDNST && !valueIDNST.empty?, "L'identifiant de structure est manquant"
         
         PATTERNS_ANY = [
         /\A1[0-9]{9}\z/,  # FINESS
         /\A3[0-9]{14}\z/, # SIRET
-        /\A4[0-9]{14}\z/   # RPPSRANG
+        /\A4[0-9]{14}\z/  # RPPSRANG
         ]
 
         assert (matches_any = PATTERNS_ANY.any? { |rx| rx.match?(valueIDNST) }), "L'IDNST doit être au bon format"

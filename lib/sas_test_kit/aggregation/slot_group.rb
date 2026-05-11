@@ -17,6 +17,8 @@ module SasTestKit
     )
     id :slot_group
 
+    input_order :base_url, :mTLS, :practitioner_id
+
     test from: :slot_search_setup do
         config(
             inputs: { 

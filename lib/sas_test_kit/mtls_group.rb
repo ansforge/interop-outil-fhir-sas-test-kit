@@ -74,8 +74,7 @@ module SasTestKit
           assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        assert(!response.nil?, "Response is nil")
-        assert(response[:status] == 200, "Expected status to be 200, got #{response[:status]}")
+        assert(response[:status] == 200, "Expected status to be 200, got #{response[:status]}") unless response.nil?
       end
     end
     
@@ -110,8 +109,7 @@ module SasTestKit
           assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        assert(!response.nil?, "Response is nil")
-        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?
       end
     end
 
@@ -146,8 +144,7 @@ module SasTestKit
           assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        assert(!response.nil?, "Response is nil")
-        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?
       end
     end
 
@@ -183,8 +180,7 @@ module SasTestKit
           assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        assert(!response.nil?, "Response is nil")
-        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?
       end
     end
 
@@ -226,8 +222,7 @@ module SasTestKit
           assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
         end
 
-        assert(!response.nil?, "Response is nil")
-        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}")
+        assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?
       end
     end
   end

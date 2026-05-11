@@ -27,6 +27,8 @@ module SasTestKit
             input :practitioner_id4,
                 title: 'RPPS',
                 description: "Renseigner le RPPS (préfixé par 8) d'un PS pouvant être remonté dans une même recherche que celui ci-dessus"
+
+            input_order :base_url, :mTLS, :practitioner_id3, :practitioner_id4
             
             test from: :slot_search_setup do
                 config(

@@ -9,7 +9,7 @@ module SasTestKit
                 Ce test contrôle la **cohérence temporelle** des `Slot` :  
                 - absence de créneaux avec une **date de début antérieure** à “maintenant” ;
                 - présence d'une **date de fin** pour chaque `Slot` ;
-                - vérification que **`start ≤ end`** pour tous les `Slot` ;
+                - vérification que **`start < end`** pour tous les `Slot` ;
                 - **bornage** des dates de début par la **date de fin de recherche**.
             )
             run do
