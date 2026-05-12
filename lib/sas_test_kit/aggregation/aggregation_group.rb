@@ -6,6 +6,7 @@ require_relative 'practitioner_optionnel_group'
 require_relative 'search_multiple_ps_group'
 require_relative 'slot_group'
 require_relative 'organizational_group_optionnel'
+require_relative 'single_practitioner_multiple_cpts_group'
 
 require_relative '../sas_options.rb'
 
@@ -37,6 +38,9 @@ module SasTestKit
         group from: :optionslots_group
             
         group from: :performance_group
+
+        group from: :single_practitioner_multiple_cpts,
+            required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
 
         group from: :orga_optionnel_group,
             required_suite_options: SASOptions::IG_REQUIREMENT_CPTS

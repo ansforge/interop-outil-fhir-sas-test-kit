@@ -13,6 +13,8 @@ module SasTestKit
       description 'Contrôles des données optionnelles du PS'
       id :practi_optionnel_group_ps
 
+      input_order :base_url, :mTLS, :practitioner_id
+
       input :practitioner_id,
               title: 'RPPS',
               description: 'Renseigner le RPPS (préfixé par 8) d\'un PS avec nom, prénom et téléphone'

@@ -31,8 +31,9 @@ module SasTestKit
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
+                SLOT_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
 
-                lst_type_consultation_retournes = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.serviceType.coding.code.distinct()')   
+                lst_type_consultation_retournes = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.serviceType.coding.code.distinct()")   
                 str_consultation = ""
                 lst_type_consultation_retournes.each_with_index do |type_consult, int|
                 str_consultation = str_consultation + type_consult["element"].to_s + "," 

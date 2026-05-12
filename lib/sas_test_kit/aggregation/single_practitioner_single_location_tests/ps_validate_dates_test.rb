@@ -16,12 +16,14 @@ module SasTestKit
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
                 
+                SLOT_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+
                 NbCreneauxAvantDebut = evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur" and resource.start < now()).count()')
                 
                 add_message('info', "Nb créneaux avant date début: " + NbCreneauxAvantDebut[0]["element"].to_s)  
                 assert (NbCreneauxAvantDebut[0]["element"] == 0), "Il ne doit pas y avoir de créneaux avec une date de début antérieure à la date courante"
                 
-                date_debut = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.start')
+                date_debut = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.start")
                 threshold = scratch[:DateFin]
 
                 date_debut.each_with_index do |date_hash, int|
@@ -32,12 +34,12 @@ module SasTestKit
                 end
 
                 #Vérification présence dates fin
-                date_fin = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.end.exists()')
-                assert(date_fin[0]["element"].to_s == 'true', "tous les ressources Slot doivent avoir une date de fin")
+                date_fin = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.end.exists()")
+                assert(date_fin[0]["element"].to_s == 'true', "Toutes les ressources Slot doivent avoir une date de fin")
 
                 #Vérification date début < date fin
-                Boolean_start_end = evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.all(start<end)')
-                assert(Boolean_start_end[0]["element"].to_s == 'true', "tous les ressources Slot doivent avoir une date de début inférieure à la date de fin")
+                Boolean_start_end = evaluate_fhirpath(resource: bundle, path:"entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.all(start<end)")
+                assert(Boolean_start_end[0]["element"].to_s == 'true', "Toutes les ressources Slot doivent avoir une date de début inférieure à la date de fin")
             end
         end
     end
