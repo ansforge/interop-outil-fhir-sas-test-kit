@@ -8,6 +8,7 @@ module SasTestKit
             )
             run do
                 bundle = scratch[:Bundle]
+                skip "Le test d'initialisation doit être validé pour évaluer ce test" unless (bundle.present?)
             
                 IDNST = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource.organization.identifier.value')   
                 valueIDNST = IDNST&.dig(0, "element").to_s

@@ -41,7 +41,7 @@ module SasTestKit
         skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
         
         TelCPTS = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-organization-aggregator").resource.telecom.value')   
-        add_message('info', "Nom CPTS: " + TelCPTS[0]["element"].to_s) 
+        add_message('info', "Numéro de téléphone CPTS: " + TelCPTS[0]["element"].to_s) 
       
         assert ( TelCPTS != nil), "Le téléphone de la CPTS doit être présent"
         

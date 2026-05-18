@@ -36,7 +36,7 @@ module SasTestKit
                 has_two_distinct_orgs = distinct_refs.length >= 2
                 
                 error_message = %(
-                    Certaines ressources HealthcareService ne référencent pas correctement une Organization
+                    L'ensemble des HealthcareService doivent référencer une Organization présente dans le Bundle, et il doit y avoir au moins deux références distinctes.
 
                     - **Organizations attendues (présentes dans le Bundle)** :
                         #{organization_refs}

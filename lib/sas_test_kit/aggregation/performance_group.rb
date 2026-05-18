@@ -55,7 +55,7 @@ module SasTestKit
 
         assert_response_status(200)
         assert_resource_type('Bundle')
-        used_time = Time.now - start        
+        used_time = Time.now - start
         add_message('info', "Temps de réponse : " + used_time.to_s) 
         assert used_time < 1, 'Temps de réponse supérieur à 1 seconde'        
       end

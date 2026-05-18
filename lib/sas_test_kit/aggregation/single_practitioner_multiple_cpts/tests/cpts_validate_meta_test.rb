@@ -1,7 +1,7 @@
 module SasTestKit
     module SinglePractitionerMultipleCPTS
         class ValidateMeta < Inferno::Test
-            title 'Vérification de la présence du code CPTS les Slots'
+            title 'Vérification de la présence du code CPTS dans les Slots'
             id :cpts_validate_meta
             description %(
                 Ce test vérifie que les ressource Slots du bundle ont un champ meta.security.code = CPTS.

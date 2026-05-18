@@ -92,6 +92,8 @@ module SasTestKit
 
         run_as_group
 
+        input_order :base_url, :mTLS
+
         http_client do
             url :base_url  
             headers(

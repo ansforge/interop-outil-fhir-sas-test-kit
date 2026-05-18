@@ -25,6 +25,8 @@ module SasTestKit
 
         input_order :base_url, :mTLS, :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4
 
+        group from: :performance_group
+
         group from: :slot_group
 
         group from: :single_practitioner_single_location
@@ -37,8 +39,6 @@ module SasTestKit
 
         group from: :optionslots_group
             
-        group from: :performance_group
-
         group from: :single_practitioner_multiple_cpts,
             required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
 

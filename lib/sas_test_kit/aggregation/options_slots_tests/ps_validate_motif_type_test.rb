@@ -36,12 +36,12 @@ module SasTestKit
                 lst_type_consultation_retournes = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.serviceType.coding.code.distinct()")   
                 str_consultation = ""
                 lst_type_consultation_retournes.each_with_index do |type_consult, int|
-                str_consultation = str_consultation + type_consult["element"].to_s + "," 
+                  str_consultation = str_consultation + type_consult["element"].to_s + "," unless type_consult["element"].to_s == "604"
                 end
 
                 str_consultation_dispo = ""
                 type_consultation.each_with_index do |type_consult, int|
-                str_consultation_dispo = str_consultation_dispo + type_consult.to_s + ","
+                  str_consultation_dispo = str_consultation_dispo + type_consult.to_s + ","
                 end
 
                 add_message('info', "types de créneaux retournés: " + str_consultation.to_s) 
