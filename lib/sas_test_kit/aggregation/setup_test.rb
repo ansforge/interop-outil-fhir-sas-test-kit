@@ -38,7 +38,7 @@ module SasTestKit
         date_range = SetupHelper.calculate_date_range
         formatted_id = SetupHelper.format_practitioner_id(practitioner_id, practitioner_id_opt)
 
-            
+
         # Construction des paramètres
         params = SetupHelper.build_slot_search_params(
             formatted_id,

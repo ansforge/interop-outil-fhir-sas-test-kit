@@ -7,7 +7,7 @@ module SasTestKit
         description %()
          run do
             bundle = scratch[:Bundle]
-            assert(bundle.present?, 'Bundle not found in scratch')
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" unless (bundle.present?)
                 
             ig_version = suite_options[:launch_version]
             structure_definition = case ig_version
