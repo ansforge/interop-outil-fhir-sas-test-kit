@@ -11,11 +11,13 @@ module SasTestKit
       aux profils FHIR attendus, ainsi que sur la cohérence entre les métadonnées
       du Bundle et les ressources Slot qu'il contient.
 
-      Ce test group vise à s'assurer que le serveur est capable de répondre
+      Ce groupe de test vise à s'assurer que le serveur est capable de répondre
       correctement à une requête de recherche Slot, en respectant les spécifications
       fonctionnelles et de structure définies pour l'agrégation de créneaux.
     )
-    id :slot_group_ps
+    id :slot_group
+
+    input_order :base_url, :mTLS, :practitioner_id
 
     test from: :slot_search_setup do
         config(
@@ -34,12 +36,19 @@ module SasTestKit
         - le type de ressource retournée (Bundle),
         - la conformité du Bundle au profil FHIR d'agrégation attendu.
       )
+
+      output :used_time
       run do
         bundle = scratch[:Bundle]
         skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle)
         
+        BUNDLE_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/BundleAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-bundle-aggregator'
+
+        start = Time.now
         assert_resource_type('Bundle', resource: bundle)
-        assert_valid_resource(resource: bundle, profile_url: 'http://sas.fr/fhir/StructureDefinition/BundleAgregateur', validator: :validator_sas)  
+        assert_valid_resource(resource: bundle, profile_url: "#{BUNDLE_PROFILE_URL}", validator: :validator_sas)
+        used_time = Time.now - start
+        output used_time: used_time
       end
     end
   end

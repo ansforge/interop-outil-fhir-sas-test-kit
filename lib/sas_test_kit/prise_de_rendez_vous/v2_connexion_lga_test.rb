@@ -5,8 +5,8 @@ module SasTestKit
         description %(
         )
         run do
+            skip "Le test d'initialisation doit être validé pour évaluer ce test" unless (scratch[:sso_url].present?)
             sso_url = scratch[:sso_url] + "&origin=sas-preprod"
-            add_message('info', "URL de redirection : #{sso_url}")
             
             external_url = "#{sso_url}"
 

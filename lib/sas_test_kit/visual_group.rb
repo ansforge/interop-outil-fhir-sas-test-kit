@@ -4,6 +4,8 @@ module SasTestKit
     description 'Verification des prérequis et des  fonctionnalités du logiciel'
     id :visual_group
 
+    input_order :base_url, :mTLS, :gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes
+
     test do
       title 'Gestion du RPPS pour les professionels de santé'
       description %(

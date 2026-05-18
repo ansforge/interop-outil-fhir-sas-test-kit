@@ -2,7 +2,7 @@ services:
   inferno:
     build:
       context: ./
-      args: 
+      args:
         - http_proxy=http://grpxy-vip.grita.fr:3128
         - https_proxy=http://grpxy-vip.grita.fr:3128
     mem_reservation: ${MEMORY_RESERVATION:-256m}
@@ -22,7 +22,7 @@ services:
   worker:
     build:
       context: ./
-      args: 
+      args:
         - http_proxy=http://grpxy-vip.grita.fr:3128
         - https_proxy=http://grpxy-vip.grita.fr:3128
     mem_reservation: ${MEMORY_WORKER_RESERVATION:-256m}

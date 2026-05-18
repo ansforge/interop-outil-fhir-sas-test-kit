@@ -15,12 +15,13 @@ module SasTestKit
     id :sas
     title 'Sas Test Kit Test Suite'
     description %(
-          #  Qu'est-ce que la plateforme numérique du SAS ?
-          La plateforme numérique du service d'accès aux soins (SAS) est un outil dédié aux professionnels de la chaîne de régulation médicale pour faciliter l'orientation vers la médecine de ville. Simple et modulable, elle facilite l'accès à l'offre de soins disponible et s'intègre dans l'écosystème du numérique en santé.
-
-          #  Développement et recette connectée
-          Cette suite de test est mise à diposition pour faciliter la recette connectée
-        )
+        Cette suite de test permet de valider la conformité de l'interfaçage avec la plateforme numérique du SAS, selon les [spécifications](https://interop.esante.gouv.fr/ig/fhir/sas/index.html). 
+        Les flux testé sont les suivants :
+        - agrégation de créneaux
+        - gestion des comptes régulateurs
+        - flux SSO
+        - transmission des infos de rendez-vous (à venir)
+    )
 
     suite_summary %(
     Test de conformité aux spécifications SAS
