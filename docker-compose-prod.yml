@@ -12,6 +12,8 @@ services:
       - .env.production
     environment:
       INFERNO_HOST: ${INFERNO_HOST}
+      http_proxy: ${http_proxy:-}
+      https_proxy: ${https_proxy:-}
     volumes:
       - ${INFERNO_VOLUME}:/opt/inferno/data
       - ${CERT_VOLUME}:/opt/inferno/config/cert
@@ -22,15 +24,14 @@ services:
   worker:
     build:
       context: ./
-      args:
-        - http_proxy=http://grpxy-vip.grita.fr:3128
-        - https_proxy=http://grpxy-vip.grita.fr:3128
     mem_reservation: ${MEMORY_WORKER_RESERVATION:-256m}
     mem_limit: ${MEMORY_WORKER_LIMIT:-512m}
     env_file:
       - .env.production
     environment:
       INFERNO_HOST: ${INFERNO_HOST}
+      http_proxy: ${http_proxy:-}
+      https_proxy: ${https_proxy:-}
     volumes:
       - ${WORKER_VOLUME}:/opt/inferno/data
       - ${CERT_VOLUME}:/opt/inferno/config/cert
