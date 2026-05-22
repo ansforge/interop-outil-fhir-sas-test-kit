@@ -20,13 +20,14 @@ module SasTestKit
                 path: 'link.url'
                 )
 
-                assert(URL[0] != nil, "Le champ link.URL n'est pas présent ou est vide")
+                assert(URL[0] != nil && URL[0]["element"] != nil, "Le champ link.URL n'est pas présent ou est vide")
                 
                 link_url = URL[0]["element"].to_s
         
                 def normalized_query(url)
                     decoded_url = CGI.unescapeHTML(url)
                     uri = URI.parse(decoded_url)
+                    return {} if uri.nil? || uri.query.nil? || uri.query.empty?
                     CGI.parse(uri.query).transform_values(&:sort)
                 end
 

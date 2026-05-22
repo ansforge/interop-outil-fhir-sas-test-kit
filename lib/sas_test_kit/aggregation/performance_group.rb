@@ -47,7 +47,7 @@ module SasTestKit
         _include: 'Slot:schedule', 
         '_include:iterate': 'Schedule:actor',
         'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
-        start: ["ge#{formatted_start_date}.000+00", "le#{formatted_end_date}.000+00"],
+        start: ["ge#{formatted_start_date}.000+00:00", "le#{formatted_end_date}.000+00:00"],
         status: 'free'
         }
 

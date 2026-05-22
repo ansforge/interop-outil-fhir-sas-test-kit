@@ -68,10 +68,10 @@ module SasTestKit
           fhir_search('Slot', params: params, client: client)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
-          assert(1 > 0)
+          assert(1 < 0)
         rescue StandardError => e
           add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponse')
         end
 
         assert(response[:status] == 200, "Expected status to be 200, got #{response[:status]}") unless response.nil?
@@ -106,7 +106,7 @@ module SasTestKit
           assert(1 > 0)
         rescue StandardError => e
           add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponse')
         end
 
         assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?
@@ -141,7 +141,7 @@ module SasTestKit
           assert(1 > 0)
         rescue StandardError => e
           add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponse')
         end
 
         assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?
@@ -177,7 +177,7 @@ module SasTestKit
           assert(1 > 0)
         rescue StandardError => e
           add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponse')
         end
 
         assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?
@@ -219,7 +219,7 @@ module SasTestKit
           assert(1 > 0)
         rescue StandardError => e
           add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
-          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponses')
+          assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponse')
         end
 
         assert(response[:status] >= 400 && response[:status] < 500, "Expected status to be in 4xx range, got #{response[:status]}") unless response.nil?

@@ -8,7 +8,8 @@ module SasTestKit
         run do
             bundle = scratch[:Bundle]
             skip "Le test d'initialisation doit être validé pour évaluer ce test" unless (bundle.present?)
-            
+
+            assert(scratch[:sso_url].present?, 'Aucun champ comment trouvé dans le Bundle')
             sso_url = scratch[:sso_url] + "&origin=sas-preprod"
             add_message('info', "URL de SSO : #{sso_url}")
             get(sso_url, client: nil)

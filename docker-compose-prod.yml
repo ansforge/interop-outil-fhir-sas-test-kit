@@ -12,6 +12,8 @@ services:
       - .env.production
     environment:
       INFERNO_HOST: ${INFERNO_HOST}
+      http_proxy: ${http_proxy:-}
+      https_proxy: ${https_proxy:-}
     volumes:
       - ${INFERNO_VOLUME}:/opt/inferno/data
       - ${CERT_VOLUME}:/opt/inferno/config/cert
@@ -31,6 +33,8 @@ services:
       - .env.production
     environment:
       INFERNO_HOST: ${INFERNO_HOST}
+      http_proxy: ${http_proxy:-}
+      https_proxy: ${https_proxy:-}
     volumes:
       - ${WORKER_VOLUME}:/opt/inferno/data
       - ${CERT_VOLUME}:/opt/inferno/config/cert
