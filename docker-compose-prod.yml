@@ -24,6 +24,9 @@ services:
   worker:
     build:
       context: ./
+      args:
+        - http_proxy=http://grpxy-vip.grita.fr:3128
+        - https_proxy=http://grpxy-vip.grita.fr:3128
     mem_reservation: ${MEMORY_WORKER_RESERVATION:-256m}
     mem_limit: ${MEMORY_WORKER_LIMIT:-512m}
     env_file:
