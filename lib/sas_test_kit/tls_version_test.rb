@@ -116,19 +116,19 @@ module TLSTestKit
 
             add_message(self.class.incorrectly_permitted_tls_version_message_type, message)
           elsif self.class.version_required? version
-            add_message('info', "#{base_url} correctly accepted #{version_string} connection as required.")
+            add_message('info', "#{base_url}  a correctement accepté la connexion #{version_string} comme attendu.")
             tls_support_verified = true
           else
-            add_message('info', "#{base_url} accepted #{version_string} connection.")
+            add_message('info', "#{base_url} a accepté la connexion #{version_string}.")
             tls_support_verified = true
           end
         rescue StandardError => e
           if self.class.version_required? version
-            add_message('error', "#{base_url} incorrectly denied #{version_string} connection: #{e.message}")
+            add_message('error', "#{base_url} a refusé la connexion #{version_string} connexion: #{e.message}")
           elsif self.class.version_forbidden? version
-            add_message('info', "#{base_url} correctly denied #{version_string} connection as required.")
+            add_message('info', "#{base_url} a correctement refusé la connexion #{version_string} comme attendu.")
           else
-            add_message('info', "#{base_url} denied #{version_string} connection.")
+            add_message('info', "#{base_url} a refusé la connexion #{version_string}.")
           end
         end
       end
@@ -136,7 +136,7 @@ module TLSTestKit
       if incorrectly_permitted_tls_versions.present?
         count = incorrectly_permitted_tls_versions.length
         message =
-          "#{url} did not deny TLS connections for #{'version'.pluralize(count)} " \
+          "#{base_url} did not deny TLS connections for #{'version'.pluralize(count)} " \
           "#{incorrectly_permitted_tls_versions.join(', ')}. The system may deny content from being sent over this " \
           'connection, but this must be manually verified.'
         output incorrectly_permitted_tls_versions_messages: message
@@ -144,12 +144,12 @@ module TLSTestKit
 
       errors_found = messages.any? { |message| message[:type] == 'error' }
 
-      assert !errors_found, 'Server did not permit/deny the connections with the correct TLS versions'
+      assert !errors_found, 'Le serveur n\'a pas permis ou refusé les connexions avec les versions TLS correctes.'
 
-      assert tls_support_verified, 'Server did not support any allowed TLS versions.'
+      assert tls_support_verified, 'Le serveur ne supporte aucune des versions TLS autorisées.'
 
       if incorrectly_permitted_tls_versions.present?
-        pass "Server accepted TLS connections using versions which should be denied: #{incorrectly_permitted_tls_versions.join(', ')}"
+        pass "Le serveur a accepté les connexions TLS utilisant des versions qui devraient être refusées: #{incorrectly_permitted_tls_versions.join(', ')}"
       end
     end
   end 

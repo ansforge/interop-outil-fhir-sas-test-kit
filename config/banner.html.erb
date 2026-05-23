@@ -1,4 +1,6 @@
 <header class="custom-banner">
+  <div class="banner-content">
+    <img src="https://raw.githubusercontent.com/ansforge/interop-outil-fhir-sas-test-kit/2f245b9345ebbf46f7fb624e0dd4f145bf88a3cb/config/Logo_Platerforme_Numerique_SAS.png" alt="Logo" />
   <div>
     <a href="https://esante.gouv.fr/">Agence du numérique en santé</a>
     <p class="tagline">Vérification de conformité</p>
@@ -7,16 +9,31 @@
 
 <style>
 .custom-banner {
-  background-color:aliceblue;
-  border-bottom:1px solid steelblue;
-  padding:1em 1em 0 1em;
+  background-color: aliceblue;
+  border-bottom: 1px solid steelblue;
+  padding: 1em;
 }
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.banner-content img {
+  height: 50px;
+}
+
 .custom-banner a {
-  font-size:1.25em;
-  text-transform:uppercase;
-  text-decoration:none;
-  letter-spacing:0.1em;
-  color:steelblue;
-  font-weight:bold;
+  font-size: 1.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: steelblue;
+  font-weight: bold;
+}
+
+.tagline {
+  margin: 0;
 }
 </style>

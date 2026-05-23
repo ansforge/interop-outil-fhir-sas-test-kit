@@ -62,8 +62,11 @@ module SasTestKit
         scratch[:query] = request.url
     
         assert_resource_type('Bundle')
-        assert(resource.entry != [], "Le Bundle est vide.")
         scratch[:Bundle] = resource
+        if resource.entry == []
+            scratch[:Bundle] = nil
+            assert(resource.entry != [], "Le Bundle est vide.")
+        end
         warning do
             assert_response_content_type('application/fhir+json')
         end
