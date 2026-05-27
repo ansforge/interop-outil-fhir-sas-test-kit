@@ -21,6 +21,7 @@ module SasTestKit
       - les connexions non conformes ou non sécurisées sont correctement rejetées.
     )
     id :mtls_group
+    verifies_requirements 'agg-psindiv@1', 'agg-psindiv@2', 'agg-psindiv@3', 'agg-psindiv@4'
 
     def build_params(launch_version)
       if launch_version == 'ig_launch_1'
@@ -83,6 +84,7 @@ module SasTestKit
       description %(
          mTLS erreur cname
       )
+      verifies_requirements 'agg-psindiv@2'
      
       fhir_client do
         url :base_url
@@ -118,6 +120,7 @@ module SasTestKit
       description %(
          mTLS erreur OU
       )
+      verifies_requirements 'agg-psindiv@3'
 
       fhir_client do
         url :base_url

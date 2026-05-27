@@ -23,6 +23,15 @@ module SasTestKit
         - transmission des infos de rendez-vous (à venir)
     )
 
+    requirement_sets(
+        {
+          identifier: 'agg-psindiv',
+          title: 'US Core Implementation Guide',
+          actor: 'Server'
+        }
+      )
+
+
     suite_summary %(
     Test de conformité aux spécifications SAS
     )

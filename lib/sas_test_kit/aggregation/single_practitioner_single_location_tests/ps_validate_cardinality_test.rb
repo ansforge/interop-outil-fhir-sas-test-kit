@@ -12,6 +12,8 @@ module SasTestKit
                 - la présence des profils SAS attendus : *FrPractitionerAgregateur*, *FrPractitionerRoleExerciceAgregateur*, *FrScheduleAgregateur*, *FrSlotAgregateur* ;
                 - la présence simultanée des quatre ressources principales dans le Bundle.
             )
+            verifies_requirements 'agg-psindiv@15', 'agg-psindiv@19'
+
             run do
                 bundle = scratch[:Bundle]    
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)

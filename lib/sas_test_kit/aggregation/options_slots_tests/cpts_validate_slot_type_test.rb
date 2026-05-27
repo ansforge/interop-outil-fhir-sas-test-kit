@@ -3,7 +3,7 @@ module SasTestKit
         class ValidateSlotTypeCPTS < Inferno::Test
             title 'Vérification types de créneaux'
             id :cpts_validate_slot_type
-            short_id '4.6.02'
+            short_id '4.7.02'
             description %(
             Verification type de créneaux
             )

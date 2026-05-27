@@ -6,6 +6,7 @@ module SasTestKit
             description %(
             Format RPPS
             )
+            verifies_requirements 'agg-psindiv@17', 'agg-psindiv@18'
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)

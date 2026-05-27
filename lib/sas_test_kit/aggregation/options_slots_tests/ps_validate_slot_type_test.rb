@@ -3,10 +3,11 @@ module SasTestKit
         class ValidateSlotType < Inferno::Test
             title 'Vérification types de créneaux'
             id :ps_validate_slot_type
-            short_id '4.6.02'
+            short_id '4.7.02'
             description %(
             Verification type de créneaux
             )
+            verifies_requirements 'agg-psindiv@23'
 
             input :type_slot,
                 title: 'Quels types de créneaux sont disponibles dans la solution ?',

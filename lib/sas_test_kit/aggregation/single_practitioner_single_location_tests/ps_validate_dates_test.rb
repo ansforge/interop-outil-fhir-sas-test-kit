@@ -12,6 +12,8 @@ module SasTestKit
                 - vérification que **`start < end`** pour tous les `Slot` ;
                 - **bornage** des dates de début par la **date de fin de recherche**.
             )
+            verifies_requirements 'agg-psindiv@5', 'agg-psindiv@11'
+            
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)

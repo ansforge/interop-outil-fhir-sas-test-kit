@@ -36,6 +36,8 @@ module SasTestKit
         Ces contrôles s'appuient sur les profils et règles publiés dans le **Guide d'implémentation SAS** et la page **Spécifications fonctionnelles** concernant la **recherche de créneaux via l'agrégateur**. Ils visent à garantir que la réponse fournie par l'éditeur est exploitable par la plateforme SAS conformément aux attentes officielles.
       )
       id :single_practitioner_single_location
+      verifies_requirements 'agg-psindiv@4', 'agg-psindiv@5', 'agg-psindiv@11', 'agg-psindiv@15', 'agg-psindiv@19', 'agg-psindiv@21','agg-psindiv@22',
+                            'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
 
       input :practitioner_id,
             title: 'RPPS',

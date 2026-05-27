@@ -6,7 +6,8 @@ module SasTestKit
             description %(
             Vérification présence nom PS
             )
-
+            verifies_requirements 'agg-psindiv@33'
+            
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)

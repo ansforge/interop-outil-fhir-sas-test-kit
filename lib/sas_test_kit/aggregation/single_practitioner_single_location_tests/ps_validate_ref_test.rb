@@ -11,6 +11,8 @@ module SasTestKit
                 - `Schedule.actor.reference` inclut les **références vers Practitioner et PractitionerRole** ;
                 - la `Location` **contenue** dans `PractitionerRole` est référencée via un **lien local** (`#<id>`).
             )
+            verifies_requirements 'agg-psindiv@21'
+
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
@@ -46,7 +48,7 @@ module SasTestKit
                 add_message('info', "References schedule: " + joined)
                 add_message('info', "Reference practiRole: " + reference_practi[0]["element"].to_s)
 
-                assert(reference_practi[0]["element"].to_s == "Practitioner/" + practitioner_id[0]["element"].to_s, "Il est attendu que l'identifiant du PS #{practitioner_id} matche la reference #{reference_practi}")
+                assert(reference_practi[0]["element"].to_s == "Practitioner/" + practitioner_id[0]["element"].to_s, "Il est attendu que l'identifiant du PS #{practitioner_id} match la reference #{reference_practi}")
                 assert(joined.include?("PractitionerRole/" + practitionerRole_id[0]["element"].to_s ))
                 assert(joined.include?("Practitioner/" + practitioner_id[0]["element"].to_s ))
 
