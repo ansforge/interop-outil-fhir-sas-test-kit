@@ -28,7 +28,7 @@ module SasTestKit
 
         id :flux_v2_group
 
-        input_order :base_url, :mTLS, :regulator_id
+        input_order :base_url, :mTLS
 
         run_as_group
 

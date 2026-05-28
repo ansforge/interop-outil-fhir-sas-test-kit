@@ -5,6 +5,7 @@ module SasTestKit
     title 'Contrôles Organization - Champs optionnels'
     description 'Contrôles des données optionnelles de la structure'
     id :orga_optionnel_group
+    verifies_requirements 'agg-psindiv@4', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
 
     test from: :slot_search_setup do
       config(

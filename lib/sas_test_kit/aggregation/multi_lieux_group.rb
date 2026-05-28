@@ -29,6 +29,9 @@ module SasTestKit
             )
             id :multi_lieux_group
 
+            verifies_requirements   'agg-psindiv@4', 'agg-psindiv@21', 'agg-psindiv@22', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28',
+                                    'agg-psindiv@29', 'agg-psindiv@30'
+
             input :practitioner_id2,
                 title: 'RPPS',
                 description: 'Renseigner le RPPS (préfixé par 8) d\'un PS possédant deux lieux d\'exercice'

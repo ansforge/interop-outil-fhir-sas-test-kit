@@ -10,6 +10,8 @@ module SasTestKit
                 - présence de **line**, **city** et **postalCode** ;
                 - **code postal** conforme : exactement **5 chiffres**.
             )
+            verifies_requirements 'agg-psindiv@22'
+
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)

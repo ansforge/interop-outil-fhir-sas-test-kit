@@ -20,6 +20,7 @@ module SasTestKit
                 Ce groupe complète les contrôles réalisés pour le cas « PS avec un seul lieu », en s'assurant que le serveur gère correctement les **scénarios multi-correspondances** dans le flux Agrégateur.
             )
             id :search_multiple_ps_group
+            verifies_requirements 'agg-psindiv@4', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
             input :practitioner_id3,
                 title: 'RPPS',
                 description: "Renseigner le RPPS (préfixé par 8) d'un PS pouvant être remonté dans une même recherche que celui ci-dessous"

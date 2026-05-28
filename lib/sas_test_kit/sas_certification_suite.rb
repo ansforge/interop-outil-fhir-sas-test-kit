@@ -23,6 +23,15 @@ module SasTestKit
         - transmission des infos de rendez-vous (à venir)
     )
 
+    requirement_sets(
+        {
+          identifier: 'agg-psindiv',
+          title: 'US Core Implementation Guide',
+          actor: 'Server'
+        }
+      )
+
+
     suite_summary %(
     Test de conformité aux spécifications SAS
     )
@@ -96,16 +105,18 @@ module SasTestKit
 
     # All FHIR validation requests will use this FHIR validator
     fhir_resource_validator :validator_sas do
-       #igs 'ans.fhir.fr.sas#1.1.0' # Use this method for published IGs/versions
-       igs 'igs/sas_package.tgz'   # Use this otherwise
+       igs 'ans.fhir.fr.sas#1.1.0' # Use this method for published IGs/versions
+       #igs 'igs/sas_package.tgz'   # Use this otherwise
 
       exclude_message do |message|
-        message.message.match?(/\A\S+: \S+: URL value '.*' does not resolve/)
+        message.message.match?(/\A\S+: \S+: URL value '.*' does not resolve/) ||
+        message.message.include?(".specialty[0]: No code provided, and a code is required from the value set 'fr-practitioner-specialty'") ## Problème IG
       end
     end
+
     group from: :tls
 
-    group from: :visual_group     
+    group from: :visual_group
     
     group from: :capability_statement
 

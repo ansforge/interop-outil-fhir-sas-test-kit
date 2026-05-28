@@ -7,6 +7,7 @@ module SasTestKit
             Vérification numéro de téléphone PS
             )
             optional
+            verifies_requirements 'agg-psindiv@34'
 
             run do
                 bundle = scratch[:Bundle]

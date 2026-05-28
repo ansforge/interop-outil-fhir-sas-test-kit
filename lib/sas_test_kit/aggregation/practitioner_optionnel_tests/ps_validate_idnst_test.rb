@@ -6,6 +6,8 @@ module SasTestKit
             description %(
             Présence et format IDNST
             )
+            verifies_requirements 'agg-psindiv@20'
+
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" unless (bundle.present?)

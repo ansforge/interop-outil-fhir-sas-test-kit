@@ -9,6 +9,8 @@ module SasTestKit
                 Ce test vérifie que chacun des deux `PractitionerRole` **référence le Practitioner unique** présent dans le Bundle.  
                 Toutes les relations `PractitionerRole.practitioner.reference` doivent pointer vers le même identifiant `Practitioner/<id>`.
             )
+            verifies_requirements 'agg-psindiv@21'
+            
             run do
                 skip %(Les tests **4.5.02** et **4.5.03** doivent être validés pour évaluer ce test) if (!scratch[:practitioner].present? && !scratch[:practitioner_roles].present?)
                 practitioner = scratch[:practitioner]

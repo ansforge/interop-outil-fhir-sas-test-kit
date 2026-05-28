@@ -3,10 +3,11 @@ module SasTestKit
         class ValidateMotifType < Inferno::Test
             title 'Vérification types de consultation'
             id :ps_validate_motif_type
-            short_id '4.6.03'
+            short_id '4.7.03'
             description %(
             Verification types de consultation retournés
             )
+            verifies_requirements 'agg-psindiv@24'
 
             input :type_consultation,
                 title: 'Quels sont les types de consultations au niveau des créneaux ?',
