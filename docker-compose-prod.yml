@@ -50,6 +50,9 @@ services:
       file: docker-compose.background.yml
       service: hl7_validator_service
     restart: always
+    environment:
+      http_proxy: ${http_proxy:-}
+      https_proxy: ${https_proxy:-}
     network_mode: "host"
 #  validator_service:
 #    extends:
