@@ -46,10 +46,17 @@ services:
     network_mode: "host"
 
   hl7_validator_service:
+    build:
+      args:
+        - http_proxy=http://grpxy-vip.grita.fr:3128
+        - https_proxy=http://grpxy-vip.grita.fr:3128
     extends:
       file: docker-compose.background.yml
       service: hl7_validator_service
     restart: always
+    environment:
+      http_proxy: ${http_proxy:-}
+      https_proxy: ${https_proxy:-}
     network_mode: "host"
 #  validator_service:
 #    extends:
