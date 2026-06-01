@@ -1,7 +1,7 @@
 version: '3'
 services:
   hl7_validator_service:
-    image: infernocommunity/inferno-resource-validator
+    image: infernocommunity/inferno-resource-validator:1.0.78
     mem_reservation: ${MEMORY_HL7_RESERVATION:-2g}
     mem_limit: ${MEMORY_HL7_LIMIT:-3g}
     environment:

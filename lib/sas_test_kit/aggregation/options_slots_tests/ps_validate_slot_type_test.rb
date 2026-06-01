@@ -31,7 +31,7 @@ module SasTestKit
                       value: 'private'
                     }
                   ]
-                }    
+                }
         
             run do
                 bundle = scratch[:Bundle]
