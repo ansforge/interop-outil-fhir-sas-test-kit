@@ -18,7 +18,8 @@ module SasTestKit
     id :slot_group
 
     input_order :base_url, :mTLS, :practitioner_id
-    verifies_requirements 'agg-psindiv@4', 'agg-psindiv@13', 'agg-psindiv@14', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
+    verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7', 'agg-psindiv@9','agg-psindiv@13', 'agg-psindiv@14', 'agg-psindiv@26', 'agg-psindiv@27',
+                          'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30', 'agg-psindiv@31', 'agg-psindiv@32'
 
     test from: :slot_search_setup do
         config(
@@ -37,7 +38,7 @@ module SasTestKit
         - le type de ressource retournée (Bundle),
         - la conformité du Bundle au profil FHIR d'agrégation attendu.
       )
-      verifies_requirements 'agg-psindiv@13', 'agg-psindiv@14'
+      verifies_requirements 'agg-psindiv@9','agg-psindiv@13', 'agg-psindiv@14', 'agg-psindiv@31', 'agg-psindiv@32'
 
       output :used_time
       run do

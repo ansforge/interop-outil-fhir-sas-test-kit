@@ -59,7 +59,8 @@ module SasTestKit
     )
 
     id :optionslots_group
-    verifies_requirements 'agg-psindiv@4', 'agg-psindiv@23', 'agg-psindiv@24', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
+    verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@23', 'agg-psindiv@24', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28',
+                          'agg-psindiv@29', 'agg-psindiv@30', 'agg-psindiv@46', 'agg-psindiv@48'
 
     input_order :base_url, :mTLS, :practitioner_id
 

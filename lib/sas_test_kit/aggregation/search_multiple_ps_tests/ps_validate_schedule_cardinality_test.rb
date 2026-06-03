@@ -9,6 +9,7 @@ module SasTestKit
                 Ce test réalise une vérification sur les **ressources Schedule** du Bundle de réponse.  
                 La recherche multi-PS doit retourner **au minimum deux ressources Schedule**, chacune correspondant à un professionnel remonté par le flux Agrégateur.
             )
+            verifies_requirements 'agg-psindiv@44'
             run do
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:schedules] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").resource')

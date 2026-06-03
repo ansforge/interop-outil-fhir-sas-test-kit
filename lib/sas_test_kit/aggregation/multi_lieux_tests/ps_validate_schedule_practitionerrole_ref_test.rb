@@ -9,6 +9,7 @@ module SasTestKit
                 Ce test valide que chaque ressource `Schedule` **référence uniquement des PractitionerRole présents** dans le Bundle.  
                 Toutes les références `Schedule.actor.reference` de type `PractitionerRole/<id>` doivent correspondre à l'un des PractitionerRole retournés.
             )
+            verifies_requirements 'agg-psindiv@43'
             run do
                 skip %(Les tests **4.5.03** et **4.5.04** doivent être validés pour évaluer ce test) if (!scratch[:practitioner_roles].present? && !scratch[:schedules].present?)
                 practitioner_roles = scratch[:practitioner_roles]

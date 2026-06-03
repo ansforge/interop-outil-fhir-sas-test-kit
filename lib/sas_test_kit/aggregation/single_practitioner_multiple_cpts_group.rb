@@ -6,7 +6,7 @@ module SasTestKit
         class SinglePractitionerMultipleCPTS < Inferno::TestGroup
             title 'Validation des cas multi-CPTS pour un même praticien'
             id :single_practitioner_multiple_cpts
-            verifies_requirements 'agg-psindiv@4', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
+            verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
             description %(
                 Ce groupe de tests vérifie la conformité des ressources retournées lorsqu'un même praticien
                 est associé à plusieurs CPTS.

@@ -9,6 +9,7 @@ module SasTestKit
                 Ce test vérifie la présence de **deux ressources PractitionerRole**, chacune représentant un lieu d'exercice différent du même professionnel de santé.  
                 Le Bundle doit contenir **exactement deux** ressources *FrPractitionerRoleExerciceAgregateur*.
             )
+            verifies_requirements 'agg-psindiv@42'
             run do
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:practitioner_roles] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource')

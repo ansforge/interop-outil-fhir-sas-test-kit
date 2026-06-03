@@ -9,6 +9,7 @@ module SasTestKit
                 Ce test confirme que le Bundle contient **exactement deux** ressources `Schedule`, chacune associée à un lieu d'exercice distinct.  
                 Cette cardinalité reflète les disponibilités propres à chaque lieu.
             )
+            verifies_requirements 'agg-psindiv@42'
             run do
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:schedules] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur").resource')

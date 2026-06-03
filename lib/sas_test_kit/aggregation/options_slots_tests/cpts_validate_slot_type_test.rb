@@ -7,7 +7,6 @@ module SasTestKit
             description %(
             Verification type de créneaux
             )
-
             input :type_slot,
                 title: 'Quels types de créneaux sont disponibles dans la solution ?',
                 type: 'checkbox',

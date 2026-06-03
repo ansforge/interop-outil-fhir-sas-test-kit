@@ -12,7 +12,7 @@ module SasTestKit
                 - vérification que **`start < end`** pour tous les `Slot` ;
                 - **bornage** des dates de début par la **date de fin de recherche**.
             )
-            verifies_requirements 'agg-psindiv@5', 'agg-psindiv@11'
+            verifies_requirements 'agg-psindiv@5', 'agg-psindiv@11', 'agg-psindiv@45'
             
             run do
                 bundle = scratch[:Bundle]
@@ -33,6 +33,18 @@ module SasTestKit
                 date = Date.parse(date_str)
                 add_message('info', "Date début: " + date.to_s)  
                 assert date <= Date.parse(threshold), "La date #{date} n'est pas supérieure à la date de fin de la recherche #{threshold}"
+                end
+
+                # Start and end field must respect following format: YYYY-MM-DDTHH:MM:SS.000+0X:00
+                date_debut.each_with_index do |date_hash, int|
+                    date_str = date_hash["element"]
+                    assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/), "La date de début #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
+                end
+
+                date_fin = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.end")
+                date_fin.each_with_index do |date_hash, int|
+                    date_str = date_hash["element"]
+                    assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/), "La date de fin #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
                 end
 
                 #Vérification présence dates fin

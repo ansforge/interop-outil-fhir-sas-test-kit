@@ -9,7 +9,7 @@ module SasTestKit
                 Ce test vérifie la cohérence entre les `PractitionerRole` et leurs `Location` respectives.  
                 Chaque `PractitionerRole.location.reference` doit référencer une ressource `Location` contenue (`#<id>`), et chaque Location contenue doit correspondre à l'un des lieux d'exercice du PS.
             )
-            verifies_requirements 'agg-psindiv@22'
+            verifies_requirements 'agg-psindiv@22', 'agg-psindiv@43'
             
             run do
                 skip %(Le test **4.5.03** doit être validé pour évaluer ce test) if (!scratch[:practitioner_roles].present?)
