@@ -21,7 +21,7 @@ module SasTestKit
       - les connexions non conformes ou non sécurisées sont correctement rejetées.
     )
     id :mtls_group
-    verifies_requirements 'agg-psindiv@1', 'agg-psindiv@2', 'agg-psindiv@3', 'agg-psindiv@4'
+    verifies_requirements 'agg-psindiv@1', 'agg-psindiv@2', 'agg-psindiv@3', 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7'
 
     def build_params(launch_version)
       if launch_version == 'ig_launch_1'

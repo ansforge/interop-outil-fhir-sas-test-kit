@@ -7,7 +7,7 @@ module SasTestKit
             description %(
             Verification type de créneaux
             )
-            verifies_requirements 'agg-psindiv@23'
+            verifies_requirements 'agg-psindiv@23', 'agg-psindiv@46'
 
             input :type_slot,
                 title: 'Quels types de créneaux sont disponibles dans la solution ?',

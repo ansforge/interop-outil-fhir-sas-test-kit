@@ -29,8 +29,8 @@ module SasTestKit
             )
             id :multi_lieux_group
 
-            verifies_requirements   'agg-psindiv@4', 'agg-psindiv@21', 'agg-psindiv@22', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28',
-                                    'agg-psindiv@29', 'agg-psindiv@30'
+            verifies_requirements   'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@21', 'agg-psindiv@22', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28',
+                                    'agg-psindiv@29', 'agg-psindiv@30', 'agg-psindiv@42', 'agg-psindiv@43'
 
             input :practitioner_id2,
                 title: 'RPPS',

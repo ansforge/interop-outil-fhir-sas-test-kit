@@ -7,7 +7,7 @@ module SasTestKit
             description %(
             Verification types de consultation retournés
             )
-            verifies_requirements 'agg-psindiv@24'
+            verifies_requirements 'agg-psindiv@24', 'agg-psindiv@48'
 
             input :type_consultation,
                 title: 'Quels sont les types de consultations au niveau des créneaux ?',

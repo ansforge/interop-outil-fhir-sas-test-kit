@@ -9,6 +9,7 @@ module SasTestKit
                 Ce test effectue une vérification sur les **ressources PractitionerRole** retournées dans le Bundle.  
                 Il est attendu que la recherche multi-PS présente **au moins deux ressources** *FrPractitionerRoleExerciceAgregateur*, reflétant la présence de plusieurs PS dans la réponse.
             )
+            verifies_requirements 'agg-psindiv@44'
             run do
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!scratch[:Bundle].present?)
                 scratch[:practitioner_roles] = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur").resource')

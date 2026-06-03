@@ -10,7 +10,7 @@ module SasTestKit
                 - présence de **line**, **city** et **postalCode** ;
                 - **code postal** conforme : exactement **5 chiffres**.
             )
-            verifies_requirements 'agg-psindiv@22'
+            verifies_requirements 'agg-psindiv@22', 'agg-psindiv@37', 'agg-psindiv@38', 'agg-psindiv@39', 'agg-psindiv@40'
 
             run do
                 bundle = scratch[:Bundle]

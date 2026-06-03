@@ -5,7 +5,7 @@ module SasTestKit
     title 'Setup - Recherche Slot par RPPS'
     description 'Initialisation et recherche Slot - Prépare les données pour les tests suivants'
     id :slot_search_setup
-    verifies_requirements 'agg-psindiv@4', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
+    verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
 
     input :practitioner_id,
           title: 'RPPS',

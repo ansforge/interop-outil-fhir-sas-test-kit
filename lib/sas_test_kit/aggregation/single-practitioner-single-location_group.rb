@@ -11,6 +11,8 @@ require_relative 'single_practitioner_single_location_tests/ps_validate_dates_te
 require_relative 'single_practitioner_single_location_tests/ps_validate_rpps_test'
 require_relative 'single_practitioner_single_location_tests/ps_validate_cardinality_test'
 require_relative 'single_practitioner_single_location_tests/ps_validate_ref_test.rb'
+require_relative 'single_practitioner_single_location_tests/ps_validate_slots_status_test.rb'
+require_relative 'single_practitioner_single_location_tests/ps_validate_appointmentType_test.rb'
 
 
 
@@ -36,8 +38,9 @@ module SasTestKit
         Ces contrôles s'appuient sur les profils et règles publiés dans le **Guide d'implémentation SAS** et la page **Spécifications fonctionnelles** concernant la **recherche de créneaux via l'agrégateur**. Ils visent à garantir que la réponse fournie par l'éditeur est exploitable par la plateforme SAS conformément aux attentes officielles.
       )
       id :single_practitioner_single_location
-      verifies_requirements 'agg-psindiv@4', 'agg-psindiv@5', 'agg-psindiv@11', 'agg-psindiv@15', 'agg-psindiv@19', 'agg-psindiv@21','agg-psindiv@22',
-                            'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
+      verifies_requirements 'agg-psindiv@4', 'agg-psindiv@5', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@10', 'agg-psindiv@11', 'agg-psindiv@15', 'agg-psindiv@19', 
+                            'agg-psindiv@21', 'agg-psindiv@22', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30', 'agg-psindiv@37',
+                            'agg-psindiv@38', 'agg-psindiv@39', 'agg-psindiv@40', 'agg-psindiv@45', 'agg-psindiv@49'
 
       input :practitioner_id,
             title: 'RPPS',
@@ -68,6 +71,10 @@ module SasTestKit
       test from: :bundle_url_equal_url
 
       test from: :slot_has_url
+
+      test from: :ps_validate_slots_status
+
+      test from: :ps_validate_appointmentType
 
       test from: :validate_cardinality_cpts,
         required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
