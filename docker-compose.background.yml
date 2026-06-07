@@ -10,7 +10,6 @@ services:
       SESSION_CACHE_DURATION: -1
     volumes:
       - ${HL7_VALIDATOR_VOLUME}:/app/igs
-      - ${HL7_VALIDATOR_DB_VOLUME}:/opt/inferno/data
       # To let the service share your local FHIR package cache,
       # uncomment the below line
       # - ~/.fhir:/home/ktor/.fhir
