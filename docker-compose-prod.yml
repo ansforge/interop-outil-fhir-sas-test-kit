@@ -3,8 +3,8 @@ services:
     build:
       context: ./
       args:
-        - http_proxy=http://grpxy-vip.grita.fr:3128
-        - https_proxy=http://grpxy-vip.grita.fr:3128
+        - http_proxy=${http_proxy:-}
+        - https_proxy=${https_proxy:-}
     restart: always
     mem_reservation: ${MEMORY_RESERVATION:-256m}
     mem_limit: ${MEMORY_LIMIT:-512m}
@@ -26,8 +26,8 @@ services:
     build:
       context: ./
       args:
-        - http_proxy=http://grpxy-vip.grita.fr:3128
-        - https_proxy=http://grpxy-vip.grita.fr:3128
+        - http_proxy=${http_proxy:-}
+        - https_proxy=${https_proxy:-}}
     restart: always
     mem_reservation: ${MEMORY_WORKER_RESERVATION:-256m}
     mem_limit: ${MEMORY_WORKER_LIMIT:-512m}
@@ -48,8 +48,8 @@ services:
   hl7_validator_service:
     build:
       args:
-        - http_proxy=http://grpxy-vip.grita.fr:3128
-        - https_proxy=http://grpxy-vip.grita.fr:3128
+        - http_proxy=${http_proxy:-}
+        - https_proxy=${https_proxy:-}
     extends:
       file: docker-compose.background.yml
       service: hl7_validator_service
