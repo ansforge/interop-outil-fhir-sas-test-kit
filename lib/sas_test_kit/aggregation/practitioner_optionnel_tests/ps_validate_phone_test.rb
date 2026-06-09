@@ -6,7 +6,6 @@ module SasTestKit
             description %(
             Vérification numéro de téléphone PS
             )
-            optional
             verifies_requirements 'agg-psindiv@34'
 
             run do

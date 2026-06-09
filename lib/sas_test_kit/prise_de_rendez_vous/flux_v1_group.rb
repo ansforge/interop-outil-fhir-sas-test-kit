@@ -22,7 +22,7 @@ module SasTestKit
             ## Description
 
             Ce groupe regroupe un ensemble de tests de conformité relatifs au **flux V1 de gestion des comptes régulateurs**, tel que défini dans les spécifications techniques SAS publiées par l'ANS.  
-            Ces tests valident le comportement du serveur vis-à-vis des opérations FHIR attendues autour de la ressource **Practitioner** profilée en *FrPractitionerRegul*, conformément au document officiel « Gestion des comptes régulateurs » [1](https://esante.gouv.fr/sites/default/files/media_entity/documents/sas_spec-int_r02_gestion-des-comptes-regulateurs_v2.0.pdf) et au guide SAS v1.2.0 [2](https://interop.esante.gouv.fr/ig/fhir/sas/).
+            Ces tests valident le comportement du serveur vis-à-vis des opérations FHIR attendues autour de la ressource **Practitioner** profilée en *FrPractitionerRegul*, conformément au document « [Gestion des comptes régulateurs](https://esante.gouv.fr/sites/default/files/media_entity/documents/sas_spec-int_r02_gestion-des-comptes-regulateurs_v2.0.pdf) » et à l'IG SAS [v1.2.0](https://interop.esante.gouv.fr/ig/fhir/sas/).
 
             Le groupe vérifie notamment :
 

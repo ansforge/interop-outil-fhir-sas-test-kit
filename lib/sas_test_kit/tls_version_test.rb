@@ -19,9 +19,10 @@ module TLSTestKit
   #     )
   #   end
   class TLSVersionTest < Inferno::Test
-    title 'Server supports TLS'
+    title 'Version TLS sécurisée'
     description %(
-      Verify that a server supports TLS.
+      La version TLS 1.3 doit être prise en charge et privilégiée.
+      La version TLS 1.2 est également accepté sous condition de suivre les recommandations de ce [guide](https://messervices.cyber.gouv.fr/documents-guides/anssi-guide-recommandations_de_securite_relatives_a_tls-v1.2.pdf).
     )
     id :tls_version_test
 

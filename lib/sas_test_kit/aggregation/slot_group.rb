@@ -13,7 +13,7 @@ module SasTestKit
 
       Ce groupe de test vise à s'assurer que le serveur est capable de répondre
       correctement à une requête de recherche Slot, en respectant les spécifications
-      fonctionnelles et de structure définies pour l'agrégation de créneaux.
+      définies pour l'agrégation de créneaux.
     )
     id :slot_group
 
