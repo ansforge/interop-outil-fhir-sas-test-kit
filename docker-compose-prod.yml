@@ -51,6 +51,7 @@ services:
       service: hl7_validator_service
     restart: always
     environment:
+      JAVA_TOOL_OPTIONS: -Xmx1g -Dhttps.proxyHost=grpxy-vip.grita.fr -Dhttps.proxyPort=3128 -Dhttp.proxyHost=grpxy-vip.grita.fr -Dhttp.proxyPort=3128
       http_proxy: ${http_proxy:-}
       https_proxy: ${https_proxy:-}
     network_mode: "host"

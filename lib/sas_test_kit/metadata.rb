@@ -25,8 +25,8 @@ module SasTestKit
     DESCRIPTION
     suite_ids ['sas']
     tags ['sas']
-    last_updated '2026-06-03'
-    version '0.2.7'
+    last_updated '2026-06-09'
+    version '0.3.0'
     maturity 'Low'
     authors ['ANS']
     repo 'https://github.com/ansforge/interop-outil-fhir-sas-test-kit'
