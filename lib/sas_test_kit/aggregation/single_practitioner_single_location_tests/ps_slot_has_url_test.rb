@@ -14,9 +14,12 @@ module SasTestKit
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
+
+                SLOT_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+
                 PresenceURLPRDV = evaluate_fhirpath(
                 resource: bundle, 
-                path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.all(
+                path: 'entry.where(resource.meta.profile="' + SLOT_PROFILE_URL + '").resource.all(
                 comment.exists() and comment.empty().not() and comment.matches("^[[:space:]]*$").not())'
                 )
 

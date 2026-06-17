@@ -30,14 +30,14 @@ module SasTestKit
             if content_type.include?("text/html")
                 analysis = SSOHelper.analyze_html_response(response[:body])
 
-                key_word = ['Ministère de la Santé et de la prévention']
-                add_message('info', "Page de connexion PSC détectée : #{analysis[:combined_text].include?(key_word.first.downcase)}")
+                isPSC = request.url.include?("https://seconnecter.preproduction.santefr.esante.gouv.fr/realms/sas/protocol/openid-connect/")
+                add_message('info', "Page de connexion PSC détectée : #{isPSC}")
 
                 if analysis[:is_spa]
                     omit "Page JavaScript (SPA) détectée — aucun contenu statique à analyser"
                 end
 
-                assert(analysis[:combined_text].include?(key_word.first.downcase), "Pas de redirection vers la page de connexion PSC")
+                assert(isPSC, "Pas de redirection vers la page de connexion PSC")
             else
                 assert(false, "Réponse non HTML : #{content_type}")
             end

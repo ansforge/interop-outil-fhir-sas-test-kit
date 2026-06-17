@@ -28,7 +28,7 @@ module SasTestKit
                     },
                     {
                       label: 'Créneaux private',
-                      value: 'private'
+                      value: 'PRIVATE'
                     }
                   ]
                 }
@@ -40,19 +40,19 @@ module SasTestKit
                 lst_type_creneaux_retournes = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur").resource.meta.security.code.distinct()')   
                 str_creneaux = ""
                 lst_type_creneaux_retournes.each_with_index do |type_creneau, int|
-                str_creneaux = str_creneaux + type_creneau["element"].to_s + "," 
+                str_creneaux = str_creneaux + type_creneau["element"].to_s + " " 
                 end
 
                 str_creneaux_dispo = ""
                 type_slot.each_with_index do |type_creneau, int|
-                str_creneaux_dispo = str_creneaux_dispo + type_creneau.to_s + ","
+                str_creneaux_dispo = str_creneaux_dispo + type_creneau.to_s + " "
                 end  
 
                 add_message('info', "types de créneaux retournés: " + str_creneaux.to_s) 
                 add_message('info', "types de slot disponibles: " + str_creneaux_dispo.to_s) 
 
                 normalize = ->(s) {
-                    s.split(',')
+                    s.split(' ')
                 .map { |x| x.strip }
                 .reject(&:empty?)
                 .map(&:upcase)

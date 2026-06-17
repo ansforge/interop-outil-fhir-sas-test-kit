@@ -21,7 +21,7 @@ module SasTestKit
                 - la cohérence des références vers les Organization (CPTS)
             )
 
-            input_order :base_url, :mTLS, :practitioner_id
+            input_order :base_url, :mTLS
 
             group from: :two_slot_two_cpts
 

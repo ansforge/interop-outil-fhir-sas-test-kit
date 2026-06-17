@@ -16,10 +16,6 @@ module SasTestKit
       les types de consultations déclarés comme disponibles par la solution, et ceux
       effectivement retournés dans les ressources Slot exposées par le serveur.
 
-      Les contrôles portent sur des données optionnelles des créneaux, mais essentielles
-      pour garantir la bonne interprétation fonctionnelle de l'offre de rendez-vous
-      par les consommateurs de l'API.
-
       ## Consignes d'utilisation
 
       Ce groupe de test s'appuie sur une phase préalable de recherche de créneaux afin
@@ -37,7 +33,7 @@ module SasTestKit
       ## Types de créneaux attendus
 
       Le PS sélectionné pour les tests devrait idéalement exposer un maximum de types
-      de créneaux, parmi lesquels :
+      de créneaux (tous ceux disponibles dans la solution), parmi lesquels :
       - créneaux grand public
       - créneaux réservés aux professionnels
       - créneaux typés SNP
@@ -54,8 +50,8 @@ module SasTestKit
       - téléconsultations
       - visites à domicile
 
-      Il est recommandé d'utiliser un PS proposant plusieurs types de consultation afin
-      d'assurer une couverture fonctionnelle maximale du test group.
+      Il est recommandé d'utiliser un PS proposant plusieurs types de consultation (tous ceux disponibles dans la solution) afin
+      d'assurer une couverture fonctionnelle maximale du groupe de tests.
     )
 
     id :optionslots_group

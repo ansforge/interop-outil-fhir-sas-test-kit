@@ -30,12 +30,12 @@ module SasTestKit
         - la présence et le nombre des ressources principales du Bundle (*FrPractitionerAgregateur*, *FrPractitionerRoleExerciceAgregateur*, *FrScheduleAgregateur*, *FrSlotAgregateur*) pour un RPPS donné (un seul Practitioner, un seul PractitionerRole, un seul Schedule, un seul Location) ;
         - le **format du RPPS** (préfixe « 8 » + 11 chiffres) et l'égalité entre le RPPS demandé et celui retrouvé
         - la **cohérence des dates de Slot** (pas de créneau antérieur à 'maintenant'), existence des dates de fin, et vérification `start < end`
-        - la **cohérence des références** entre Practitioner, PractitionerRole, Schedule (et Location contenue), selon les profils SAS
+        - la **cohérence des références** entre Practitioner, PractitionerRole (et Location contenue), Schedule, selon les profils SAS
         - la **présence de l'adresse** (ligne, ville, code postal à 5 chiffres) pour le lieu unique du PS
         - la conformité du champ `Bundle.link.url` avec l'URL de requête
         - la **présence d'une URL de prise de RDV** (champ `Slot.comment`) sur chaque créneau retourné.
 
-        Ces contrôles s'appuient sur les profils et règles publiés dans le **Guide d'implémentation SAS** et la page **Spécifications fonctionnelles** concernant la **recherche de créneaux via l'agrégateur**. Ils visent à garantir que la réponse fournie par l'éditeur est exploitable par la plateforme SAS conformément aux attentes officielles.
+        Ces contrôles s'appuient sur les profils et règles publiés dans le **Guide d'implémentation SAS** et la page **Spécifications fonctionnelles** concernant la **recherche de créneaux via l'agrégateur**. Ils visent à garantir que la réponse fournie par l'éditeur est exploitable par la plateforme SAS conformément aux attentes.
       )
       id :single_practitioner_single_location
       verifies_requirements 'agg-psindiv@4', 'agg-psindiv@5', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@10', 'agg-psindiv@11', 'agg-psindiv@15', 'agg-psindiv@19', 

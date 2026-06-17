@@ -7,7 +7,7 @@ require_relative 'IDNST_group_ps'
 require_relative 'aggregation/aggregation_group'
 require_relative 'prise_de_rendez_vous/flux_v1_group'
 require_relative 'prise_de_rendez_vous/flux_v2_group'
-
+require_relative 'prise_de_rendez_vous/flux_v3_group'
 require_relative 'sas_options'
 
 module SasTestKit
@@ -54,8 +54,14 @@ module SasTestKit
       type: 'IG_SAS',
       label: 'IG SAS',
       url: 'https://ansforge.github.io/IG-fhir-service-acces-aux-soins/main/ig/'
+      },
+      {
+        type: 'Github issue',
+        label: 'Report Issue',
+        url: 'https://github.com/ansforge/interop-outil-fhir-sas-test-kit/issues'
       }
     ]
+
 
     input_order :base_url, :mTLS,:gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes,
             :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4, :regulator_id
@@ -105,8 +111,8 @@ module SasTestKit
 
     # All FHIR validation requests will use this FHIR validator
     fhir_resource_validator :validator_sas do
-       igs 'ans.fhir.fr.sas#1.1.0' # Use this method for published IGs/versions
-       #igs 'igs/sas_package.tgz'   # Use this otherwise
+       #igs 'ans.fhir.fr.sas#1.2.0' # Use this method for published IGs/versions
+      igs 'igs/sas_package.tgz'   # Use this otherwise
 
       exclude_message do |message|
         message.message.match?(/\A\S+: \S+: URL value '.*' does not resolve/) ||
@@ -125,5 +131,7 @@ module SasTestKit
     group from: :flux_v1_group
 
     group from: :flux_v2_group
+
+    group from: :flux_v3_group
   end
 end 
