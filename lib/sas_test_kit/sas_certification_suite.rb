@@ -105,7 +105,7 @@ module SasTestKit
 
     # All FHIR validation requests will use this FHIR validator
     fhir_resource_validator :validator_sas do
-       #igs 'ans.fhir.fr.sas#1.1.0' # Use this method for published IGs/versions
+       #igs 'ans.fhir.fr.sas#1.2.0' # Use this method for published IGs/versions
       igs 'igs/sas_package.tgz'   # Use this otherwise
 
       exclude_message do |message|

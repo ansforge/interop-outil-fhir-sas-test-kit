@@ -8,7 +8,8 @@ module SasTestKit
 
         input :appointment,
             title: 'Ressource FHIR Appointment',
-            description: 'La ressource FHIR Appointment à valider pour les tests de remontée des informations de rendez-vous'
+            description: 'La ressource FHIR Appointment à valider pour les tests de remontée des informations de rendez-vous',
+            type: :textarea
 
         run do
             appointment_fhir = FHIR::Appointment.new(JSON.parse(appointment, {:symbolize_names=>true}))

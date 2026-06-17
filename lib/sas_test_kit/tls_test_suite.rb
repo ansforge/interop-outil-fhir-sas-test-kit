@@ -10,14 +10,13 @@ module MyTestKit
     group from: :mtls_group
 
     group do
-      title 'Test TLS'
+      title 'Version TLS sécurisée'
 
       test from: :tls_version_test,
            title: 'Le serveur ne doit prendre  en charge que les versions sécurisées de TLS',
            description: %(
-            Ce test vérifie que le serveur prend en charge au moins une version de
-            TLS supérieure ou égale à 1.2. Les versions de TLS inférieures à 1.2 ont
-            été déclarées obsolètes dans la [RFC 8996](https://datatracker.ietf.org/doc/html/rfc8996).
+            La version TLS 1.3 doit être prise en charge et privilégiée.
+            La version TLS 1.2 est également acceptée sous condition de suivre les recommandations de ce [guide](https://messervices.cyber.gouv.fr/documents-guides/anssi-guide-recommandations_de_securite_relatives_a_tls-v1.2.pdf).
           ),
            config: {
              options: {
