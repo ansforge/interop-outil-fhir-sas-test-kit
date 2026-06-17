@@ -1,31 +1,70 @@
 <header class="custom-banner">
   <div class="banner-content">
-    <img src="https://raw.githubusercontent.com/ansforge/interop-outil-fhir-sas-test-kit/2f245b9345ebbf46f7fb624e0dd4f145bf88a3cb/config/Logo_Platerforme_Numerique_SAS.png" alt="Logo" />
-  <div>
-    <a href="https://esante.gouv.fr/">Agence du numérique en santé</a>
-    <p class="tagline">Vérification de conformité</p>
+
+    <!-- Logo gauche -->
+    <div class="left">
+      <img src="https://raw.githubusercontent.com/ansforge/interop-outil-fhir-sas-test-kit/2f245b9345ebbf46f7fb624e0dd4f145bf88a3cb/config/Logo_Platerforme_Numerique_SAS.png" alt="Logo Plateforme" />
+    </div>
+
+    <!-- Texte centre -->
+    <div class="center">
+      <p class="tagline">Vérification de conformité</p>
+    </div>
+
+    <!-- Logo droite -->
+    <a href="https://esante.gouv.fr/" class="right">
+       <img src="https://raw.githubusercontent.com/ansforge/interop-outil-fhir-sas-test-kit/dev/config/logo_ans.jpg" alt="Logo ANS" />
+    </a>
+
   </div>
 </header>
 
 <style>
 .custom-banner {
-  background-color: aliceblue;
+  background-color: white;
   border-bottom: 1px solid steelblue;
-  padding: 1em;
+  padding: 0; /* ✅ enlève les marges internes */
 }
 
+/* Layout principal */
 .banner-content {
   display: flex;
+  align-items: stretch; /* ✅ prend toute la hauteur */
+  height: 80px; /* ✅ hauteur fixe du bandeau */
+}
+
+/* Zones gauche / centre / droite */
+.left, .right {
+  display: flex;
   align-items: center;
-  gap: 15px;
 }
 
-.banner-content img {
-  height: 50px;
+/* Logo gauche */
+.left img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
 }
 
+/* Centre (texte) */
+.center {
+  flex: 1; /* ✅ prend tout l’espace au milieu */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo droite */
+.right img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Texte */
 .custom-banner a {
-  font-size: 1.25em;
+  font-size: 1.1em;
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 0.1em;
