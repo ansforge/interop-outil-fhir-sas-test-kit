@@ -13,7 +13,7 @@
 
     <!-- Logo droite -->
     <a href="https://esante.gouv.fr/" class="right">
-       <img src="https://raw.githubusercontent.com/ansforge/interop-outil-fhir-sas-test-kit/dev/config/logo_ans.jpg" alt="Logo ANS" />
+       <img src="https://raw.githubusercontent.com/ansforge/interop-outil-fhir-sas-test-kit/dev/config/LOGO_ANS_2021_OK_ANS_LOGO_HORIZONTAL.png" alt="Logo ANS" />
     </a>
 
   </div>
@@ -23,46 +23,47 @@
 .custom-banner {
   background-color: white;
   border-bottom: 1px solid steelblue;
-  padding: 0; /* ✅ enlève les marges internes */
+  padding: 0;
 }
 
-/* Layout principal */
 .banner-content {
   display: flex;
-  align-items: stretch; /* ✅ prend toute la hauteur */
-  height: 80px; /* ✅ hauteur fixe du bandeau */
+  align-items: stretch;
+  height: 80px;
 }
 
-/* Zones gauche / centre / droite */
+.tagline {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #005ea5;
+}
+
 .left, .right {
   display: flex;
   align-items: center;
 }
 
-/* Logo gauche */
 .left img {
   height: 100%;
   width: auto;
   object-fit: contain;
 }
 
-/* Centre (texte) */
 .center {
-  flex: 1; /* ✅ prend tout l’espace au milieu */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* Logo droite */
 .right img {
   height: 100%;
   width: auto;
   object-fit: contain;
 }
 
-/* Texte */
 .custom-banner a {
   font-size: 1.1em;
   text-transform: uppercase;
