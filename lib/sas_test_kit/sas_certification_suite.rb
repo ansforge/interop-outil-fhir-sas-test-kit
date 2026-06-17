@@ -54,8 +54,14 @@ module SasTestKit
       type: 'IG_SAS',
       label: 'IG SAS',
       url: 'https://ansforge.github.io/IG-fhir-service-acces-aux-soins/main/ig/'
+      },
+      {
+        type: 'Github issue',
+        label: 'Report Issue',
+        url: 'https://github.com/ansforge/interop-outil-fhir-sas-test-kit/issues'
       }
     ]
+
 
     input_order :base_url, :mTLS,:gestion_rpps, :gestion_rpps_notes, :gestion_rpps_obligatoire, :gestion_rpps_obligatoire_notes, :gestion_idnst,:gestion_idnst_notes,
             :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4, :regulator_id
