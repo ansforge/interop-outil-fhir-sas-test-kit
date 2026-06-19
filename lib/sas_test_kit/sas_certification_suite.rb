@@ -77,12 +77,12 @@ module SasTestKit
           description: 'Url de base serveur FHIR'
 
     input :mTLS,
-          title: 'mTLS',
+          title: 'Vérification mTLS',
           type: 'radio',
           options: {
             list_options: [
-              { label: 'Activé', value: true },
-              { label: 'Désactivé', value: false }
+              { label: 'Activé', value: "true" },
+              { label: 'Désactivé', value: "false" }
             ]
           }
     # All FHIR requests in this suite will use this FHIR client

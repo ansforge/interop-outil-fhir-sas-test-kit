@@ -1,0 +1,350 @@
+[
+  {
+    "test_suite_id": "sas",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group-multi_lieux_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-slot_search_setup",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-validate_practitioner_cardinality_1",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-validate_practitionerrole_cardinality_1",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-validate_practitionerrole_location_ref",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-validate_practitionerrole_practitioner_ref",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-validate_schedule_cardinality_1",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-validate_schedule_practitioner_ref",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-multi_lieux_group-validate_schedule_practitionerrole_ref",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group-optionslots_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-optionslots_group-ps_validate_motif_type",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-optionslots_group-ps_validate_slot_type",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-optionslots_group-slot_search_setup",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group-performance_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-performance_group-Test01",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group-practi_optionnel_group_ps",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-practi_optionnel_group_ps-ps_validate_firstname",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-practi_optionnel_group_ps-ps_validate_idnst",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-practi_optionnel_group_ps-ps_validate_name",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-practi_optionnel_group_ps-ps_validate_phone",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-practi_optionnel_group_ps-ps_validate_rpps",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-practi_optionnel_group_ps-slot_search_setup",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group-search_multiple_ps_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-search_multiple_ps_group-slot_search_setup",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-search_multiple_ps_group-validate_practitioner_cardinality_2",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-search_multiple_ps_group-validate_practitionerrole_cardinality_2",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-search_multiple_ps_group-validate_schedule_cardinality_2",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group-single_practitioner_single_location",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-bundle_url_equal_url",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-ps_validate_appointmentType",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-ps_validate_slots_status",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-slot_has_url",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-slot_search_setup",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-validate_cardinality",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-validate_dates",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-validate_location",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-validate_ref",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-single_practitioner_single_location-validate_rpps",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-aggregation_group-slot_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-slot_group-Test02",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-aggregation_group-slot_group-slot_search_setup",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-capability_statement",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-capability_statement-capability_statement_read",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-flux_v1_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-creation_double_regulateur_uuid_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-creation_regulateur_champs_manquants_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-creation_regulateur_idnps_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-creation_regulateur_uuid_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-creation_regulateur_valeurs_invalides",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-idnps_reattribution_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_deshabilitation",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_email_regulateur_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_habilitation",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_id_regulateur_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_nom_regulateur_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_prenom_regulateur_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_regulateur_champs_manquants_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-modification_typeid_regulateur_test",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-put_as_create",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v1_group-put_as_create_missing_fields_test",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-flux_v2_group",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-flux_v2_group-flux_v2_connected_group",
+    "result": "omit"
+  },
+  {
+    "test_id": "sas-flux_v2_group-flux_v2_connected_group-sso_lga",
+    "result": "omit"
+  },
+  {
+    "test_group_id": "sas-flux_v2_group-flux_v2_not_connected_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v2_group-flux_v2_not_connected_group-slot_search_setup",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v2_group-flux_v2_not_connected_group-sso_while_unidentified",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v2_group-flux_v2_not_connected_group-sso_without_origin",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-flux_v3_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-flux_v3_group-v3_validate_appointment",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-tls",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-tls-Group02",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-tls-Group02-tls_version_test",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-tls-mtls_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-tls-mtls_group-Test01",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-tls-mtls_group-Test02",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-tls-mtls_group-Test03",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-tls-mtls_group-Test04",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-tls-mtls_group-Test05",
+    "result": "pass"
+  },
+  {
+    "test_group_id": "sas-visual_group",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-visual_group-Test01a",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-visual_group-Test02",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-visual_group-Test02a",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-visual_group-access_restriction",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-visual_group-hds",
+    "result": "pass"
+  },
+  {
+    "test_id": "sas-visual_group-mfa",
+    "result": "pass"
+  }
+]

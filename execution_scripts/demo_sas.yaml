@@ -1,0 +1,110 @@
+sessions:
+  - suite: sas
+    preset: HAPI FHIR
+    suite_options:
+      launch_version: 'ig_launch_1'
+
+comparison_config:
+  expected_results_file: expected.json
+
+steps:
+  - state_description:  Session Created
+    status: created
+    start_run:
+      runnable: 1.1
+      inputs:
+        mTLS: false
+    action_description:  Run Group 1.1 - Tests connexion MTLS
+
+  - state_description:   Finished Group 1.1 - Tests connexion MTLS
+    status: done
+    last_completed: 1.1
+    start_run:
+      runnable: 1.2
+      inputs:
+        mTLS: false
+    action_description:  Run Group 1.2 - Version TLS sécurisée
+
+
+  - state_description:   Finished Group 1.2 - Version TLS sécurisée
+    status: done
+    last_completed: 1.2
+    start_run:
+      runnable: 4.1
+      inputs:
+        mTLS: false
+    action_description:  Run Group 4.1 - Temps de réponse
+
+
+  - state_description:   Finished Group 4.1 - Temps de réponse
+    status: done
+    last_completed: 4.1
+    start_run:
+      runnable: 4.2
+      inputs:
+        mTLS: false
+    action_description:  Run Group 4.2 - Validation du bundle
+
+
+  - state_description:   Finished Group 4.2 - Validation du bundle
+    status: done
+    last_completed: 4.2
+    start_run:
+      runnable: 4.3
+      inputs:
+        mTLS: false
+    action_description:  Run Group 4.3 - PS avec un seul lieu de consultation
+
+
+  - state_description:   Finished Group 4.3 - PS avec un seul lieu de consultation
+    status: done
+    last_completed: 4.3
+    start_run:
+      runnable: 4.4
+      inputs:
+        mTLS: false
+    action_description:  Run Group 4.4 - PS avec deux lieux de consultation
+
+
+  - state_description:   Finished Group 4.4 - PS avec deux lieux de consultation
+    status: done
+    last_completed: 4.4
+    start_run:
+      runnable: 4.5
+      inputs:
+        mTLS: false
+    action_description:  Run Group 4.5 - Recherche multi-PS
+
+
+  - state_description:   Finished Group 4.5 - Recherche multi-PS
+    status: done
+    last_completed: 4.5
+    start_run:
+      runnable: 4.6
+      inputs:
+        mTLS: false
+    action_description:  Run Group 4.6 - Champs optionnels
+
+
+  - state_description:   Finished Group 4.6 - Champs optionnels
+    status: done
+    last_completed: 4.6
+    start_run:
+      runnable: 4.7
+      inputs:
+        mTLS: false
+    action_description:  Run Group 4.7 - Cohérence type de créneaux / consultations
+
+  - state_description:   Finished Group 4.7 - Cohérence type de créneaux / consultations
+    status: done
+    last_completed: 4.7
+    start_run:
+      runnable: 5
+      inputs:
+        mTLS: false
+    action_description:  Run Group 5 - Gestion des comptes régulateurs - Flux V1
+
+  - state_description:   Finished Group 5 - Gestion des comptes régulateurs - Flux V1
+    status: done
+    last_completed: 5
+    action: END_SCRIPT

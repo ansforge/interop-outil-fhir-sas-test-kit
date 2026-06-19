@@ -51,10 +51,6 @@ module SasTestKit
       end
     end
 
-    def resolve_client(mtls_enabled, fallback: :default, no_mTLS: :no_mTLS)
-      mtls_enabled == 'true' ? fallback : no_mTLS
-    end
-
      test do
       title 'Test certificat valide'
       description %(
@@ -62,11 +58,11 @@ module SasTestKit
       )
       
       run do
+        omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-          client = resolve_client(mTLS)
-
-          fhir_search('Slot', params: params, client: client)
+ 
+          fhir_search('Slot', params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 < 0)
@@ -98,11 +94,11 @@ module SasTestKit
       end
 
       run do
+        omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-          client = resolve_client(mTLS)
 
-          fhir_search('Slot', params: params, client: client)
+          fhir_search('Slot', params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)
@@ -134,11 +130,11 @@ module SasTestKit
       end
 
       run do
+        omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-          client = resolve_client(mTLS)
 
-          fhir_search('Slot', params: params, client: client)
+          fhir_search('Slot', params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)
@@ -170,11 +166,11 @@ module SasTestKit
       end
 
       run do
+        omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-          client = resolve_client(mTLS)
 
-          fhir_search('Slot', params: params, client: client)
+          fhir_search('Slot', params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)
@@ -200,23 +196,14 @@ module SasTestKit
         'Content-Type' => 'application/json',
         'Accept'  => 'application/json+fhir'
         )
-      end   
-     
-      fhir_client :no_certificate_no_mTLS do
-        url :base_url
-        verify_ssl OpenSSL::SSL::VERIFY_NONE
-        headers(
-        'Content-Type' => 'application/json',
-        'Accept'  => 'application/json+fhir'
-        )
       end
 
       run do
+        omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-          client = resolve_client(mTLS, fallback: :no_certificate_mTLS, no_mTLS: :no_certificate_no_mTLS)
 
-          fhir_search('Slot', params: params, client: client)
+          fhir_search('Slot', params: params, client: :no_certificate_mTLS)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)
