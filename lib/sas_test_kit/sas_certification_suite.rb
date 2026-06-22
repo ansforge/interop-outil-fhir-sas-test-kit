@@ -79,6 +79,7 @@ module SasTestKit
     input :mTLS,
           title: 'Vérification mTLS',
           type: 'radio',
+          default: 'true',
           options: {
             list_options: [
               { label: 'Activé', value: "true" },
