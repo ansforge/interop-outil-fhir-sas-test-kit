@@ -5,10 +5,21 @@
     "inputs": [
         {
             "name": "base_url",
-            "value": "https://hapi.fhir.org/baseR4/",
+            "value": "",
             "_title": "URl du serveur",
             "_description": "Url de base serveur FHIR",
-            "_type": "text"
+            "_type": "text",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "https://hapi.fhir.org/baseR4/"
+                }
+            ]
         },
         {
             "name": "mTLS",
@@ -57,46 +68,123 @@
         },
         {
             "name": "practitioner_id",
-            "value": "810101603008",
+            "value": "",
             "_title": "RPPS",
-            "_type": "text"
+            "_type": "text",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "810101603008"
+                }
+            ]
         },
         {
             "name": "practitioner_id2",
-            "value": "810100324549",
+            "value": "",
             "_title": "RPPS (deuxième PS)",
-            "_type": "text"
+            "_type": "text",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "810100324549"
+                }
+            ]
         },
         {
             "name": "practitioner_id3",
-            "value": "810101603008",
+            "value": "",
             "_title": "RPPS (troisième PS)",
-            "_type": "text"
+            "_type": "text",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "810101603008"
+                }
+            ]
         },
         {
             "name": "practitioner_id4",
-            "value": "810001678357",
+            "value": "",
             "_title": "RPPS (quatrième PS)",
-            "_type": "text"
+            "_type": "text",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "810001678357"
+                }
+            ]
         },
         {
             "name": "type_slot",
             "title": "Quels types de créneaux sont disponibles dans la solution ?",
             "type": "checkbox",
-            "value": "[\"SNP\",\"PRO\"]"
+            "value": "",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "[\"SNP\"]"
+                }
+            ]
         },
         {
             "name": "type_consultation",
             "title": "Quels sont les types de consultations au niveau des créneaux ?",
             "type": "checkbox",
-            "value": "[\"AMB\"]"
+            "value": "",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "[\"AMB\"]"
+                }
+            ]
         },
         {
             "name": "appointment",
             "description": "La ressource FHIR Appointment à valider pour les tests de remontée des informations de rendez-vous",
             "title": "Ressource FHIR Appointment",
             "type": "text",
-            "value": "{\"resourceType\":\"Appointment\",\"id\":\"1\",\"meta\":{\"profile\":[\"http://sas.fr/fhir/StructureDefinition/FrAppointmentSAS\"]},\"identifier\":[{\"system\":\"urn:oid:1.1.111.1.11.1.1.1\",\"value\":\"b6e39355-8a61-4556-b340-36f7b95fec6a\"}],\"extension\":[{\"url\":\"http://interopsante.org/fhir/StructureDefinition/FrAppointmentOperator\",\"valueReference\":{\"identifier\":{\"type\":{\"coding\":[{\"system\":\"http://interopsante.org/fhir/CodeSystem/fr-v2-0203\",\"code\":\"IDNPS\"}]},\"system\":\"urn:oid:1.2.250.1.71.4.2.1\",\"value\":\"3456780581/11242343\"}}}],\"status\":\"booked\",\"start\":\"2022-09-04T14:00:00+01:00\",\"end\":\"2022-09-04T14:15:00+01:00\",\"created\":\"2022-09-04T10:00:00+01:00\",\"participant\":[{\"actor\":{\"identifier\":{\"type\":{\"coding\":[{\"system\":\"http://interopsante.org/fhir/CodeSystem/fr-v2-0203\",\"code\":\"IDNPS\"}]},\"system\":\"urn:oid:1.2.250.1.71.4.2.1\",\"value\":\"810100050075\"}},\"status\":\"accepted\"}]}"
+            "value": "",
+            "value_for_options": [
+                {
+                    "options": [
+                        {
+                            "name": "launch_version",
+                            "value": "ig_launch_1"
+                        }
+                    ],
+                    "value": "{\"resourceType\":\"Appointment\",\"id\":\"1\",\"meta\":{\"profile\":[\"http://sas.fr/fhir/StructureDefinition/FrAppointmentSAS\"]},\"identifier\":[{\"system\":\"urn:oid:1.1.111.1.11.1.1.1\",\"value\":\"b6e39355-8a61-4556-b340-36f7b95fec6a\"}],\"extension\":[{\"url\":\"http://interopsante.org/fhir/StructureDefinition/FrAppointmentOperator\",\"valueReference\":{\"identifier\":{\"type\":{\"coding\":[{\"system\":\"http://interopsante.org/fhir/CodeSystem/fr-v2-0203\",\"code\":\"IDNPS\"}]},\"system\":\"urn:oid:1.2.250.1.71.4.2.1\",\"value\":\"3456780581/11242343\"}}}],\"status\":\"booked\",\"start\":\"2022-09-04T14:00:00+01:00\",\"end\":\"2022-09-04T14:15:00+01:00\",\"created\":\"2022-09-04T10:00:00+01:00\",\"participant\":[{\"actor\":{\"identifier\":{\"type\":{\"coding\":[{\"system\":\"http://interopsante.org/fhir/CodeSystem/fr-v2-0203\",\"code\":\"IDNPS\"}]},\"system\":\"urn:oid:1.2.250.1.71.4.2.1\",\"value\":\"810100050075\"}},\"status\":\"accepted\"}]}"
+                }
+            ]
         }
     ]
 }
