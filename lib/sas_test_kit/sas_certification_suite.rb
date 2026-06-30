@@ -20,7 +20,7 @@ module SasTestKit
         - agrégation de créneaux
         - gestion des comptes régulateurs
         - flux SSO
-        - transmission des infos de rendez-vous (à venir)
+        - transmission des infos de rendez-vous
     )
 
     requirement_sets(

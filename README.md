@@ -35,7 +35,7 @@ Un exemple de script est fourni dans le dossier `execution_scripts`.
 
 ### Exécution des tests
 
-`bundle exec inferno execute_script execution_scripts/demo_sas.yml`
+`bundle exec inferno execute_script execution_scripts/demo_sas.yml --no-compare-messages`
 
 Se réferer à la [documentation inferno](https://inferno-framework.github.io/docs/advanced-test-features/scripting-execution) pour plus d'information sur l'utilisation des scripts d'execution en CI / CD.
 

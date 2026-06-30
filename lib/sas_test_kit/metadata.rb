@@ -14,11 +14,12 @@ module SasTestKit
          - **agrégation de créneaux**
          - **gestion des comptes régulateurs**
          - **flux SSO**
-         - transmission des informations de rendez-vous (**à venir**)
+         - transmission des informations de rendez-vous
 
         Les cas d'usages suivants sont couverts :
         - **PS Indiv**
         - **CPTS**
+        - **SOS** (à venir)
         
         ## Depôt
         Le dépôt de ce test kit est disponible [ici](https://github.com/ansforge/interop-outil-fhir-sas-test-kit).
