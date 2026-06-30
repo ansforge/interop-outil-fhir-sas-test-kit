@@ -43,14 +43,30 @@ module SasTestKit
         # Format capped time
         formatted_end_date = capped_time.strftime("%Y-%m-%dT%H:%M:%S")
         scratch[:DateFin] = formatted_end_date
-    
-        hash = {
-        _include: 'Slot:schedule', 
-        '_include:iterate': 'Schedule:actor',
-        'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
-        start: ["ge#{formatted_start_date}.000+00:00", "le#{formatted_end_date}.000+00:00"],
-        status: 'free'
-        }
+        
+        if suite_options[:launch_version] == 'ig_launch_1'   
+          hash = {
+            _include: 'Slot:schedule', 
+            '_include:iterate': 'Schedule:actor',
+            'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
+            start: ["ge#{formatted_start_date}.000+00:00", "le#{formatted_end_date}.000+00:00"],
+            status: 'free'
+          }
+        elsif suite_options[:launch_version] == 'ig_launch_2'
+          hash =  {
+            _include: [
+            'Slot:schedule',
+            'Slot:service-type-reference'
+            ],
+            '_include:iterate': [
+            'Schedule:actor',
+            'HealthcareService:organization'
+            ],
+            'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
+            start: ["ge#{formatted_start_date}.000", "le#{formatted_end_date}.000"],
+            status: 'free'
+          }
+        end
 
         mTLS == 'true' ? fhir_search('Slot', params: hash) : fhir_search('Slot', params: hash, client: :no_mTLS)
 

@@ -2,6 +2,8 @@ services:
   inferno:
     build:
       context: ./
+    ports:
+      - "${INFERNO_PORT}:${INFERNO_PORT}"
     container_name: inferno
     env_file:
       - .env.development

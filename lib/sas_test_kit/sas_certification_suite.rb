@@ -20,7 +20,7 @@ module SasTestKit
         - agrégation de créneaux
         - gestion des comptes régulateurs
         - flux SSO
-        - transmission des infos de rendez-vous (à venir)
+        - transmission des infos de rendez-vous
     )
 
     requirement_sets(
@@ -77,12 +77,13 @@ module SasTestKit
           description: 'Url de base serveur FHIR'
 
     input :mTLS,
-          title: 'mTLS',
+          title: 'Vérification mTLS',
           type: 'radio',
+          default: 'true',
           options: {
             list_options: [
-              { label: 'Activé', value: true },
-              { label: 'Désactivé', value: false }
+              { label: 'Activé', value: "true" },
+              { label: 'Désactivé', value: "false" }
             ]
           }
     # All FHIR requests in this suite will use this FHIR client
