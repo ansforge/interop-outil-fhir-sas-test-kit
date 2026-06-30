@@ -45,11 +45,12 @@ module SasTestKit
 
                 liste =  lst_references_healthcareservice.map { |item| item['element'].to_s }
                 liste_concat = liste.join(', ')
+                healthcareservice_ids = healthcareserviceid.map { |item| "HealthcareService/#{item['element']}" }
                 add_message('info', "References Healthcare Service : " + liste_concat)
 
-                lst_references_healthcareservice.each_with_index do |reference, int|
-                    lst_references_healthcareservice = reference["element"].to_s
-                    assert(lst_references_healthcareservice == "HealthcareService/" + healthcareserviceid[0]["element"].to_s, "La référence dans la ressource Slot doit être égale à l'identifiant de la ressource HealthcareService: #{healthcareserviceid[0]["element"].to_s}")
+                lst_references_healthcareservice.each do |reference|
+                    ref = reference["element"].to_s
+                    assert(healthcareservice_ids.include?(ref), "La référence dans la ressource Slot ne correspond à aucun HealthcareService du bundle")
                 end
             end
         end

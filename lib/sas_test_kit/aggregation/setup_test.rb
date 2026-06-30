@@ -22,7 +22,7 @@ module SasTestKit
         ## Description
 
         Ce test initialise la **recherche de créneaux (Slot)** pour un ou deux professionnels de santé (PS) identifiés par leur **RPPS**, conformément au fonctionnement attendu du flux Agrégateur dans les spécifications SAS.  
-        Il effectue une requête `GET` vers la ressource **Slot**, en construisant dynamiquement les paramètres de recherche (période, identifiants, version de lancement).
+        Il effectue une requête `GET` vers la ressource **Slot**, en construisant dynamiquement les paramètres de recherche (période, identifiants).
 
         Les vérifications réalisées sont les suivantes :
         - **statut HTTP 200**, confirmant le bon déroulement de la requête ;
