@@ -14,7 +14,7 @@ module SasTestKit
          - **agrégation de créneaux**
          - **gestion des comptes régulateurs**
          - **flux SSO**
-         - transmission des informations de rendez-vous
+         - **transmission des informations de rendez-vous**
 
         Les cas d'usages suivants sont couverts :
         - **PS Indiv**
@@ -27,7 +27,7 @@ module SasTestKit
     suite_ids ['sas']
     tags ['sas']
     last_updated '2026-06-09'
-    version '0.3.0'
+    version '0.3.2'
     maturity 'Low'
     authors ['ANS']
     repo 'https://github.com/ansforge/interop-outil-fhir-sas-test-kit'
