@@ -11,6 +11,8 @@ module SasTestKit
             description %()
             id :flux_v3_group
 
+            run_as_group
+
             test from: :v3_validate_appointment
 
             test from: :v3_validate_rpps

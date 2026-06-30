@@ -12,9 +12,11 @@ module SasTestKit
                 description: 'La ressource FHIR Appointment à valider pour les tests de remontée des informations de rendez-vous',
                 type: :textarea
 
+            input :status
+
             run do
                 appointment_fhir = FHIR::Appointment.new(JSON.parse(appointment, {:symbolize_names=>true}))
-                skip "Aucune ressource Appointment fournie en entrée" if appointment_fhir.nil?
+                skip "Aucune ressource Appointment fournie en entrée" if status == 'false'
 
                 url = appointment_fhir.extension[0].url
                 assert(url == "http://interopsante.org/fhir/StructureDefinition/FrAppointmentOperator",
