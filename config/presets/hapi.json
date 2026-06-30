@@ -83,7 +83,7 @@
             "name": "type_slot",
             "title": "Quels types de créneaux sont disponibles dans la solution ?",
             "type": "checkbox",
-            "value": "[\"SNP\",\"PRO\"]"
+            "value": "[\"SNP\"]"
         },
         {
             "name": "type_consultation",
