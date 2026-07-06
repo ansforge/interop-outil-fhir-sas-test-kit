@@ -1,19 +1,19 @@
-require_relative 'v1_creation_regulateur_idnps_test'
-require_relative 'v1_creation_regulateur_uuid_test'
-require_relative 'v1_creation_double_regulateur_test'
-require_relative 'v1_creation_regulateur_champs_manquants_test'
-require_relative 'v1_creation_regulateur_valeurs_invalides'
-require_relative 'v1_modification_email_regulateur_test'
-require_relative 'v1_modification_id_regulateur_test'
-require_relative 'v1_modification_typeid_regulateur_test'
-require_relative 'v1_modification_nom_regulateur_test'
-require_relative 'v1_modification_prenom_regulateur_test'
-require_relative 'v1_modification_regulateur_champs_manquants_test'
-require_relative 'v1_put_as_create_missing_fields_test'
-require_relative 'v1_modification_deshabilitation_test'
-require_relative 'v1_modification_habilitation_test'
-require_relative 'v1_put_as_create_test'
-require_relative 'v1_idnps_reattribution_test.rb'
+require_relative 'flux_v1_tests/v1_creation_regulateur_idnps_test'
+require_relative 'flux_v1_tests/v1_creation_regulateur_uuid_test'
+require_relative 'flux_v1_tests/v1_creation_double_regulateur_test'
+require_relative 'flux_v1_tests/v1_creation_regulateur_champs_manquants_test'
+require_relative 'flux_v1_tests/v1_creation_regulateur_valeurs_invalides'
+require_relative 'flux_v1_tests/v1_modification_email_regulateur_test'
+require_relative 'flux_v1_tests/v1_modification_id_regulateur_test'
+require_relative 'flux_v1_tests/v1_modification_typeid_regulateur_test'
+require_relative 'flux_v1_tests/v1_modification_nom_regulateur_test'
+require_relative 'flux_v1_tests/v1_modification_prenom_regulateur_test'
+require_relative 'flux_v1_tests/v1_modification_regulateur_champs_manquants_test'
+require_relative 'flux_v1_tests/v1_put_as_create_missing_fields_test'
+require_relative 'flux_v1_tests/v1_modification_deshabilitation_test'
+require_relative 'flux_v1_tests/v1_modification_habilitation_test'
+require_relative 'flux_v1_tests/v1_put_as_create_test'
+require_relative 'flux_v1_tests/v1_idnps_reattribution_test.rb'
 
 module SasTestKit
     class FluxV1Group < Inferno::TestGroup
@@ -62,35 +62,14 @@ module SasTestKit
         input :regulator_mail,
             title: 'Email du régulateur',
             default: 'sebastien.loridon@test.com'
-
-        input :regulator_mail_modif,
-            title: 'Email du regulateur pour modification',
-            description: 'Email différent de celui utilisé pour la création du compte régulateur',
-            default: 'sebastien.loridon.modif@test.com'
         
         input :regulator_first_name,
             title: 'Prénom du régulateur',
             default: 'Sébastien'
         
-        input :regulator_first_name_modif,
-            title: 'Prénom du régulateur pour modification',
-            description: 'Prénom différent de celui utilisé pour la création du compte régulateur',
-            default: 'Sébastien-modif'
-        
         input :regulator_last_name,
             title: 'Nom du régulateur',
             default: 'Loridon'
-
-        input :regulator_last_name_modif,
-            title: 'Nom du régulateur pour modification',
-            description: 'Nom différent de celui utilisé pour la création du compte régulateur',
-            default: 'Loridon-modif'
-        
-        input :resource_id,
-            title: 'ID de la ressource à récupérer',
-            default: 'example-regulator-1'
-
-        run_as_group
 
         input_order :base_url, :mTLS
 

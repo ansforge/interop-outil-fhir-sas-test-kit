@@ -20,7 +20,7 @@ module SasTestKit
         run do
             sys = 'urn:oid:1.2.250.1.213.3.6'
             uuid = SecureRandom.uuid
-            new_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}" + regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
+            new_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}" + regulator_mail, uuid, regulator_first_name, regulator_last_name, sys)
             
             mTLS == 'true' ? fhir_create(new_regulator) : fhir_create(new_regulator, client: :no_mTLS)
             assert_response_status(201)
