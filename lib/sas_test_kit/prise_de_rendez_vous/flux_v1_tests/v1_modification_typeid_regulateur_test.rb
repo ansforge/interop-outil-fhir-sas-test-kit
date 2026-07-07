@@ -18,7 +18,7 @@ module SasTestKit
         )
         run do
             sys = 'urn:oid:1.2.250.1.213.3.6'
-            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, "#{scratch[:uuid] }" + regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys)
+            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, "#{scratch[:uuid] }" + regulator_mail, "#{scratch[:uuid] }", regulator_first_name, regulator_last_name, sys)
 
             put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{scratch[:uuid]}", body: updated_regulator.to_json)
 

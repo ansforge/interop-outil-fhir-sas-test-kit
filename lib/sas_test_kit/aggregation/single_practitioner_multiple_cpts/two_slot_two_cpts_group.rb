@@ -27,12 +27,12 @@ module SasTestKit
                 - la cohérence des références vers les Organization (CPTS)
             )
 
-            input_order :base_url, :mTLS, :practitioner_id2
+            input_order :base_url, :mTLS, :practitioner_id
             
             test from: :slot_search_setup do
                 config(
                     inputs: { 
-                        practitioner_id: { name: :practitioner_id2 },
+                        practitioner_id: { name: :practitioner_id },
                     }
                 )
             end

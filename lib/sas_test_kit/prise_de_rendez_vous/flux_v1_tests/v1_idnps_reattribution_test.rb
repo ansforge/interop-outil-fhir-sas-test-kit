@@ -20,8 +20,10 @@ module SasTestKit
             L'ensemble du test garantit que chacune de ces étapes renvoie les réponses attendues et que la transition du compte d'origine vers le nouveau compte se déroule correctement.
         )
         run do
+            uuid = SecureRandom.uuid
+
             sys = 'urn:oid:1.2.250.1.71.4.2.1'            
-            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys, false)
+            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, regulator_mail, uuid, regulator_first_name, regulator_last_name, sys, false)
 
             put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{regulator_id}", body: updated_regulator.to_json)
 
@@ -29,15 +31,15 @@ module SasTestKit
         # ------------------------------------------
 
             sys = 'urn:oid:1.2.250.1.213.3.6'
-            uuid = SecureRandom.uuid
-            new_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}." + regulator_mail, resource_id, "#{uuid}" + regulator_first_name, "#{uuid}" + regulator_last_name, sys)
+
+            new_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}." + regulator_mail, uuid, "#{uuid}" + regulator_first_name, "#{uuid}" + regulator_last_name, sys)
 
             mTLS == 'true' ? fhir_create(new_regulator) : fhir_create(new_regulator, client: :no_mTLS)
             assert_response_status(201)
         # ------------------------------------------
          
             sys = 'urn:oid:1.2.250.1.71.4.2.1'
-            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, "#{uuid}." + regulator_mail, resource_id, "#{uuid}" + regulator_first_name, "#{uuid}" + regulator_last_name, sys)
+            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, "#{uuid}." + regulator_mail, uuid, "#{uuid}" + regulator_first_name, "#{uuid}" + regulator_last_name, sys)
 
             put("Practitioner?identifier=urn:oid:1.2.250.1.213.3.6|#{uuid}", body: updated_regulator.to_json)
 

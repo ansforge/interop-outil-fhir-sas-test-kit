@@ -12,7 +12,7 @@ module SasTestKit
                 organizations = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-organization-aggregator").resource')
                 scratch[:organization] = organizations
 
-                assert(organizations.length >= 2, "Le Bundle doit contenir exactement deux ressources Organization, il en possède #{organizations.length}")
+                assert(organizations.length >= 2, "Le Bundle doit contenir au moins deux ressources Organization, il en possède #{organizations.length}")
             end
         end
     end

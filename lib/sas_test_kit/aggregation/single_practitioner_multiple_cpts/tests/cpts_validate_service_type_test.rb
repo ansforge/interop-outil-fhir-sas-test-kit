@@ -14,10 +14,10 @@ module SasTestKit
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
 
-                serviceType = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator").resource.serviceType')
+                serviceType = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator" and resource.meta.security.where(code = "CPTS").exists()).resource.serviceType')
                 scratch[:serviceType] = serviceType
 
-                assert(serviceType.length > 0, "Aucun champ serviceType n'est présent dans les slots du bundle")
+                assert(serviceType.length > 0, "Aucun champ serviceType n'est présent dans les slots CPTS du bundle")
                 valid_service_type = serviceType.any? do |st|
                     codings = st['element'].coding || []
 

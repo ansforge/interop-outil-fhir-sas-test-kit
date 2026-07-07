@@ -18,10 +18,23 @@ module SasTestKit
             Ce scénario permet de s'assurer que le serveur gère correctement la déshabilitation d'un compte régulateur via la mise à jour de son champ `active`.
         )
         run do
-            sys = 'urn:oid:1.2.250.1.71.4.2.1'
-            updated_regulator = HelperFLuxv1.build_regulateur_body(regulator_id, regulator_mail, resource_id, regulator_first_name, regulator_last_name, sys, false)
+            sys = 'urn:oid:1.2.250.1.213.3.6'
+            uuid = SecureRandom.uuid
+            new_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}" + regulator_mail, uuid, regulator_first_name, regulator_last_name, sys)
 
-            put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{regulator_id}", body: updated_regulator.to_json)
+            begin
+                mTLS == 'true' ? fhir_create(new_regulator) : fhir_create(new_regulator, client: :no_mTLS)
+            rescue StandardError => e
+                add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+            end
+
+            assert_response_status(201)
+
+            # -----------------------------------------------------------------
+
+            updated_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}" + regulator_mail, uuid, regulator_first_name, regulator_last_name, sys, false)
+
+            put("Practitioner?identifier=urn:oid:1.2.250.1.213.3.6|#{uuid}", body: updated_regulator.to_json)
 
             assert(response[:status] >=200 && response[:status] < 400, "Expected response status 2xx or 3xx, got #{response[:status]}")
         end

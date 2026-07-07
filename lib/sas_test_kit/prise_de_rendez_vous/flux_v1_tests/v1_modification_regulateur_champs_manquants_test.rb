@@ -19,8 +19,22 @@ module SasTestKit
             Ce scénario garantit que la validation des champs obligatoires fonctionne correctement sur l'ensemble des modifications testées.
         )
         run do
+            sys = 'urn:oid:1.2.250.1.213.3.6'
+            uuid = SecureRandom.uuid
+            new_regulator = HelperFLuxv1.build_regulateur_body(uuid, "#{uuid}" + regulator_mail, uuid, regulator_first_name, regulator_last_name, sys)
+
+            begin
+                mTLS == 'true' ? fhir_create(new_regulator) : fhir_create(new_regulator, client: :no_mTLS)
+            rescue StandardError => e
+                add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+            end
+
+            assert_response_status(201)
+
+            # -----------------------------------------------------------------
+
             bad_regulator = InvalidPractitionerField::NO_IDENTIFIER
-            put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{regulator_id_modif}", body: bad_regulator.to_json)
+            put("Practitioner?identifier=urn:oid:1.2.250.1.213.3.6|#{uuid}", body: bad_regulator.to_json)
             error_message = %(
                 ### Échec du test : NO_IDENTIFIER
 
@@ -32,7 +46,7 @@ module SasTestKit
             assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #------------
             bad_regulator = InvalidPractitionerField::NO_NAME
-            put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{regulator_id_modif}", body: bad_regulator.to_json)
+            put("Practitioner?identifier=urn:oid:1.2.250.1.213.3.6|#{uuid}", body: bad_regulator.to_json)
             error_message = %(
                 ### Échec du test : NO_NAME
 
@@ -44,7 +58,7 @@ module SasTestKit
             assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #------------
             bad_regulator = InvalidPractitionerField::NO_TELECOM
-            put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{regulator_id_modif}", body: bad_regulator.to_json)
+            put("Practitioner?identifier=urn:oid:1.2.250.1.213.3.6|#{uuid}", body: bad_regulator.to_json)
             error_message = %(
                 ### Échec du test : NO_TELECOM
 
@@ -56,7 +70,7 @@ module SasTestKit
             assert(response[:status] >= 400 && response[:status] < 600, error_message)
             #------------
             bad_regulator = InvalidPractitionerField::NO_ACTIVE
-            put("Practitioner?identifier=urn:oid:1.2.250.1.71.4.2.1|#{regulator_id_modif}", body: bad_regulator.to_json)
+            put("Practitioner?identifier=urn:oid:1.2.250.1.213.3.6|#{uuid}", body: bad_regulator.to_json)
             error_message = %(
                 ### Échec du test : NO_ACTIVE
 

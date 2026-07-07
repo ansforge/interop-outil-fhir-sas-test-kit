@@ -14,7 +14,7 @@ module SasTestKit
 
                 slots = evaluate_fhirpath(
                     resource: bundle,
-                    path: 'entry.where(resource.meta.profile="https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator").resource'
+                    path: 'entry.where(resource.meta.profile="https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator" and resource.meta.security.where(code = "CPTS").exists()).resource'
                 )
 
                 healthcareServices = evaluate_fhirpath(
@@ -33,13 +33,13 @@ module SasTestKit
                     service_types = slot['element'].serviceType || []
 
                     refs = service_types.flat_map do |st|
-                    extensions = st.extension || st['extension'] || []
+                        extensions = st.extension || st['extension'] || []
 
-                    extensions.map do |ext|
-                        if ext.url == "http://hl7.org/fhir/5.0/StructureDefinition/extension-Slot.serviceType"
-                        ext.valueReference&.reference
+                        extensions.map do |ext|
+                            if ext.url == "http://hl7.org/fhir/5.0/StructureDefinition/extension-Slot.serviceType"
+                            ext.valueReference&.reference
+                            end
                         end
-                    end
                     end.compact
 
                     distinct_refs = refs.uniq

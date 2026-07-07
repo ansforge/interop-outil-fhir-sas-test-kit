@@ -8,6 +8,7 @@ group :development, :test do
   gem 'debug'
   gem 'rubocop', '~> 1.9'
   gem 'rubocop-rspec', require: false
+  gem 'connection_pool', '~> 2.4'
 end
 
 group :test do

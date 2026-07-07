@@ -12,7 +12,7 @@ module SasTestKit
                 healthcareServices = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-healthcareservice-aggregator").resource')   
                 scratch[:healthcareServices] = healthcareServices
 
-                assert(healthcareServices.length >= 2, "Le Bundle doit contenir exactement deux ressources HealthcareService, il en possède #{healthcareServices.length}")
+                assert(healthcareServices.length >= 2, "Le Bundle doit contenir au moins deux ressources HealthcareService, il en possède #{healthcareServices.length}")
             end
         end
     end
