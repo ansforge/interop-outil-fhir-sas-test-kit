@@ -93,6 +93,7 @@ module TLSTestKit
       omit_if ENV.fetch('INFERNO_DISABLE_TLS_TEST', 'false').casecmp?('true'),
               "This test is disabled because INFERNO_DISABLE_TLS_TEST is present in env."
       skip_if base_url.blank?, "Could not verify when no base_url provided."
+      skip_if mTLS =="false", "Ce test ne peut pas être vérifié lorsque le mTLS est désactivé."
       
       uri = URI(base_url)
       host = uri.host
@@ -106,6 +107,8 @@ module TLSTestKit
         http.use_ssl = true
         http.min_version = version
         http.max_version = version
+        http.cert = OpenSSL::X509::Certificate.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.pem"))
+        http.key = OpenSSL::PKey::RSA.new(File.read("#{ENV["CERT_PATH"]}/inferno-prePROD.key"))
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         begin
           http.request_get(uri)
