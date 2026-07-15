@@ -68,8 +68,8 @@ module SasTestKit
             scratch[:Bundle] = nil
             assert(resource.entry != [], "Le Bundle est vide.")
         end
-        SLOT_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
-        nbSlot = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="' + SLOT_PROFILE_URL + '").resource.count()')[0]["element"].to_i
+        slot_profile_url = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+        nbSlot = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="' + slot_profile_url + '").resource.count()')[0]["element"].to_i
         if nbSlot <= 0
             scratch[:Bundle] = nil
             assert(false, "Aucun créneau (Slot) retourné dans le Bundle pour ce RPPS. Veuillez vérifier que le PS identifié par le RPPS #{formatted_id} dispose de créneaux disponibles dans la période de recherche.")

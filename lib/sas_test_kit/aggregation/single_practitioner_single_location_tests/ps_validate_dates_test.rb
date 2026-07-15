@@ -18,21 +18,21 @@ module SasTestKit
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
                 
-                SLOT_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+                slot_profile_url = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
 
-                NbCreneauxAvantDebut = evaluate_fhirpath(resource: bundle, path:'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur" and resource.start < now()).count()')
+                NbCreneauxAvantDebut = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}' and resource.start < now()).count()")
                 
                 add_message('info', "Nb créneaux avant date début: " + NbCreneauxAvantDebut[0]["element"].to_s)  
                 assert (NbCreneauxAvantDebut[0]["element"] == 0), "Il ne doit pas y avoir de créneaux avec une date de début antérieure à la date courante"
                 
-                date_debut = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.start")
+                date_debut = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').resource.start")
                 threshold = scratch[:DateFin]
 
                 date_debut.each_with_index do |date_hash, int|
-                date_str = date_hash["element"]
-                date = Date.parse(date_str)
-                add_message('info', "Date début: " + date.to_s)  
-                assert date <= Date.parse(threshold), "La date #{date} n'est pas supérieure à la date de fin de la recherche #{threshold}"
+                    date_str = date_hash["element"]
+                    date = Date.parse(date_str)
+                    add_message('info', "Date début: " + date.to_s)  
+                    assert(date <= Date.parse(threshold), "La date #{date} est supérieure à la date de fin de la recherche #{threshold}")
                 end
 
                 # Start and end field must respect following format: YYYY-MM-DDTHH:MM:SS.000+0X:00
@@ -41,18 +41,18 @@ module SasTestKit
                     assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/), "La date de début #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
                 end
 
-                date_fin = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.end")
+                date_fin = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').resource.end")
                 date_fin.each_with_index do |date_hash, int|
                     date_str = date_hash["element"]
                     assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/), "La date de fin #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
                 end
 
                 #Vérification présence dates fin
-                date_fin = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.end.exists()")
+                date_fin = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').resource.end.exists()")
                 assert(date_fin[0]["element"].to_s == 'true', "Toutes les ressources Slot doivent avoir une date de fin")
 
                 #Vérification date début < date fin
-                Boolean_start_end = evaluate_fhirpath(resource: bundle, path:"entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').resource.all(start<end)")
+                Boolean_start_end = evaluate_fhirpath(resource: bundle, path:"entry.where(resource.meta.profile='#{slot_profile_url}').resource.all(start<end)")
                 assert(Boolean_start_end[0]["element"].to_s == 'true', "Toutes les ressources Slot doivent avoir une date de début inférieure à la date de fin")
             end
         end
