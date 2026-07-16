@@ -1,4 +1,4 @@
-require_relative 'single-practitioner-single-location_group'
+require_relative 'single_practitioner_single_location_group'
 require_relative 'multi_lieux_group'
 require_relative 'options_slot_group'
 require_relative 'performance_group'
@@ -14,6 +14,7 @@ module SasTestKit
     class AggregationGroup < Inferno::TestGroup
         title 'Flux agregateur'
         id    :aggregation_group
+        short_id 4
         description %(
             Ce groupe de test vérifie la conformité du **serveur FHIR** aux spécifications du flux **agrégation de créneaux**.  
 
@@ -24,7 +25,7 @@ module SasTestKit
         )
         verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
 
-        input_order :base_url, :mTLS, :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4
+        input_order :base_url, :mTLS
 
         group from: :performance_group
 

@@ -5,6 +5,7 @@ require_relative 'tls_test_suite'
 require_relative 'mtls_group'
 require_relative 'IDNST_group_ps'
 require_relative 'aggregation/aggregation_group'
+require_relative 'aggregation/sos_aggregation_group'
 require_relative 'prise_de_rendez_vous/flux_v1_group'
 require_relative 'prise_de_rendez_vous/flux_v2_group'
 require_relative 'prise_de_rendez_vous/flux_v3_group'
@@ -46,6 +47,10 @@ module SasTestKit
                  {
                    label: 'IG version CPTS',
                    value: SASOptions::IG_VERSION_CPTS
+                 },
+                 {
+                   label: 'IG version SOS',
+                   value: SASOptions::IG_VERSION_SOS
                  }
                ]
 
@@ -86,6 +91,7 @@ module SasTestKit
               { label: 'Désactivé', value: "false" }
             ]
           }
+
     # All FHIR requests in this suite will use this FHIR client
     fhir_client :no_mTLS do
       url :base_url
@@ -124,10 +130,18 @@ module SasTestKit
     group from: :tls
 
     group from: :visual_group
+
     
     group from: :capability_statement
 
-    group from: :aggregation_group
+    group from: :aggregation_group,
+      required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
+
+    group from: :aggregation_group, id: :aggregation_group_cpts,
+      required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
+
+    group from: :sos_aggregation_group,
+      required_suite_options: SASOptions::IG_REQUIREMENT_SOS
     
     group from: :flux_v1_group
 

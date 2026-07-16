@@ -46,13 +46,13 @@ module SasTestKit
             date_range,
             suite_options[:launch_version],
         )
-            
+        resource_to_search = suite_options[:launch_version] == 'ig_launch_3' ? 'Schedule' : 'Slot'
         # Exécution de la recherche
         add_message('info', "mTLS: #{mTLS}")
         if mTLS == 'true'
-            fhir_search('Slot', params: params)
+            fhir_search(resource_to_search, params: params)
         else
-            fhir_search('Slot', params: params, client: :no_mTLS)
+            fhir_search(resource_to_search, params: params, client: :no_mTLS)
         end
         add_message('info', "Requête FHIR effectuée avec les paramètres: #{params.to_json}")
         assert_response_status(200)

@@ -23,6 +23,10 @@ module SasTestKit
     id :mtls_group
     verifies_requirements 'agg-psindiv@1', 'agg-psindiv@2', 'agg-psindiv@3', 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7'
 
+    def get_target_resource(launch_version)
+      launch_version == 'ig_launch_3' ? 'Schedule' : 'Slot'
+    end
+
     def build_params(launch_version)
       if launch_version == 'ig_launch_1'
         {
@@ -36,7 +40,7 @@ module SasTestKit
           'schedule.actor:Practitioner.identifier':
             'urn:oid:1.2.250.1.71.4.2.1|810101215225'
         }
-      else
+      elsif launch_version == 'ig_launch_2'
         {
           _include: ['Slot:schedule', 'Slot:service-type-reference'],
           '_include:iterate': ['Schedule:actor', 'HealthcareService:organization'],
@@ -47,6 +51,18 @@ module SasTestKit
           ],
           'schedule.actor:Practitioner.identifier':
             'urn:oid:1.2.250.1.71.4.2.1|810002909371,urn:oid:1.2.250.1.71.4.2.1|810001288385'
+        }
+      elsif launch_version == 'ig_launch_3'
+        {
+          _revinclude: 'Slot:schedule',
+          _include: 'Schedule:actor:Location',
+          '_include:iterate': 'Location:organization',
+          '_has:Slot:schedule:start': [
+            "ge2024-01-01T01:00:00.000+00:00",
+            "le2024-01-03T23:59:59.000+00:00"
+          ],
+          '_has:Slot:schedule:status': 'free',
+          'actor:Location.organization.identifier': 'urn:oid:1.2.250.1.71.4.2.2|334173748400020'
         }
       end
     end
@@ -61,13 +77,13 @@ module SasTestKit
         omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
- 
-          fhir_search('Slot', params: params)
+          resource_to_search = get_target_resource(suite_options[:launch_version])
+          fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 < 0)
         rescue StandardError => e
-          add_message('error', "[ERREUR][#{e.class}] : #{e.message}")
+          add_message('error', "[ERREUR][#{e.class}] : #{e.message}, #{e.backtrace.join("\n")}")
           assert(1 < 0, 'Une erreur a eu lieu lors du parsing de la réponse')
         end
 
@@ -97,8 +113,8 @@ module SasTestKit
         omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-
-          fhir_search('Slot', params: params)
+          resource_to_search = get_target_resource(suite_options[:launch_version])
+          fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)
@@ -133,8 +149,8 @@ module SasTestKit
         omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-
-          fhir_search('Slot', params: params)
+          resource_to_search = get_target_resource(suite_options[:launch_version])
+          fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)
@@ -169,8 +185,8 @@ module SasTestKit
         omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-
-          fhir_search('Slot', params: params)
+          resource_to_search = get_target_resource(suite_options[:launch_version])
+          fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)
@@ -202,8 +218,8 @@ module SasTestKit
         omit_if(mTLS != 'true')
         begin
           params = build_params(suite_options[:launch_version])
-
-          fhir_search('Slot', params: params, client: :no_certificate_mTLS)
+          resource_to_search = get_target_resource(suite_options[:launch_version])
+          fhir_search(resource_to_search, params: params, client: :no_certificate_mTLS)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
           assert(1 > 0)

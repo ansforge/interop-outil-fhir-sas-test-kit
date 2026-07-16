@@ -28,6 +28,8 @@ module SasTestKit
 
         id :flux_v2_group
 
+        short_id 6
+
         input_order :base_url, :mTLS
 
         run_as_group

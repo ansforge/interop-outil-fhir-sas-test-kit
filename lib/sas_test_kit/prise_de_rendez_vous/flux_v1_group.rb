@@ -47,6 +47,7 @@ module SasTestKit
             Ce groupe assure ainsi la **conformité** de l'implémentation serveur à l'ensemble du périmètre fonctionnel du **flux V1 SAS**, garantissant l'intégration correcte des comptes régulateurs dans l'écosystème du Service d'Accès aux Soins.
         )
         id :flux_v1_group
+        short_id 5
 
         input :base_url
 

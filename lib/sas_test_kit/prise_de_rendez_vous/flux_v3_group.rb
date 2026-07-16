@@ -10,6 +10,7 @@ module SasTestKit
             title "Remontée des informations de rendez-vous - Flux V3"
             description %()
             id :flux_v3_group
+            short_id 7
 
             run_as_group
 

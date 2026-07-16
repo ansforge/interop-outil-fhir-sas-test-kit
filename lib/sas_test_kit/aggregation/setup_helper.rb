@@ -34,17 +34,29 @@ module SasTestKit
             }
         elsif ig_launch == 'ig_launch_2'
             hash =  {
-            _include: [
-            'Slot:schedule',
-            'Slot:service-type-reference'
-            ],
-            '_include:iterate': [
-            'Schedule:actor',
-            'HealthcareService:organization'
-            ],
-            'schedule.actor:Practitioner.identifier': "#{formatted_id}",
-            start: ["ge#{date_range[:start]}.000", "le#{date_range[:end]}.000"],
-            status: 'free'
+                _include: [
+                'Slot:schedule',
+                'Slot:service-type-reference'
+                ],
+                '_include:iterate': [
+                'Schedule:actor',
+                'HealthcareService:organization'
+                ],
+                'schedule.actor:Practitioner.identifier': "#{formatted_id}",
+                start: ["ge#{date_range[:start]}.000", "le#{date_range[:end]}.000"],
+                status: 'free'
+            }
+        elsif ig_launch == 'ig_launch_3'    
+            hash = {
+                _revinclude: 'Slot:schedule',
+                _include: 'Schedule:actor:Location',
+                '_include:iterate': 'Location:organization',
+                '_has:Slot:schedule:start': [
+                "ge#{date_range[:start]}",
+                "le#{date_range[:end]}"
+                ],
+                '_has:Slot:schedule:status': 'free',
+                'actor:Location.organization.identifier': formatted_id
             }
         end
         hash
