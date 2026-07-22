@@ -1,3 +1,5 @@
+require_relative '../../sas_options.rb'
+
 module SasTestKit
     module SinglePractitionerSingleLocation
         class ValidateCardinality < Inferno::Test
@@ -18,7 +20,7 @@ module SasTestKit
                 bundle = scratch[:Bundle]    
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
 
-                slot_profile_url = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+                slot_profile_url = config.options[:launch_version] == SASOptions::IG_VERSION_PSINDIV ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
                 
                 NbRessourcesPracti = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").count()')   
                 add_message('info', "Nombre de PS dans le message : " + NbRessourcesPracti[0]["element"].to_s) 

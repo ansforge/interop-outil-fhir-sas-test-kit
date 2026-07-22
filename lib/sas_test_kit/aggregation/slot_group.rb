@@ -1,3 +1,5 @@
+require_relative '../sas_options.rb'
+
 module SasTestKit
   class SlotGroupPS < Inferno::TestGroup
     title 'Validation du bundle'
@@ -17,17 +19,11 @@ module SasTestKit
     )
     id :slot_group
 
-    input_order :base_url, :mTLS, :practitioner_id
+    input_order :base_url, :mTLS
     verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7', 'agg-psindiv@9','agg-psindiv@13', 'agg-psindiv@14', 'agg-psindiv@26', 'agg-psindiv@27',
                           'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30', 'agg-psindiv@31', 'agg-psindiv@32'
 
-    test from: :slot_search_setup do
-        config(
-            inputs: { 
-                practitioner_id: { name: :practitioner_id },
-            }
-        )
-    end
+    test from: :slot_search_setup
 
     test do
       title 'Vérification du Bundle par le validateur'
@@ -45,7 +41,7 @@ module SasTestKit
         bundle = scratch[:Bundle]
         skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle)
         
-        BUNDLE_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/BundleAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-bundle-aggregator'
+        BUNDLE_PROFILE_URL = config.options[:launch_version] == SASOptions::IG_VERSION_PSINDIV ? 'http://sas.fr/fhir/StructureDefinition/BundleAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-bundle-aggregator'
 
         start = Time.now
         assert_resource_type('Bundle', resource: bundle)

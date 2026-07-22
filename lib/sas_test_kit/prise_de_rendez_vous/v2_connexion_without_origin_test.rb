@@ -9,12 +9,14 @@ module SasTestKit
             bundle = scratch[:Bundle]
             skip "Le test d'initialisation doit être validé pour évaluer ce test" unless (bundle.present?)
                 
-            ig_version = suite_options[:launch_version]
+            ig_version = config.options[:launch_version]
             structure_definition = case ig_version
             when SASOptions::IG_VERSION_PSINDIV
                 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur'
             when SASOptions::IG_VERSION_CPTS
                 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+            when SASOptions::IG_VERSION_SOS
+                'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-sos-slot-aggregator'
             end
 
             slot_comment_urls = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{structure_definition}').resource.comment")

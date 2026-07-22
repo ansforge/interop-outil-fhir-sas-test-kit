@@ -1,4 +1,5 @@
 require_relative 'setup_helper'
+require_relative '../sas_options'
 
 module SasTestKit
   class SlotSearchSetupGroup < Inferno::Test
@@ -8,8 +9,8 @@ module SasTestKit
     verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
 
     input :practitioner_id,
-          title: 'RPPS',
-          description: 'Renseigner le RPPS (préfixé par 8)'
+            title: 'RPPS',
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu'
 
     input :practitioner_id_opt,
           title: 'RPPS secondaire',
@@ -44,9 +45,9 @@ module SasTestKit
         params = SetupHelper.build_slot_search_params(
             formatted_id,
             date_range,
-            suite_options[:launch_version],
+            config.options[:launch_version]
         )
-        resource_to_search = suite_options[:launch_version] == 'ig_launch_3' ? 'Schedule' : 'Slot'
+        resource_to_search = config.options[:launch_version] == SASOptions::IG_VERSION_SOS ? 'Schedule' : 'Slot'
         # Exécution de la recherche
         add_message('info', "mTLS: #{mTLS}")
         if mTLS == 'true'
@@ -68,7 +69,17 @@ module SasTestKit
             scratch[:Bundle] = nil
             assert(resource.entry != [], "Le Bundle est vide.")
         end
-        slot_profile_url = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+        slot_profile_url = ""
+        case config.options[:launch_version]
+        when 'ig_launch_1'
+            slot_profile_url = 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur'
+        when 'ig_launch_2'
+            slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+        when 'ig_launch_3'
+            slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-sos-slot-aggregator'
+        else
+            assert(false, "La version de l'IG n'est pas reconnue.")
+        end
         nbSlot = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="' + slot_profile_url + '").resource.count()')[0]["element"].to_i
         if nbSlot <= 0
             scratch[:Bundle] = nil

@@ -1,3 +1,5 @@
+require_relative '../../sas_options.rb'
+
 module SasTestKit
     module OptionSlot
         class ValidateMotifType < Inferno::Test
@@ -32,7 +34,7 @@ module SasTestKit
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
-                slot_profile_url = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+                slot_profile_url = config.options[:launch_version] == SASOptions::IG_VERSION_PSINDIV ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
 
                 lst_type_consultation_retournes = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').resource.serviceType.coding.code.distinct()")   
                 str_consultation = ""

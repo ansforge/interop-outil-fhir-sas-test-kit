@@ -1,17 +1,21 @@
-require_relative 'single_pfg_single_location_group'
+require_relative 'sos_single_association_group'
 
 module SasTestKit
     module SOSAggregationGroup
         class SOSAggregationGroup < Inferno::TestGroup
             title 'Flux agregateur'
             id    :sos_aggregation_group
-            short_id 4
             description %(
                )
 
             input_order :base_url, :mTLS
 
-            group from: :single_pfg_single_location
+            group from: :single_association,
+                config: {
+                    options: {
+                        launch_version: SASOptions::IG_VERSION_SOS
+                    }
+                }
 
         end
     end

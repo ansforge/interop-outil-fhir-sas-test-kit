@@ -76,8 +76,8 @@ module SasTestKit
       run do
         omit_if(mTLS != 'true')
         begin
-          params = build_params(suite_options[:launch_version])
-          resource_to_search = get_target_resource(suite_options[:launch_version])
+          params = build_params(config.options[:launch_version])
+          resource_to_search = get_target_resource(config.options[:launch_version])
           fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
@@ -112,8 +112,8 @@ module SasTestKit
       run do
         omit_if(mTLS != 'true')
         begin
-          params = build_params(suite_options[:launch_version])
-          resource_to_search = get_target_resource(suite_options[:launch_version])
+          params = build_params(config.options[:launch_version])
+          resource_to_search = get_target_resource(config.options[:launch_version])
           fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
@@ -148,8 +148,8 @@ module SasTestKit
       run do
         omit_if(mTLS != 'true')
         begin
-          params = build_params(suite_options[:launch_version])
-          resource_to_search = get_target_resource(suite_options[:launch_version])
+          params = build_params(config.options[:launch_version])
+          resource_to_search = get_target_resource(config.options[:launch_version])
           fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
@@ -184,8 +184,8 @@ module SasTestKit
       run do
         omit_if(mTLS != 'true')
         begin
-          params = build_params(suite_options[:launch_version])
-          resource_to_search = get_target_resource(suite_options[:launch_version])
+          params = build_params(config.options[:launch_version])
+          resource_to_search = get_target_resource(config.options[:launch_version])
           fhir_search(resource_to_search, params: params)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")
@@ -217,8 +217,8 @@ module SasTestKit
       run do
         omit_if(mTLS != 'true')
         begin
-          params = build_params(suite_options[:launch_version])
-          resource_to_search = get_target_resource(suite_options[:launch_version])
+          params = build_params(config.options[:launch_version])
+          resource_to_search = get_target_resource(config.options[:launch_version])
           fhir_search(resource_to_search, params: params, client: :no_certificate_mTLS)
         rescue OpenSSL::SSL::SSLError => e
           add_message('info', "[INFO][#{e.class}] : #{e.message}")

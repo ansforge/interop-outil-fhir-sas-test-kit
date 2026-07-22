@@ -1,5 +1,6 @@
 require_relative 'v2_connected_group'
 require_relative 'v2_not_connected_group'
+require_relative 'v2_sos_not_connected_group'
 
 require 'nokogiri'
 
@@ -27,9 +28,7 @@ module SasTestKit
         )
 
         id :flux_v2_group
-
-        short_id 6
-
+        
         input_order :base_url, :mTLS
 
         run_as_group
