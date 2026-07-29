@@ -15,7 +15,9 @@ module SasTestKit
     end
 
     def self.format_practitioner_id(practitioner_id, practitioner_id_opt = nil)
-        if practitioner_id[0] == '3'
+        if practitioner_id[0] == '3' && practitioner_id_opt
+            "urn:oid:1.2.250.1.71.4.2.2|#{practitioner_id},urn:oid:1.2.250.1.71.4.2.2|#{practitioner_id_opt}"
+        elsif practitioner_id[0] == '3'
             'urn:oid:1.2.250.1.71.4.2.2|' + practitioner_id
         elsif practitioner_id_opt && !practitioner_id_opt.empty?
             "urn:oid:1.2.250.1.71.4.2.1|#{practitioner_id},urn:oid:1.2.250.1.71.4.2.1|#{practitioner_id_opt}"

@@ -14,8 +14,16 @@ module SasTestKit
             run do
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
-                slot_profile_url = config.options[:launch_version] == SASOptions::IG_VERSION_PSINDIV ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
-
+                
+                slot_profile_url = ""
+                case config.options[:launch_version]
+                when 'ig_launch_1'
+                    slot_profile_url = 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur'
+                when 'ig_launch_2'
+                    slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+                when 'ig_launch_3'
+                    slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-sos-slot-aggregator'
+                end
                 appointmentType = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').resource.appointmentType.coding.code.distinct()")   
                 add_message('info', "appointmentType des créneaux retournés: " + appointmentType.to_s) 
             

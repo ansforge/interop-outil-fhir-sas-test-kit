@@ -20,8 +20,16 @@ module SasTestKit
                 bundle = scratch[:Bundle]
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
                 
-                slot_profile_url = config.options[:launch_version] == SASOptions::IG_VERSION_PSINDIV ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
-
+                slot_profile_url = ""
+                case config.options[:launch_version]
+                when 'ig_launch_1'
+                    slot_profile_url = 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur'
+                when 'ig_launch_2'
+                    slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+                when 'ig_launch_3'
+                    slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-sos-slot-aggregator'
+                end
+                
                 NbCreneauxAvantDebut = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}' and resource.start < now()).count()")
                 
                 add_message('info', "Nb créneaux avant date début: " + NbCreneauxAvantDebut[0]["element"].to_s)  
@@ -30,23 +38,19 @@ module SasTestKit
                 date_debut = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').resource.start")
                 threshold = scratch[:DateFin]
 
+                date_list = []
                 date_debut.each_with_index do |date_hash, int|
                     date_str = date_hash["element"]
                     date = Date.parse(date_str)
-                    add_message('info', "Date début: " + date.to_s)  
+                    add_message('info', "Date début: " + date_str)
                     assert(date <= Date.parse(threshold), "La date #{date} est supérieure à la date de fin de la recherche #{threshold}")
-                end
-
-                # Start and end field must respect following format: YYYY-MM-DDTHH:MM:SS.000+0X:00
-                date_debut.each_with_index do |date_hash, int|
-                    date_str = date_hash["element"]
-                    assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/), "La date de début #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
+                    assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[+-]\d{2}:\d{2})$/), "La date de début #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
                 end
 
                 date_fin = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').resource.end")
                 date_fin.each_with_index do |date_hash, int|
                     date_str = date_hash["element"]
-                    assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/), "La date de fin #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
+                    assert(date_str.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[+-]\d{2}:\d{2})$/), "La date de fin #{date_str} ne respecte pas le format attendu AAAA-MM-DDTHH:MM:SS.000+0X:00")
                 end
 
                 #Vérification présence dates fin

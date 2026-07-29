@@ -18,19 +18,16 @@ module SasTestKit
           optional: true,
           hidden: true
 
-    title 'Recherche par RPPS - Initialisation requête'
+    title 'Recherche de disponibilités - Initialisation requête'
     description %(
         ## Description
 
-        Ce test initialise la **recherche de créneaux (Slot)** pour un ou deux professionnels de santé (PS) identifiés par leur **RPPS**, conformément au fonctionnement attendu du flux Agrégateur dans les spécifications SAS.  
-        Il effectue une requête `GET` vers la ressource **Slot**, en construisant dynamiquement les paramètres de recherche (période, identifiants).
+        Ce test initialise la **recherche de créneaux**, conformément au fonctionnement attendu du flux Agrégateur dans les spécifications SAS.  
 
         Les vérifications réalisées sont les suivantes :
         - **statut HTTP 200**, confirmant le bon déroulement de la requête ;
         - la réponse est bien un **Bundle FHIR valide** ;
         - le type de contenu retourné est **FHIR JSON** (`application/fhir+json`) ;
-
-        Les ressources retournées et les paramètres utiles (Bundle, RPPS, date de fin, URL de la requête) sont placés en *scratch* afin d'être utilisés par l'ensemble des tests du groupe.
 
         Ce test constitue ainsi la **préparation indispensable** à l'exécution de tous les contrôles suivants du groupe.
     )

@@ -1,36 +1,32 @@
-require_relative 'single_pfg_single_location_tests/sos_validate_organization_cardinality_test'
-require_relative 'single_pfg_single_location_tests/sos_validate_location_cardinality_test'
-require_relative 'single_pfg_single_location_tests/sos_validate_organization_siret_test'
+require_relative 'sos_single_association_single_pfg_group'
+require_relative 'sos_single_association_two_pfg_group'
 
 module SasTestKit
     module SingleAssociation
         class SingleAssociation < Inferno::TestGroup
-            title 'PFG associé à une seule association'
-            description %()
-            id :single_association
+            title 'Une association'
+            id    :single_association
+            description %(
+            ## Description
+            Ce groupe de tests vérifie la conformité d'une recherche de créneaux réalisée pour une seule association.  
+            Il est divisé en deux sous groupes représentant deux scénario avec respectivement un et deux PFG ayant des disponibilités.
+            )
 
-            input :siret, 
-                    title: 'SIRET du PFG',
-                    type: 'text',
-                    description: 'SIRET du PS à utiliser pour la recherche de créneaux'
+            input_order :base_url, :mTLS
 
-            input_order :base_url, :mTLS, :siret
-      
-            run_as_group
-            
-            test from: :slot_search_setup do
-                config(
-                    inputs: { 
-                        practitioner_id: { name: :siret },
+            group from: :single_association_single_pfg,
+                config: {
+                    options: {
+                        launch_version: SASOptions::IG_VERSION_SOS
                     }
-                )
-            end
+                }
 
-            test from: :validate_organization_cardinality
-
-            test from: :validate_location_cardinality
-
-            test from: :validate_organization_siret
+            group from: :single_association_two_pfg,
+                config: {
+                    options: {
+                        launch_version: SASOptions::IG_VERSION_SOS
+                    }
+                }
         end
     end
 end

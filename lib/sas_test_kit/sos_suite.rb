@@ -38,6 +38,8 @@ module SasTestKit
             replace :flux_v2_not_connected_group, :flux_v2_sos_not_connected_group
         end
 
-        group from: :flux_v3_group
+        group from: :flux_v3_group do
+            remove :v3_validate_rpps
+        end
     end
 end
