@@ -1,4 +1,6 @@
-require_relative 'sas_certification_suite'
+require_relative 'ps_indiv_suite'
+require_relative 'cpts_suite'
+require_relative 'sos_suite'
 require_relative 'ext/http_client_patch'
 
 Inferno::DSL::HTTPClientBuilder.prepend(HTTPClientBuilderMTLSPatch)
@@ -24,7 +26,7 @@ module SasTestKit
         ## Depôt
         Le dépôt de ce test kit est disponible [ici](https://github.com/ansforge/interop-outil-fhir-sas-test-kit).
     DESCRIPTION
-    suite_ids ['sas']
+    suite_ids [:sas, :sos, :cpts]
     tags ['sas']
     last_updated '2026-06-09'
     version '0.3.2'

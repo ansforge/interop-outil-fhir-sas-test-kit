@@ -4,7 +4,7 @@ require_relative 'v2_connexion_without_origin_test'
 require_relative 'v2_connexion_while_unidentified_test'
 
 module SasTestKit
-    class FluxV2NotConnectedGroup < Inferno::TestGroup
+    class FluxV2SOSNotConnectedGroup < Inferno::TestGroup
         title "Régulateur non identifié sur la plateforme numérique du SAS"
         description %(
             ## Description
@@ -22,9 +22,14 @@ module SasTestKit
             d'authentification est correctement déclenché et conforme aux attentes
             fonctionnelles définies dans les spécifications.
         )
-        id :flux_v2_not_connected_group
+        id :flux_v2_sos_not_connected_group
 
-        test from: :slot_search_setup
+        test from: :slot_search_setup,
+            config: {
+                inputs: {
+                    practitioner_id: {name: :siret}
+                }
+            }
 
         test from: :sso_without_origin
 

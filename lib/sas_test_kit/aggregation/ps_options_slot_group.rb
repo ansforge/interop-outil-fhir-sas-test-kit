@@ -58,21 +58,11 @@ module SasTestKit
     verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@23', 'agg-psindiv@24', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28',
                           'agg-psindiv@29', 'agg-psindiv@30', 'agg-psindiv@46', 'agg-psindiv@48'
 
-    input_order :base_url, :mTLS, :practitioner_id
+    input_order :base_url, :mTLS
 
-    test from: :slot_search_setup do
-      config(
-        inputs: {
-          practitioner_id: { name: :practitioner_id },
-        }
-      )
-    end
+    test from: :slot_search_setup
 
-    test from: :cpts_validate_slot_type,
-      required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
-
-    test from: :ps_validate_slot_type,
-      required_suite_options: SASOptions::IG_REQUIREMENT_PSINDIV
+    test from: :ps_validate_slot_type
 
     test from: :ps_validate_motif_type
   end

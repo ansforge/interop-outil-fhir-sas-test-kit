@@ -7,6 +7,7 @@ module SasTestKit
 
     IG_VERSION_PSINDIV = 'ig_launch_1'.freeze
     IG_VERSION_CPTS = 'ig_launch_2'.freeze
+    IG_VERSION_SOS = 'ig_launch_3'.freeze
 
     TEST_REQUIREMENT_AGGREGATION = { type_de_tests: AGGREGATION }.freeze
     TEST_REQUIREMENT_RENDEZ_VOUS = { type_de_tests: RENDEZ_VOUS }.freeze
@@ -14,5 +15,6 @@ module SasTestKit
 
     IG_REQUIREMENT_PSINDIV = { launch_version: IG_VERSION_PSINDIV }.freeze
     IG_REQUIREMENT_CPTS = { launch_version: IG_VERSION_CPTS }.freeze
+    IG_REQUIREMENT_SOS = { launch_version: IG_VERSION_SOS }.freeze
   end
 end
