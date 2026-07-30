@@ -21,7 +21,7 @@ module SasTestKit
         Les cas d'usages suivants sont couverts :
         - **PS Indiv**
         - **CPTS**
-        - **SOS** (à venir)
+        - **SOS**
         
         ## Depôt
         Le dépôt de ce test kit est disponible [ici](https://github.com/ansforge/interop-outil-fhir-sas-test-kit).
@@ -29,7 +29,7 @@ module SasTestKit
     suite_ids [:sas, :sos, :cpts]
     tags ['sas']
     last_updated '2026-06-09'
-    version '0.3.2'
+    version '0.3.4'
     maturity 'Low'
     authors ['ANS']
     repo 'https://github.com/ansforge/interop-outil-fhir-sas-test-kit'
