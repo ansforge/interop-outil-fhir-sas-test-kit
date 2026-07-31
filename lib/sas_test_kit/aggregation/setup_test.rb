@@ -1,4 +1,5 @@
 require_relative 'setup_helper'
+require_relative '../sas_options'
 
 module SasTestKit
   class SlotSearchSetupGroup < Inferno::Test
@@ -8,8 +9,8 @@ module SasTestKit
     verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
 
     input :practitioner_id,
-          title: 'RPPS',
-          description: 'Renseigner le RPPS (préfixé par 8)'
+            title: 'RPPS',
+            description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu'
 
     input :practitioner_id_opt,
           title: 'RPPS secondaire',
@@ -17,19 +18,16 @@ module SasTestKit
           optional: true,
           hidden: true
 
-    title 'Recherche par RPPS - Initialisation requête'
+    title 'Recherche de disponibilités - Initialisation requête'
     description %(
         ## Description
 
-        Ce test initialise la **recherche de créneaux (Slot)** pour un ou deux professionnels de santé (PS) identifiés par leur **RPPS**, conformément au fonctionnement attendu du flux Agrégateur dans les spécifications SAS.  
-        Il effectue une requête `GET` vers la ressource **Slot**, en construisant dynamiquement les paramètres de recherche (période, identifiants).
+        Ce test initialise la **recherche de créneaux**, conformément au fonctionnement attendu du flux Agrégateur dans les spécifications SAS.  
 
         Les vérifications réalisées sont les suivantes :
         - **statut HTTP 200**, confirmant le bon déroulement de la requête ;
         - la réponse est bien un **Bundle FHIR valide** ;
         - le type de contenu retourné est **FHIR JSON** (`application/fhir+json`) ;
-
-        Les ressources retournées et les paramètres utiles (Bundle, RPPS, date de fin, URL de la requête) sont placés en *scratch* afin d'être utilisés par l'ensemble des tests du groupe.
 
         Ce test constitue ainsi la **préparation indispensable** à l'exécution de tous les contrôles suivants du groupe.
     )
@@ -44,15 +42,15 @@ module SasTestKit
         params = SetupHelper.build_slot_search_params(
             formatted_id,
             date_range,
-            suite_options[:launch_version],
+            config.options[:launch_version]
         )
-            
+        resource_to_search = config.options[:launch_version] == SASOptions::IG_VERSION_SOS ? 'Schedule' : 'Slot'
         # Exécution de la recherche
         add_message('info', "mTLS: #{mTLS}")
         if mTLS == 'true'
-            fhir_search('Slot', params: params)
+            fhir_search(resource_to_search, params: params)
         else
-            fhir_search('Slot', params: params, client: :no_mTLS)
+            fhir_search(resource_to_search, params: params, client: :no_mTLS)
         end
         add_message('info', "Requête FHIR effectuée avec les paramètres: #{params.to_json}")
         assert_response_status(200)
@@ -68,8 +66,18 @@ module SasTestKit
             scratch[:Bundle] = nil
             assert(resource.entry != [], "Le Bundle est vide.")
         end
-        SLOT_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
-        nbSlot = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="' + SLOT_PROFILE_URL + '").resource.count()')[0]["element"].to_i
+        slot_profile_url = ""
+        case config.options[:launch_version]
+        when 'ig_launch_1'
+            slot_profile_url = 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur'
+        when 'ig_launch_2'
+            slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+        when 'ig_launch_3'
+            slot_profile_url = 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-sos-slot-aggregator'
+        else
+            assert(false, "La version de l'IG n'est pas reconnue.")
+        end
+        nbSlot = evaluate_fhirpath(resource: scratch[:Bundle], path: 'entry.where(resource.meta.profile="' + slot_profile_url + '").resource.count()')[0]["element"].to_i
         if nbSlot <= 0
             scratch[:Bundle] = nil
             assert(false, "Aucun créneau (Slot) retourné dans le Bundle pour ce RPPS. Veuillez vérifier que le PS identifié par le RPPS #{formatted_id} dispose de créneaux disponibles dans la période de recherche.")

@@ -15,19 +15,9 @@ module SasTestKit
       verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@17', 'agg-psindiv@18', 'agg-psindiv@20', 'agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29',
                             'agg-psindiv@30', 'agg-psindiv@33', 'agg-psindiv@34'
 
-      input_order :base_url, :mTLS, :practitioner_id
+      input_order :base_url, :mTLS
 
-      input :practitioner_id,
-              title: 'RPPS',
-              description: 'Renseigner le RPPS (préfixé par 8) d\'un PS avec nom, prénom et téléphone'
-
-      test from: :slot_search_setup do
-        config(
-          inputs: { 
-            practitioner_id: { name: :practitioner_id },
-          }
-        )
-      end
+      test from: :slot_search_setup
       
       test from: :ps_validate_rpps
 

@@ -1,3 +1,6 @@
+require_relative '../sas_options.rb'
+require_relative 'setup_helper.rb'
+
 module SasTestKit
   class PerformanceGroup < Inferno::TestGroup
     title 'Temps de réponse'
@@ -12,63 +15,30 @@ module SasTestKit
       )
     id :performance_group
     verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
+    input :practitioner_id,
+          title: 'RPPS',
+          description: 'Renseigner le RPPS (préfixé par 8) d\'un PS ne possédant qu\'un lieu'
 
     input_order :base_url, :mTLS, :practitioner_id
 
     test do
       title 'Test de performance'
-      input :practitioner_id,
-            title: 'RPPS'
 
       run do
-
         wait_time = 1
         start = Time.now
         used_time = 0
 
-        #prévoir de gérer les time zone
-        formatted_start_date = Time.now.strftime("%Y-%m-%dT%H:%M:%S")
+        date_range = SetupHelper.calculate_date_range
+        formatted_id = SetupHelper.format_practitioner_id(practitioner_id)
 
-        three_days_later = Time.now + (3 * 24 * 60 * 60) # 3 days in seconds
+        params = SetupHelper.build_slot_search_params(
+            formatted_id,
+            date_range,
+            config.options[:launch_version]
+        )
 
-        # Cap at 72 hours (3 days)
-        max_limit = Time.now + (72 * 60 * 60)
-
-        # End of third day (23:59:59)
-        end_of_third_day = (Time.now + (2 * 24 * 60 * 60)).end_of_day rescue Time.new(Time.now.year, Time.now.month, Time.now.day + 2, 23, 59, 59)
-
-        # Final capped time
-        capped_time = [three_days_later, max_limit, end_of_third_day].min
-
-        # Format capped time
-        formatted_end_date = capped_time.strftime("%Y-%m-%dT%H:%M:%S")
-        scratch[:DateFin] = formatted_end_date
-        
-        if suite_options[:launch_version] == 'ig_launch_1'   
-          hash = {
-            _include: 'Slot:schedule', 
-            '_include:iterate': 'Schedule:actor',
-            'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
-            start: ["ge#{formatted_start_date}.000+00:00", "le#{formatted_end_date}.000+00:00"],
-            status: 'free'
-          }
-        elsif suite_options[:launch_version] == 'ig_launch_2'
-          hash =  {
-            _include: [
-            'Slot:schedule',
-            'Slot:service-type-reference'
-            ],
-            '_include:iterate': [
-            'Schedule:actor',
-            'HealthcareService:organization'
-            ],
-            'schedule.actor:Practitioner.identifier': 'urn:oid:1.2.250.1.71.4.2.1|'+ practitioner_id,
-            start: ["ge#{formatted_start_date}.000", "le#{formatted_end_date}.000"],
-            status: 'free'
-          }
-        end
-
-        mTLS == 'true' ? fhir_search('Slot', params: hash) : fhir_search('Slot', params: hash, client: :no_mTLS)
+        mTLS == 'true' ? fhir_search('Slot', params: params) : fhir_search('Slot', params: params, client: :no_mTLS)
 
         assert_response_status(200)
         assert_resource_type('Bundle')

@@ -1,19 +1,19 @@
-require_relative 'single-practitioner-single-location_group'
-require_relative 'multi_lieux_group'
-require_relative 'options_slot_group'
+require_relative 'cpts_single_practitioner_single_location_group'
+require_relative 'ps_multi_lieux_group'
+require_relative 'ps_options_slot_group'
 require_relative 'performance_group'
-require_relative 'practitioner_optionnel_group'
-require_relative 'search_multiple_ps_group'
+require_relative 'ps_practitioner_optionnel_group'
+require_relative 'ps_search_multiple_ps_group'
 require_relative 'slot_group'
-require_relative 'organizational_group_optionnel'
-require_relative 'single_practitioner_multiple_cpts_group'
+require_relative 'cpts_organizational_group_optionnel'
+require_relative 'cpts_single_practitioner_multiple_cpts_group'
 
 require_relative '../sas_options.rb'
 
 module SasTestKit
-    class AggregationGroup < Inferno::TestGroup
+    class CPTSAggregationGroup < Inferno::TestGroup
         title 'Flux agregateur'
-        id    :aggregation_group
+        id :cpts_aggregation_group
         description %(
             Ce groupe de test vérifie la conformité du **serveur FHIR** aux spécifications du flux **agrégation de créneaux**.  
 
@@ -24,13 +24,13 @@ module SasTestKit
         )
         verifies_requirements 'agg-psindiv@4', 'agg-psindiv@6', 'agg-psindiv@7','agg-psindiv@26', 'agg-psindiv@27', 'agg-psindiv@28', 'agg-psindiv@29', 'agg-psindiv@30'
 
-        input_order :base_url, :mTLS, :practitioner_id, :practitioner_id2, :practitioner_id3, :practitioner_id4
+        input_order :base_url, :mTLS
 
         group from: :performance_group
 
         group from: :slot_group
 
-        group from: :single_practitioner_single_location
+        group from: :cpts_single_practitioner_single_location
 
         group from: :multi_lieux_group
 
@@ -38,12 +38,12 @@ module SasTestKit
 
         group from: :practi_optionnel_group_ps
 
-        group from: :optionslots_group
-            
-        group from: :single_practitioner_multiple_cpts,
-            required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
+        group from: :optionslots_group do
+            replace :ps_validate_slot_type, :cpts_validate_slot_type
+        end
 
-        group from: :orga_optionnel_group,
-            required_suite_options: SASOptions::IG_REQUIREMENT_CPTS
+        group from: :single_practitioner_multiple_cpts
+
+        group from: :orga_optionnel_group
     end
 end

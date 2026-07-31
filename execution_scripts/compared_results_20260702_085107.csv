@@ -1,0 +1,61 @@
+id,short_id,type,different?,expected result,actual result,result_message different?,expected result_message,actual result_message
+sas,,Missing,true,pass,,false,,
+sas-aggregation_group,4,Compared,true,pass,fail,false,,
+sas-aggregation_group-performance_group,4.1,Compared,true,pass,fail,false,,
+sas-aggregation_group-performance_group-Test01,4.1.01,Compared,true,pass,fail,true,,Temps de réponse supérieur à 1 seconde
+sas-aggregation_group-practi_optionnel_group_ps,4.6,Compared,true,pass,fail,false,,
+sas-aggregation_group-practi_optionnel_group_ps-ps_validate_phone,4.6.05,Compared,true,pass,fail,true,,Le numéro de téléphone est manquant
+sas-aggregation_group-slot_group,4.2,Compared,true,pass,fail,false,,
+sas-aggregation_group-slot_group-Test02,4.2.02,Compared,true,pass,fail,true,,Resource does not conform to the profile: http://sas.fr/fhir/StructureDefinition/BundleAgregateur
+sas-capability_statement,3,Missing,true,pass,,false,,
+sas-capability_statement-capability_statement_read,3.01,Missing,true,pass,,false,,
+sas-flux_v1_group,5,Compared,true,pass,fail,false,,
+sas-flux_v1_group-creation_regulateur_champs_manquants_test,5.04,Compared,true,pass,fail,true,,"
+### Échec du test : NO_NAME
+
+- **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+- **Résultat obtenu** : **`201`**
+
+L'API aurait dû rejeter la requête en raison de l'absence du champ **name**.
+
+"
+sas-flux_v1_group-creation_regulateur_idnps_test,5.01,Compared,true,pass,fail,true,,"Unexpected response status: expected 201, but received 412"
+sas-flux_v1_group-creation_regulateur_valeurs_invalides,5.05,Compared,true,pass,fail,true,,"
+### Échec du test : EMPTY_MAIL
+
+- **Résultat attendu** : erreur HTTP (**4xx ou 5xx**)  
+- **Résultat obtenu** : **`201`**
+
+L'API aurait dû rejeter la requête, le champ telecom.value étant vide.
+
+"
+sas-flux_v1_group-idnps_reattribution_test,5.16,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 412"
+sas-flux_v1_group-modification_deshabilitation,5.06,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 412"
+sas-flux_v1_group-modification_email_regulateur_test,5.08,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 412"
+sas-flux_v1_group-modification_habilitation,5.07,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 412"
+sas-flux_v1_group-modification_id_regulateur_test,5.09,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 412"
+sas-flux_v1_group-modification_nom_regulateur_test,5.11,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 412"
+sas-flux_v1_group-modification_prenom_regulateur_test,5.12,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 412"
+sas-flux_v1_group-modification_typeid_regulateur_test,5.10,Compared,true,pass,fail,true,,"Expected response status 2xx or 3xx, got 400"
+sas-flux_v2_group,6,Missing,true,pass,,false,,
+sas-flux_v2_group-flux_v2_connected_group,6.2,Missing,true,omit,,false,,
+sas-flux_v2_group-flux_v2_connected_group-sso_lga,6.2.01,Missing,true,omit,,false,,
+sas-flux_v2_group-flux_v2_not_connected_group,6.1,Missing,true,pass,,false,,
+sas-flux_v2_group-flux_v2_not_connected_group-slot_search_setup,6.1.01,Missing,true,pass,,false,,
+sas-flux_v2_group-flux_v2_not_connected_group-sso_while_unidentified,6.1.03,Missing,true,pass,,false,,
+sas-flux_v2_group-flux_v2_not_connected_group-sso_without_origin,6.1.02,Missing,true,pass,,false,,
+sas-flux_v3_group,7,Missing,true,pass,,false,,
+sas-flux_v3_group-v3_validate_appointment,7.01,Missing,true,pass,,false,,
+sas-tls,1,Compared,true,pass,fail,false,,
+sas-tls-mtls_group,1.1,Compared,true,pass,fail,false,,
+sas-tls-mtls_group-Test02,1.1.02,Compared,true,pass,fail,true,,"Expected status to be in 4xx range, got 200"
+sas-tls-mtls_group-Test03,1.1.03,Compared,true,pass,fail,true,,"Expected status to be in 4xx range, got 200"
+sas-tls-mtls_group-Test04,1.1.04,Compared,true,pass,fail,true,,"Expected status to be in 4xx range, got 200"
+sas-tls-mtls_group-Test05,1.1.05,Compared,true,pass,fail,true,,"Expected status to be in 4xx range, got 200"
+sas-visual_group,2,Missing,true,pass,,false,,
+sas-visual_group-Test01a,2.01,Missing,true,pass,,false,,
+sas-visual_group-Test02,2.03,Missing,true,pass,,false,,
+sas-visual_group-Test02a,2.02,Missing,true,pass,,false,,
+sas-visual_group-access_restriction,2.06,Missing,true,pass,,false,,
+sas-visual_group-hds,2.04,Missing,true,pass,,false,,
+sas-visual_group-mfa,2.05,Missing,true,pass,,false,,

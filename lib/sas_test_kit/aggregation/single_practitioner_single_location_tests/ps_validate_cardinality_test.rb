@@ -1,3 +1,5 @@
+require_relative '../../sas_options.rb'
+
 module SasTestKit
     module SinglePractitionerSingleLocation
         class ValidateCardinality < Inferno::Test
@@ -18,7 +20,7 @@ module SasTestKit
                 bundle = scratch[:Bundle]    
                 skip "Le test d'initialisation doit être validé pour évaluer ce test" if (!bundle.present?)
 
-                SLOT_PROFILE_URL = suite_options[:launch_version] == 'ig_launch_1' ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
+                slot_profile_url = config.options[:launch_version] == SASOptions::IG_VERSION_PSINDIV ? 'http://sas.fr/fhir/StructureDefinition/FrSlotAgregateur' : 'https://interop.esante.gouv.fr/ig/fhir/sas/StructureDefinition/sas-cpts-slot-aggregator'
                 
                 NbRessourcesPracti = evaluate_fhirpath(resource: bundle, path: 'entry.where(resource.meta.profile="http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur").count()')   
                 add_message('info', "Nombre de PS dans le message : " + NbRessourcesPracti[0]["element"].to_s) 
@@ -42,13 +44,13 @@ module SasTestKit
                 assert((NombreLieu[0]["element"]) == 1, "Une seule ressource Location doit être présente pour ce RPPS")
                 #verification présence des 4 principales ressources dans le Bundle
                 total = evaluate_fhirpath(resource: bundle, path: 'total')      
-                expected_total = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').count()")
+                expected_total = evaluate_fhirpath(resource: bundle, path: "entry.where(resource.meta.profile='#{slot_profile_url}').count()")
                 add_message('info', "Total (bundle) : " + total[0]["element"].to_s + "/ Total Slot (Calculé) : " + expected_total[0]["element"].to_s) 
                 warning do
                     assert (total[0]["element"]) == (expected_total[0]["element"]), "le valeur de total doit être égale au nombre de ressources slot dans le Bundle"
                 end
 
-                assert(evaluate_fhirpath(resource: bundle, path:"entry.where(resource.meta.profile='#{SLOT_PROFILE_URL}').exists() and entry.where(resource.meta.profile='http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur').exists() and entry.where(resource.meta.profile='http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur').exists() and entry.where(resource.meta.profile='http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur').exists()"))
+                assert(evaluate_fhirpath(resource: bundle, path:"entry.where(resource.meta.profile='#{slot_profile_url}').exists() and entry.where(resource.meta.profile='http://sas.fr/fhir/StructureDefinition/FrScheduleAgregateur').exists() and entry.where(resource.meta.profile='http://sas.fr/fhir/StructureDefinition/FrPractitionerAgregateur').exists() and entry.where(resource.meta.profile='http://sas.fr/fhir/StructureDefinition/FrPractitionerRoleExerciceAgregateur').exists()"))
             end
         end
     end
