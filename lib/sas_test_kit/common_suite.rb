@@ -3,7 +3,7 @@ module SasTestKit
         id :common_suite
         description %(
             Cette suite de test permet de valider la conformité de l'interfaçage avec la plateforme numérique du SAS, selon les [spécifications](https://interop.esante.gouv.fr/ig/fhir/sas/index.html). 
-            Les flux testé sont les suivants :
+            Les flux testés sont les suivants :
             - agrégation de créneaux
             - gestion des comptes régulateurs
             - flux SSO
